@@ -8,18 +8,18 @@ const Login = () => {
   return (
     <div className="h-screen flex flex-col bg-white">
       <div className="bg-[#47ADF5]/30 h-[93%] flex justify-center items-center">
-        <div className="w-10/12 lg:w-8/12 overflow-auto flex flex-col md:flex-row h-[75%] md:h-auto gap-6 bg-white shadow-lg rounded-lg">
-          <div className="md:w-5/12 h-[40%] shrink-0 md:h-auto lg:ml-8 relative -mt-8 md:mt-0">
+        <div className="w-10/12 lg:w-8/12 overflow-auto flex flex-col md:flex-row py-5 h-auto bg-white shadow-lg rounded-lg">
+          <div className="md:w-4/12 flex justify-center items-center shrink-0 md:h-auto relative">
             <Image
               className="shrink-0"
-              layout="fill"
-              objectFit="contain"
+              width={200}
+              height={200}
               src={paComeLogo}
               alt=""
             />
           </div>
           <div className="w-0.5 bg-gray-100 my-10 hidden md:flex rounded-full"></div>
-          <div className="md:w-7/12 md:h-full -mt-20 md:mt-0">
+          <div className="md:w-8/12 md:h-full">
             <form className=" h-full px-6 py-2 md:p-10 flex flex-col gap-4">
               <div className="self-center hidden md:flex bg-blue-300 rounded-full p-2.5">
                 <AiOutlineUser className="text-white w-8 h-8" />
@@ -62,7 +62,7 @@ const Login = () => {
                 </span>
                 <Link
                   className="uppercase italic text-blue-400 underline underline-offset-2 font-semibold"
-                  href="#"
+                  href="/auth/register"
                 >
                   Regístrate
                 </Link>
