@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import paComeLogo from '../../../public/assets/logoPaCome.png';
+import paComeLogo from '../../public/assets/logoPaCome.png';
 import Link from 'next/link';
 import { createStyles, Select } from '@mantine/core';
 import Head from 'next/head';
@@ -121,7 +121,7 @@ const Register = () => {
                   data={[{ value: 'OGTIC', label: 'OGTIC' }]}
                 />
               </div>
-              <Link href="/auth/login">
+              <Link href="/login">
                 <button className="bg-[#0064CE] hover:bg-blue-500 transition-all mt-3 text-white uppercase font-bold w-full rounded-lg py-2">
                   Registrar
                 </button>
@@ -132,7 +132,7 @@ const Register = () => {
                 </span>
                 <Link
                   className="uppercase italic text-blue-400 underline underline-offset-2 font-semibold"
-                  href="/auth/login"
+                  href="/login"
                 >
                   Inicia Sesión
                 </Link>

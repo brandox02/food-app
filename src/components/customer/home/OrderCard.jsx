@@ -9,7 +9,7 @@ export const OrderCard = ({ orderTotal = '245' }) => {
         </span>
       </div>
 
-      <div className="flex flex-col px-6 gap-3 xl:px-12">
+      <div className="flex flex-col px-6 gap-2 xl:px-12">
         <div className="italic font-bold text-blue-900">
           Detalles de la Orden
         </div>
@@ -23,7 +23,7 @@ export const OrderCard = ({ orderTotal = '245' }) => {
           <span>x Ensalada Rusa</span>
         </div>
       </div>
-      <div className="flex flex-col px-6 xl:px-12">
+      <div className="flex flex-col gap-2 px-6 xl:px-12 mb-2">
         <div className="w-full text-sm text-gray-500">
           <span>Extras</span>
         </div>

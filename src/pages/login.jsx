@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import React from 'react';
-import paComeLogo from '../../../public/assets/logoPaCome.png';
+import paComeLogo from '../../public/assets/logoPaCome.png';
 import { AiOutlineUser } from 'react-icons/ai';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -70,7 +70,7 @@ const Login = () => {
                 </span>
                 <Link
                   className="uppercase italic text-blue-400 underline underline-offset-2 font-semibold"
-                  href="/auth/register"
+                  href="/register"
                 >
                   Regístrate
                 </Link>

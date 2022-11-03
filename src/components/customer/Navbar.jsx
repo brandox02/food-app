@@ -23,9 +23,9 @@ export const Navbar = () => {
   return (
     <div
       className={
-        router.pathname == '/auth/login'
+        router.pathname == '/login'
           ? 'hidden'
-          : '' | (router.pathname == '/auth/register')
+          : '' | (router.pathname == '/register')
           ? 'hidden'
           : 'flex flex-col gap-10'
       }
