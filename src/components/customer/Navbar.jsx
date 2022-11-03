@@ -58,12 +58,12 @@ export const Navbar = () => {
       </div>
 
       <div className=" sm:px-5 lg:px-24">
-        <div className="md:max-w-[1750px] max-w-[700px] bg-[#1A579A] rounded-lg mx-auto w-full hidden sm:flex flex-wrap justify-center xl:justify-between px-2 md:px-10 min-h-[50px] py-2 gap-10">
+        <div className="md:max-w-[1750px] bg-[#1A579A] rounded-lg mx-auto w-full hidden sm:flex flex-wrap justify-center xl:justify-between px-2 md:px-10 min-h-[50px] py-2 gap-10">
           <div className="flex gap-10">
-            <Link href="/lunch">
+            <Link href="/customer/lunch">
               <button
                 className={
-                  router.pathname == '/lunch'
+                  router.pathname == '/customer/lunch'
                     ? 'md:text-sm text-xs font-semibold text-white bg-[#0064CE] px-2 min-h-[40px] h-full flex items-center rounded-lg tracking-wider font-[poppins] hover:text-blue-500'
                     : 'md:text-sm text-xs font-semibold text-white tracking-wider px-2 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500'
                 }
@@ -71,10 +71,10 @@ export const Navbar = () => {
                 Plato del día
               </button>
             </Link>
-            <Link href="/cafeteria">
+            <Link href="/customer/cafeteria">
               <button
                 className={
-                  router.pathname == '/cafeteria'
+                  router.pathname == '/customer/cafeteria'
                     ? 'md:text-sm text-xs font-semibold text-white bg-[#0064CE] px-2 min-h-[40px] h-full flex items-center rounded-lg tracking-wider font-[poppins] hover:text-blue-500'
                     : 'md:text-sm text-xs font-semibold text-white tracking-wider px-2 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500'
                 }
@@ -82,10 +82,10 @@ export const Navbar = () => {
                 Cafetería
               </button>
             </Link>
-            <Link href="/breakfast">
+            <Link href="/customer/breakfast">
               <button
                 className={
-                  router.pathname == '/breakfast'
+                  router.pathname == '/customer/breakfast'
                     ? 'md:text-sm text-xs font-semibold text-white bg-[#0064CE] px-2 min-h-[40px] h-full flex items-center rounded-lg tracking-wider font-[poppins] hover:text-blue-500'
                     : 'md:text-sm text-xs font-semibold text-white tracking-wider px-2 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500'
                 }
@@ -93,10 +93,10 @@ export const Navbar = () => {
                 Desayunos
               </button>
             </Link>
-            <Link href="/pastry">
+            <Link href="/customer/pastry">
               <button
                 className={
-                  router.pathname == '/pastry'
+                  router.pathname == '/customer/pastry'
                     ? 'md:text-sm text-xs font-semibold text-white bg-[#0064CE] px-2 min-h-[40px] h-full flex items-center rounded-lg tracking-wider font-[poppins] hover:text-blue-500'
                     : 'md:text-sm text-xs font-semibold text-white tracking-wider px-2 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500'
                 }
@@ -104,10 +104,10 @@ export const Navbar = () => {
                 Repostería
               </button>
             </Link>
-            <Link href="/bakery">
+            <Link href="/customer/bakery">
               <button
                 className={
-                  router.pathname == '/bakery'
+                  router.pathname == '/customer/bakery'
                     ? 'md:text-sm text-xs font-semibold text-white bg-[#0064CE] px-2 min-h-[40px] h-full flex items-center rounded-lg tracking-wider font-[poppins] hover:text-blue-500'
                     : 'md:text-sm text-xs font-semibold text-white tracking-wider px-2 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500'
                 }

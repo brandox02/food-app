@@ -1,6 +1,4 @@
 import '../styles/globals.css';
-import Login from './auth/login';
-import Register from './auth/register';
 import { MantineProvider } from '@mantine/core';
 import { Navbar } from '../components/customer/Navbar';
 
