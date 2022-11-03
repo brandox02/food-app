@@ -165,52 +165,64 @@ export const Navbar = () => {
           </div>
           <div className="">
             <ul className="uppercase flex flex-col gap-0">
-              <Link href="/">
+              <Link href="/customer/lunch">
                 <li
                   onClick={() => setNav(false)}
                   className={
-                    router.pathname == '/'
+                    router.pathname == '/customer/lunch'
                       ? 'py-4 text-sm rounded-md font-semibold text-[#EE2A24] hover:text-[#5651e5] transition-all'
                       : 'py-4 text-sm rounded-md text-black hover:text-[#5651e5] transition-all'
                   }
                 >
-                  Acerca del censo
+                  Plato del día
                 </li>
               </Link>
-              <Link href="/fases">
+              <Link href="/customer/cafeteria">
                 <li
                   onClick={() => setNav(false)}
                   className={
-                    router.pathname == '/fases'
+                    router.pathname == '/customer/cafeteria'
                       ? 'py-4 text-sm rounded-md font-semibold text-[#EE2A24] hover:text-[#5651e5] transition-all'
                       : 'py-4 text-sm rounded-md text-black hover:text-[#5651e5] transition-all'
                   }
                 >
-                  Fases
+                  Cafeteria
                 </li>
               </Link>
-              <Link href="/faqs">
+              <Link href="/customer/breakfast">
                 <li
                   onClick={() => setNav(false)}
                   className={
-                    router.pathname == '/faqs'
+                    router.pathname == '/customer/breakfast'
                       ? 'py-4 text-sm rounded-md font-semibold text-[#EE2A24] hover:text-[#5651e5] transition-all'
                       : 'py-4 text-sm rounded-md text-black hover:text-[#5651e5] transition-all'
                   }
                 >
-                  Preguntas Frecuentes
+                  Desayunos
                 </li>
               </Link>
-              <Link href="/boleta-censal">
+              <Link href="/customer/pastry">
                 <li
                   onClick={() => setNav(false)}
                   className={
-                    router.pathname == '/boleta-censal'
+                    router.pathname == '/customer/pastry'
                       ? 'py-4 text-sm rounded-md font-semibold text-[#EE2A24] hover:text-[#5651e5] transition-all'
                       : 'py-4 text-sm rounded-md text-black hover:text-[#5651e5] transition-all'
                   }
                 >
-                  Boleta Censal
+                  Repostería
+                </li>
+              </Link>
+              <Link href="/customer/bakery">
+                <li
+                  onClick={() => setNav(false)}
+                  className={
+                    router.pathname == '/customer/bakery'
+                      ? 'py-4 text-sm rounded-md font-semibold text-[#EE2A24] hover:text-[#5651e5] transition-all'
+                      : 'py-4 text-sm rounded-md text-black hover:text-[#5651e5] transition-all'
+                  }
+                >
+                  Panadería
                 </li>
               </Link>
             </ul>
