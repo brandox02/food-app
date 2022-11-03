@@ -10,6 +10,7 @@ import {
   AiOutlineMenuUnfold,
 } from 'react-icons/ai';
 import { FiShoppingCart } from 'react-icons/fi';
+import { RiUserLine } from 'react-icons/ri';
 
 export const Navbar = () => {
   const router = useRouter();
@@ -40,14 +41,9 @@ export const Navbar = () => {
           />
         </Link>
         <div className="justify-center hidden sm:flex items-center mb-4 sm:mb-0">
-          <a
-            href="#"
-            target="_blank"
-            noreferrer="true"
-            className="bg-[#EE2A24] cursor-pointer rounded-full px-6 py-2.5 hover:bg-red-500 transition-all text-white font-semibold uppercase text-sm"
-          >
-            Perfil
-          </a>
+          <button className="bg-[#2493ee] cursor-pointer rounded-full p-3 hover:bg-blue-300 transition-all text-white font-semibold uppercase text-sm">
+            <RiUserLine className="w-5 h-5" />
+          </button>
         </div>
         <div
           onClick={handleNav}

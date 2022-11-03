@@ -4,7 +4,7 @@ import { GiSandsOfTime } from 'react-icons/gi';
 
 export const MainGrid = ({ AccMount = '2,230', orderTotal = '245' }) => {
   return (
-    <div className="w-full flex">
+    <div className="w-full flex mb-10">
       <div className="w-full max-w-[1750px] mx-auto px-5 lg:px-24 grid lg:grid-cols-3 grid-cols-1 gap-5 gap-y-10 xl:gap-12">
         <div className="lg:w-full w-full max-w-[400px] mx-auto rounded-lg shadow-md flex flex-col justify-center font-[poppins] items-center px-3 xl:px-10 min-h-[350px] py-6 gap-6 text-center bg-white">
           <span className="text-blue-900 italic text-xl md:text-2xl px-3 xl:px-5">
