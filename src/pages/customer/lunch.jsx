@@ -27,15 +27,15 @@ const Lunch = () => {
         <div className="flex flex-col gap-6 mb-10">
           <div className="flex flex-col gap-5 font-[poppins]">
             <div className="flex items-end w-full">
-              <div className="">
+              <div className="w-[30px] md:w-auto">
                 <Image src={riceIcon} alt="" />
               </div>
               <div className="flex flex-col w-full">
-                <div className="w-full flex items-end justify-between">
+                <div className="w-full flex gap-3 items-end justify-between">
                   <span className="text-2xl text-[#1A579A] font-semibold italic pl-2">
                     Arroz
                   </span>
-                  <span className="text-xs text-gray-400 italic">
+                  <span className="text-[10px] sm:text-xs text-right text-gray-400 italic">
                     Favor seleccionar una opción
                   </span>
                 </div>
@@ -65,7 +65,7 @@ const Lunch = () => {
           </div>
           <div className="flex flex-col gap-5 font-[poppins]">
             <div className="flex items-end w-full">
-              <div className="">
+              <div className="w-[30px] md:w-auto">
                 <Image src={meatIcon} alt="" />
               </div>
               <div className="flex flex-col w-full">
@@ -73,7 +73,7 @@ const Lunch = () => {
                   <span className="text-2xl text-[#1A579A] font-semibold italic pl-2">
                     Carnes
                   </span>
-                  <span className="text-xs text-gray-400 italic">
+                  <span className="text-[10px] sm:text-xs text-right text-gray-400 italic">
                     Favor seleccionar una opción
                   </span>
                 </div>
@@ -103,7 +103,7 @@ const Lunch = () => {
           </div>
           <div className="flex flex-col gap-5 font-[poppins]">
             <div className="flex items-end w-full">
-              <div className="">
+              <div className="w-[30px] md:w-auto">
                 <Image src={saladIcon} alt="" />
               </div>
               <div className="flex flex-col w-full">
@@ -111,7 +111,7 @@ const Lunch = () => {
                   <span className="text-2xl text-[#1A579A] font-semibold italic pl-2">
                     Ensalada
                   </span>
-                  <span className="text-xs text-gray-400 italic">
+                  <span className="text-[10px] sm:text-xs text-right text-gray-400 italic">
                     Favor seleccionar una opción
                   </span>
                 </div>

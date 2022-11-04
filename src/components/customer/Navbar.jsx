@@ -157,10 +157,12 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
                 <span>Ordenes</span>
               </button>
             </Link>
-            <button className="bg-blue-500 hover:bg-blue-400 flex items-center gap-1 justify-center rounded-full py-1.5 uppercase text-white text-sm px-3">
-              <FiShoppingCart />
-              <span>Ver Carrito</span>
-            </button>
+            <Link href="/customer/carrito">
+              <button className="bg-blue-500 hover:bg-blue-400 flex items-center gap-1 justify-center rounded-full py-1.5 uppercase text-white text-sm px-3">
+                <FiShoppingCart />
+                <span>Ver Carrito</span>
+              </button>
+            </Link>
           </div>
         </div>
       </div>
