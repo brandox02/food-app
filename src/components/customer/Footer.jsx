@@ -14,7 +14,7 @@ export const Footer = () => {
       }
     >
       <div className="max-w-[1750px] mx-auto w-full flex flex-col">
-        <div className="flex justify-center gap-1 py-16">
+        <div className="flex flex-col text-center md:flex-row justify-center text-xs md:text-base gap-1 py-16">
           <span className="text-blue-900 font-semibold italic">
             ¿Necesitas ayuda? Envianos un correo al:
           </span>

@@ -1,3 +1,4 @@
+import { Accordion, Collapse, Textarea } from '@mantine/core';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -5,7 +6,9 @@ import { FiArrowLeft, FiCheck, FiCheckCircle } from 'react-icons/fi';
 
 const Summary = () => {
   const [ordered, setOrdered] = useState(false);
-  console.log(ordered);
+  const [opened, setOpened] = useState(false);
+  const [opened2, setOpened2] = useState(false);
+  const [opened3, setOpened3] = useState(false);
 
   return (
     <div className="w-full px-5 sm:px-10">
@@ -36,24 +39,39 @@ const Summary = () => {
 
         <div className="flex flex-col">
           <div className="flex">
-            <div className="flex w-[90%] justify-between items-end border-b pb-2 px-6 xl:px-12">
-              <div className="flex flex-col">
-                <div className="w-full text-sm text-gray-500">
-                  <span>Plato del dia</span>
+            <div className=" w-[90%]">
+              <div className="flex  justify-between items-end border-b pb-2 px-6 xl:px-12">
+                <div className="flex flex-col">
+                  <div className="w-full text-sm text-gray-500">
+                    <span>Plato del dia</span>
+                  </div>
+                  <div className="flex flex-col text-sm text-gray-500 pl-3 xl:pl-6">
+                    <span>x Arroz blanco</span>
+                    <span>x Pollo guisado</span>
+                    <span>x Ensalada Rusa</span>
+                  </div>
                 </div>
-                <div className="flex flex-col text-sm text-gray-500 pl-3 xl:pl-6">
-                  <span>x Arroz blanco</span>
-                  <span>x Pollo guisado</span>
-                  <span>x Ensalada Rusa</span>
+                <div>
+                  <span className="italic font-semibold">RD$ 150</span>
                 </div>
               </div>
-              <div>
-                <span className="italic font-semibold">RD$ 150</span>
+              <div className="">
+                <Collapse in={opened}>
+                  <Textarea maxLength={200} size="xs" />
+                  <div className="flex justify-center items-center pt-4">
+                    <button className="px-3 py-1 hover:bg-blue-700 bg-blue-800 rounded-full text-sm text-white font-semibold uppercase">
+                      Guardar
+                    </button>
+                  </div>
+                </Collapse>
               </div>
             </div>
             <div className="w-[10%] self-center pl-1">
-              <button className="underline italic underline-offset-2 text-blue-400 hover:text-blue-300 text-xs">
-                Agregar nota
+              <button
+                onClick={() => setOpened((o) => !o)}
+                className="underline italic underline-offset-2 text-blue-400 hover:text-blue-300 text-xs"
+              >
+                {opened ? 'Descartar nota' : 'Agregar nota'}
               </button>
             </div>
           </div>
@@ -73,50 +91,86 @@ const Summary = () => {
             </div>
           </div>
           <div className="w-full flex">
-            <div className="flex flex-col w-[90%] border-b py-2 px-6 xl:px-12">
-              <div className="flex justify-between">
-                <div className="flex gap-10 ">
-                  <input
-                    className="w-12 border-2 border-blue-300 outline-none px-1.5 py-1 rounded-lg text-xs"
-                    type="number"
-                    name=""
-                    id=""
-                    defaultValue={1}
-                    min={1}
-                    max={5}
-                  />
-                  <span className="truncate pr-2">x Aguacate</span>
+            <div className="w-[90%]">
+              <div className="flex flex-col border-b py-2 px-6 xl:px-12">
+                <div className="flex justify-between">
+                  <div className="flex gap-10 ">
+                    <input
+                      className="w-12 border-2 border-blue-300 outline-none px-1.5 py-1 rounded-lg text-xs"
+                      type="number"
+                      name=""
+                      id=""
+                      defaultValue={1}
+                      min={1}
+                      max={5}
+                    />
+                    <span className="truncate pr-2">x Aguacate</span>
+                  </div>
+                  <div className="italic text-blue-900 font-semibold">
+                    RD$45
+                  </div>
                 </div>
-                <div className="italic text-blue-900 font-semibold">RD$45</div>
+              </div>
+              <div className="">
+                <Collapse in={opened2}>
+                  <Textarea maxLength={200} size="xs" />
+                  <div className="flex justify-center items-center pt-4">
+                    <button className="px-3 py-1 hover:bg-blue-700 bg-blue-800 rounded-full text-sm text-white font-semibold uppercase">
+                      Guardar
+                    </button>
+                  </div>
+                </Collapse>
               </div>
             </div>
             <div className="w-[10%] self-center pl-1">
-              <button className="underline italic underline-offset-2 text-blue-400 hover:text-blue-300 text-xs">
-                Agregar nota
+              <button
+                onClick={() => setOpened2((o) => !o)}
+                className="underline italic underline-offset-2 text-blue-400 hover:text-blue-300 text-xs"
+              >
+                {opened2 ? 'Descartar nota' : 'Agregar nota'}
               </button>
             </div>
           </div>
           <div className="w-full flex">
-            <div className="flex flex-col w-[90%] border-b py-2 px-6 xl:px-12">
-              <div className="flex justify-between">
-                <div className="flex gap-10  truncate">
-                  <input
-                    className="w-12 border-2 border-blue-300 outline-none px-1.5 py-1 rounded-lg text-xs"
-                    type="number"
-                    name=""
-                    id=""
-                    defaultValue={1}
-                    min={1}
-                    max={5}
-                  />
-                  <span className="truncate pr-2">x Jugo Chinola Pequeño</span>
+            <div className="w-[90%]">
+              <div className="flex flex-col border-b py-2 px-6 xl:px-12">
+                <div className="flex justify-between">
+                  <div className="flex gap-10  truncate">
+                    <input
+                      className="w-12 border-2 border-blue-300 outline-none px-1.5 py-1 rounded-lg text-xs"
+                      type="number"
+                      name=""
+                      id=""
+                      defaultValue={1}
+                      min={1}
+                      max={5}
+                    />
+                    <span className="truncate pr-2">
+                      x Jugo Chinola Pequeño
+                    </span>
+                  </div>
+                  <div className="italic text-blue-900 font-semibold">
+                    RD$45
+                  </div>
                 </div>
-                <div className="italic text-blue-900 font-semibold">RD$45</div>
+              </div>
+              <div className="">
+                <Collapse in={opened3}>
+                  <Textarea maxLength={200} size="xs" />
+                  <div className="flex justify-center items-center pt-4">
+                    <button className="px-3 py-1 hover:bg-blue-700 bg-blue-800 rounded-full text-sm text-white font-semibold uppercase">
+                      Guardar
+                    </button>
+                  </div>
+                </Collapse>
               </div>
             </div>
             <div className="w-[10%] self-center pl-1">
-              <button className="underline italic underline-offset-2 text-blue-400 hover:text-blue-300 text-xs">
-                Agregar nota
+              <button
+                onClick={() => setOpened3((o) => !o)}
+                className="underline italic underline-offset-2 text-blue-400 hover:text-blue-300 text-xs"
+              >
+                {opened3 ? 'Descartar nota' : 'Agregar nota'}
               </button>
             </div>
           </div>

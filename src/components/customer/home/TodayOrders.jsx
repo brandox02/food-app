@@ -12,8 +12,8 @@ export const TodayOrders = () => {
           <div className="h-[3px] w-40 bg-blue-400 self-start rounded-full"></div>
         </div>
         <div className="grid lg:grid-cols-3 px-10 lg:px-0 gap-5 lg:gap-10">
-          <OrderCard />
-          <OrderCard />
+          <OrderCard status="delivered" />
+          <OrderCard status="delivered" />
         </div>
       </div>
     </div>

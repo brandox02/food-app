@@ -59,11 +59,11 @@ const Register = () => {
               </div>
               <div className="flex flex-col gap-0.5">
                 <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
-                  Correo corporativo
+                  Correo corporativo(si aplica)
                 </span>
                 <input
                   type="email"
-                  placeholder="Correo electrónico"
+                  placeholder="Correo"
                   className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full"
                 />
               </div>

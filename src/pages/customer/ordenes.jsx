@@ -1,5 +1,7 @@
+import { Tooltip } from '@mantine/core';
 import Head from 'next/head';
 import React from 'react';
+import { OrderCard } from '../../components/customer/home/OrderCard';
 import { TodayOrders } from '../../components/customer/home/TodayOrders';
 
 const Ordenes = () => {
@@ -18,54 +20,9 @@ const Ordenes = () => {
           <div className="h-[3px] w-40 bg-blue-400 self-start rounded-full"></div>
         </div>
         <div className="grid lg:grid-cols-3 px-10 lg:px-0 gap-5 lg:gap-10">
-          <div className="bg-gray-200 flex flex-col gap-3 font-[poppins]">
-            <div className="flex self-end bg-yellow-400">
-              <span className="font-semibold text-sm px-2 py-1">
-                25/10/2022 12:30 PM
-              </span>
-            </div>
-
-            <div className="flex flex-col px-6 gap-2 xl:px-12">
-              <div className="italic font-bold text-blue-900">
-                Detalles de la Orden
-              </div>
-              <div className="w-full text-sm text-gray-500 flex justify-between">
-                <span>Plato del dia</span>
-                <span className="italic font-semibold">RD$ 150</span>
-              </div>
-              <div className="flex flex-col text-sm text-gray-500 pl-3 xl:pl-6">
-                <span>x Arroz blanco</span>
-                <span>x Pollo guisado</span>
-                <span>x Ensalada Rusa</span>
-              </div>
-            </div>
-            <div className="flex flex-col gap-2 px-6 xl:px-12 mb-2">
-              <div className="w-full text-sm text-gray-500">
-                <span>Extras</span>
-              </div>
-              <div className="flex flex-col text-sm text-gray-500 pl-3 xl:pl-6">
-                <div className="flex justify-between">
-                  <span>x Aguacate</span>
-                  <span className="italic font-semibold">RD$ 50</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>x Jugo Chinola 20Oz</span>
-                  <span className="italic font-semibold">RD$ 45</span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div className="bg-gray-300 py-2 flex justify-end gap-6 px-6 xl:px-12">
-                <span className="font-semibold italic">Total:</span>
-                <span className="font-semibold italic">RD$245</span>
-              </div>
-              <div className="bg-gray-500 py-1.5 flex justify-center">
-                <span className="font-semibold text-white italic">
-                  Ordenado (00:14:12)
-                </span>
-              </div>
-            </div>
-          </div>
+          <OrderCard />
+          <OrderCard />
+          <OrderCard />
         </div>
       </div>
       <TodayOrders />

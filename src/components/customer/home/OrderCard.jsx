@@ -1,6 +1,17 @@
-import React from 'react';
+import { Tooltip } from '@mantine/core';
+import React, { useEffect, useState } from 'react';
 
-export const OrderCard = ({ orderTotal = '245' }) => {
+export const OrderCard = ({ orderTotal = '245', status = 'ordered' }) => {
+  const [delivered, setDelivered] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      if (status == 'delivered') {
+        setDelivered(true);
+      } else setDelivered(false);
+    };
+  }, [status, delivered]);
+
   return (
     <div className="bg-gray-200 flex flex-col gap-3 font-[poppins] hover:scale-[98.5%] cursor-pointer transition-all">
       <div className="flex self-end bg-yellow-400">
@@ -43,9 +54,25 @@ export const OrderCard = ({ orderTotal = '245' }) => {
           <span className="font-semibold italic">Total:</span>
           <span className="font-semibold italic">RD${orderTotal}</span>
         </div>
-        <div className="bg-green-500 py-1.5 flex justify-center">
-          <span className="font-semibold text-white italic">Entregado</span>
-        </div>
+
+        {delivered ? (
+          <div className="bg-green-500 py-1.5 flex justify-center">
+            <span className="font-semibold text-white italic">Entregado</span>
+          </div>
+        ) : (
+          <Tooltip
+            position="bottom"
+            withArrow
+            label="Tiempo límite para cancelar su pedido."
+            color="blue"
+          >
+            <div className="bg-gray-500 py-1.5 flex justify-center">
+              <span className="font-semibold text-white italic">
+                Ordenado (00:14:12)
+              </span>
+            </div>
+          </Tooltip>
+        )}
       </div>
     </div>
   );
