@@ -199,13 +199,23 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
                 <AiOutlineClose className="text-[#003876]" size={15} />
               </div>
             </div>
-            <div className="border-b border-gray-300 my-4">
-              <p className="w-full py-4 text-xs xs:text-base font-bold text-[#003876]">
-                Servicios de Comida Empresarial
-              </p>
+            <p className="w-full py-4 text-xs xs:text-base font-bold text-[#003876]">
+              Servicios de Comida Empresarial
+            </p>
+            <div className="border-b border-gray-300 pb-4">
+              <div className="cursor-pointer flex items-center gap-2">
+                <button className="bg-[#2493ee] cursor-pointer rounded-full p-3 hover:bg-blue-400 transition-all text-white font-semibold uppercase text-sm">
+                  <RiUserLine className="w-5 h-5" />
+                </button>
+                <div className="flex items-center gap-1">
+                  <span className="text-[#1A579A] font-[600] font-[poppins]">
+                    {user}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="">
+          <div className="border-b py-3">
             <ul className="uppercase flex flex-col gap-0">
               <Link href="/customer/lunch">
                 <li

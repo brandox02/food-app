@@ -58,11 +58,11 @@ const ShoppingCart = ({}) => {
 
         <div className="flex flex-col">
           {/* ----------------- COMPONENTE TABLE HEADER------------------- */}
-          <div className="flex flex-col w-[90%] bg-blue-100 border-b py-1 italic font-semibold text-blue-900 px-8 xl:px-14">
+          <div className="flex flex-col w-[90%] bg-blue-100 border-b py-1 italic font-semibold text-blue-900 px-3 sm:px-8 xl:px-14">
             <div className="flex justify-between">
-              <div className="flex">
-                <span className="max-w-[90px] min-w-[90px]">Cant.</span>
-                <span>Producto</span>
+              <div className="flex truncate gap-9 md:gap-0">
+                <span className="md:max-w-[90px] md:min-w-[90px]">Cant.</span>
+                <span className="truncate">Producto</span>
               </div>
               <div>Total</div>
             </div>
@@ -71,9 +71,9 @@ const ShoppingCart = ({}) => {
           {/* ----------------- COMPONENTE TABLE ITEMS ROW------------------- */}
           <div className="w-full flex">
             <div className="w-[90%]">
-              <div className="flex flex-col border-b py-2 px-6 xl:px-12">
+              <div className="flex flex-col border-b py-2 px-2 sm:px-6 xl:px-12">
                 <div className="flex justify-between">
-                  <div className="flex gap-10 ">
+                  <div className="flex gap-5 md:gap-10 truncate">
                     <div className="flex items-center font-semibold gap-2">
                       <button className="px-0.5" onClick={handleSubstract}>
                         -
@@ -86,7 +86,7 @@ const ShoppingCart = ({}) => {
                       </button>
                     </div>
 
-                    <span className="truncate pr-2 text-sm md:text-base">
+                    <span className="truncate pr-2 self-center text-xs sm:text-sm md:text-base">
                       x Aguacate
                     </span>
                   </div>
@@ -115,11 +115,12 @@ const ShoppingCart = ({}) => {
               </button>
             </div>
           </div>
+          {/* ----------------- COMPONENTE TABLE ITEMS ROW------------------- */}
           <div className="w-full flex">
             <div className="w-[90%]">
-              <div className="flex flex-col border-b py-2 px-6 xl:px-12">
+              <div className="flex flex-col border-b py-2 px-2 sm:px-6 xl:px-12">
                 <div className="flex justify-between">
-                  <div className="flex gap-10  truncate">
+                  <div className="flex gap-5 md:gap-10  truncate">
                     <div className="flex items-center font-semibold gap-2">
                       <button className="px-0.5" onClick={handleSubstract2}>
                         -
@@ -132,7 +133,7 @@ const ShoppingCart = ({}) => {
                       </button>
                     </div>
 
-                    <span className="truncate pr-2 text-sm md:text-base">
+                    <span className="truncate pr-2 self-center text-xs sm:text-sm md:text-base">
                       x Jugo Chinola Pequeño
                     </span>
                   </div>
