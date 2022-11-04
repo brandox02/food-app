@@ -9,10 +9,11 @@ import {
   AiOutlineMenu,
   AiOutlineMenuUnfold,
 } from 'react-icons/ai';
-import { FiShoppingCart } from 'react-icons/fi';
+import { FiChevronDown, FiMapPin, FiShoppingCart } from 'react-icons/fi';
 import { RiUserLine } from 'react-icons/ri';
+import { Menu } from '@mantine/core';
 
-export const Navbar = () => {
+export const Navbar = ({ user = 'Juan Pérez' }) => {
   const router = useRouter();
   const [nav, setNav] = useState(false);
 
@@ -41,13 +42,48 @@ export const Navbar = () => {
           />
         </Link>
         <div className="justify-center hidden sm:flex items-center mb-4 sm:mb-0">
-          <button className="bg-[#2493ee] cursor-pointer rounded-full p-3 hover:bg-blue-300 transition-all text-white font-semibold uppercase text-sm">
-            <RiUserLine className="w-5 h-5" />
-          </button>
+          <Menu shadow="md" width={250} position="bottom-end">
+            <Menu.Target>
+              <div className="cursor-pointer flex items-center gap-2">
+                <button className="bg-[#2493ee] cursor-pointer rounded-full p-3 hover:bg-blue-400 transition-all text-white font-semibold uppercase text-sm">
+                  <RiUserLine className="w-5 h-5" />
+                </button>
+                <div className="flex items-center gap-1">
+                  <span className="text-[#1A579A] font-[600] font-[poppins]">
+                    {user}
+                  </span>
+                  <span className="text-blue-500">
+                    <FiChevronDown />
+                  </span>
+                </div>
+              </div>
+            </Menu.Target>
+
+            <Menu.Dropdown className="rounded-xl">
+              <Menu.Label className="text-center italic text-blue-600/50">
+                Departamento de Servicios Digitales
+              </Menu.Label>
+              <Menu.Label className="text-center flex items-center font-normal justify-center gap-1 italic uppercase">
+                <FiMapPin /> Nombre - Sede de EMP
+              </Menu.Label>
+              <Menu.Divider />
+              <Menu.Item className="text-gray-500 font-[poppins] px-5">
+                Historial de Consumo
+              </Menu.Item>
+              <Menu.Item className="text-gray-500 font-[poppins] px-5">
+                Mi Cuenta
+              </Menu.Item>
+              <Link href="/login">
+                <Menu.Item className="text-red-400 font-[poppins] px-5">
+                  Cerrar Sesión
+                </Menu.Item>
+              </Link>
+            </Menu.Dropdown>
+          </Menu>
         </div>
         <div
           onClick={handleNav}
-          className="sm:hidden cursor-pointer fixed bg-white z-40 rounded-lg border-2 border-[#003876] p-2 right-0 mx-5 xs:mx-10 sm:mx-0 active:scale-90 transition-all"
+          className="sm:hidden cursor-pointer fixed bg-white z-40 rounded-2xl border-2 border-[#003876] p-2 right-0 mx-5 xs:mx-10 sm:mx-0 active:scale-90 transition-all"
         >
           <AiOutlineMenu className="text-[#003876]" size={30} />
         </div>

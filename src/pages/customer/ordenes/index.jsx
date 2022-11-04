@@ -1,8 +1,8 @@
 import { Tooltip } from '@mantine/core';
 import Head from 'next/head';
 import React from 'react';
-import { OrderCard } from '../../components/customer/home/OrderCard';
-import { TodayOrders } from '../../components/customer/home/TodayOrders';
+import { OrderCard } from '../../../components/customer/home/OrderCard';
+import { TodayOrders } from '../../../components/customer/home/TodayOrders';
 
 const Ordenes = () => {
   return (
