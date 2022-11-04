@@ -238,7 +238,7 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
                       : 'py-4 text-sm rounded-md text-black hover:text-[#5651e5] transition-all'
                   }
                 >
-                  Cafeteria
+                  Cafetería
                 </li>
               </Link>
               <Link href="/customer/breakfast">
