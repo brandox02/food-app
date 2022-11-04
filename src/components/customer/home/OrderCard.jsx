@@ -2,7 +2,7 @@ import React from 'react';
 
 export const OrderCard = ({ orderTotal = '245' }) => {
   return (
-    <div className="bg-gray-200 flex flex-col gap-3 font-[poppins]">
+    <div className="bg-gray-200 flex flex-col gap-3 font-[poppins] hover:scale-[98.5%] cursor-pointer transition-all">
       <div className="flex self-end bg-yellow-400">
         <span className="font-semibold text-sm px-2 py-1">
           25/10/2022 12:30 PM

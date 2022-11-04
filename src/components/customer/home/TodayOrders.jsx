@@ -14,7 +14,6 @@ export const TodayOrders = () => {
         <div className="grid lg:grid-cols-3 px-10 lg:px-0 gap-5 lg:gap-10">
           <OrderCard />
           <OrderCard />
-          <OrderCard />
         </div>
       </div>
     </div>

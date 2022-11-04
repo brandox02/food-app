@@ -59,7 +59,9 @@ export const Navbar = () => {
             <Link href="/customer/lunch">
               <button
                 className={
-                  router.pathname == '/customer/lunch'
+                  (router.pathname == '/customer/lunch') |
+                  (router.pathname == '/customer/extras') |
+                  (router.pathname == '/customer/summary')
                     ? 'md:text-sm text-xs font-semibold text-white bg-[#0064CE] px-2 min-h-[40px] h-full flex items-center rounded-lg tracking-wider font-[poppins] hover:text-blue-500'
                     : 'md:text-sm text-xs font-semibold text-white tracking-wider px-2 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500'
                 }
@@ -113,10 +115,12 @@ export const Navbar = () => {
             </Link>
           </div>
           <div className="flex items-center gap-3">
-            <button className="bg-green-500 hover:bg-green-400 flex items-center gap-1 justify-center rounded-full py-1.5 uppercase text-white text-sm px-3">
-              <AiOutlineMenuUnfold className="w-5 h-5" />
-              <span>Ordenes</span>
-            </button>
+            <Link href="/customer/ordenes">
+              <button className="bg-green-500 hover:bg-green-400 flex items-center gap-1 justify-center rounded-full py-1.5 uppercase text-white text-sm px-3">
+                <AiOutlineMenuUnfold className="w-5 h-5" />
+                <span>Ordenes</span>
+              </button>
+            </Link>
             <button className="bg-blue-500 hover:bg-blue-400 flex items-center gap-1 justify-center rounded-full py-1.5 uppercase text-white text-sm px-3">
               <FiShoppingCart />
               <span>Ver Carrito</span>
