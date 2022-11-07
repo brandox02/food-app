@@ -40,7 +40,7 @@ const Login = () => {
                 <input
                   type="email"
                   placeholder="Correo electrónico"
-                  className="border-2 border-[#1A579A] px-3 py-2 font-[poppins] placeholder:text-sm rounded-lg w-full"
+                  className="border-2 border-[#1A579A] px-3 py-2 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
                 />
               </div>
               <div className="flex flex-col gap-0.5">
@@ -50,7 +50,7 @@ const Login = () => {
                 <input
                   type="password"
                   placeholder="Contraseña"
-                  className="border-2 border-[#1A579A] px-3 py-2 font-[poppins] placeholder:text-sm rounded-lg w-full"
+                  className="border-2 border-[#1A579A] px-3 py-2 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
                 />
                 <Link
                   className="self-end mt-1 italic underline underline-offset-2 text-xs sm:text-sm text-blue-400"
