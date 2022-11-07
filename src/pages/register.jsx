@@ -44,7 +44,7 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="Nombre(s)"
-                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full"
+                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
                 />
               </div>
               <div className="flex flex-col gap-0.5">
@@ -54,7 +54,7 @@ const Register = () => {
                 <input
                   type="text"
                   placeholder="Apellido(s)"
-                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full"
+                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
                 />
               </div>
               <div className="flex flex-col gap-0.5">
@@ -64,7 +64,7 @@ const Register = () => {
                 <input
                   type="email"
                   placeholder="Correo"
-                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full"
+                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
                 />
               </div>
               <div className="flex flex-col md:flex-row gap-2 w-full">
@@ -75,7 +75,7 @@ const Register = () => {
                   <input
                     type="text"
                     placeholder="Cédula"
-                    className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full"
+                    className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
                   />
                 </div>
                 <div className="flex flex-col gap-0.5 w-full">
@@ -85,7 +85,7 @@ const Register = () => {
                   <input
                     type="text"
                     placeholder="Dirección"
-                    className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full"
+                    className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
                   />
                 </div>
               </div>
@@ -96,7 +96,7 @@ const Register = () => {
                 <input
                   type="password"
                   placeholder="Contraseña"
-                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full"
+                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
                 />
               </div>
               <div className="flex flex-col gap-0.5">
@@ -106,7 +106,7 @@ const Register = () => {
                 <input
                   type="password"
                   placeholder="Confirmar Contraseña"
-                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full"
+                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
                 />
               </div>
               <div className="flex items-center gap-2 mt-2">
