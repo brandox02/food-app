@@ -80,7 +80,7 @@ const Register = () => {
                 </div>
                 <div className="flex flex-col gap-0.5 w-full">
                   <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
-                    Dirección
+                    Departamento
                   </span>
                   <input
                     type="text"

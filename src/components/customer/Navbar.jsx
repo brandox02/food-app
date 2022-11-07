@@ -67,12 +67,16 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
                 <FiMapPin /> Nombre - Sede de EMP
               </Menu.Label>
               <Menu.Divider />
-              <Menu.Item className="text-gray-500 font-[poppins] px-5">
-                Historial de Consumo
-              </Menu.Item>
-              <Menu.Item className="text-gray-500 font-[poppins] px-5">
-                Mi Cuenta
-              </Menu.Item>
+              <Link href="/customer/historial">
+                <Menu.Item className="text-gray-500 font-[poppins] px-5">
+                  Historial de Consumo
+                </Menu.Item>
+              </Link>
+              <Link href="/customer/my-account">
+                <Menu.Item className="text-gray-500 font-[poppins] px-5">
+                  Mi Cuenta
+                </Menu.Item>
+              </Link>
               <Link href="/login">
                 <Menu.Item className="text-red-400 font-[poppins] px-5">
                   Cerrar Sesión
@@ -95,9 +99,7 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
             <Link href="/customer/lunch">
               <button
                 className={
-                  (router.pathname == '/customer/lunch') |
-                  (router.pathname == '/customer/extras') |
-                  (router.pathname == '/customer/summary')
+                  router.pathname == '/customer/lunch'
                     ? 'md:text-sm text-xs font-semibold text-white bg-[#0064CE] px-2 min-h-[40px] h-full flex items-center rounded-lg tracking-wider font-[poppins] hover:text-blue-500'
                     : 'md:text-sm text-xs font-semibold text-white tracking-wider px-2 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500'
                 }

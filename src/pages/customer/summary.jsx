@@ -19,7 +19,7 @@ const Summary = ({}) => {
     setCounter(counter + 1);
   };
   const handleAdd2 = () => {
-    if (counter === 10) {
+    if (counter2 === 10) {
       return;
     }
     setCounter2(counter2 + 1);

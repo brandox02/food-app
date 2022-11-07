@@ -8,7 +8,6 @@ const ShoppingCart = ({}) => {
   const [ordered, setOrdered] = useState(false);
   const [opened, setOpened] = useState(false);
   const [opened2, setOpened2] = useState(false);
-  const [opened3, setOpened3] = useState(false);
   const [counter, setCounter] = useState(1);
   const [counter2, setCounter2] = useState(1);
 
@@ -19,7 +18,7 @@ const ShoppingCart = ({}) => {
     setCounter(counter + 1);
   };
   const handleAdd2 = () => {
-    if (counter === 10) {
+    if (counter2 === 10) {
       return;
     }
     setCounter2(counter2 + 1);
@@ -46,7 +45,7 @@ const ShoppingCart = ({}) => {
       </Head>
       <div className="w-full lg:max-w-[850px] relative mx-auto bg-white rounded-sm shadow flex flex-col px-6 md:px-14 py-8 gap-8">
         <div className=" text-center flex flex-col gap-2 font-[poppins] text-[#1A579A]">
-          <span>Aqui te mostramos tus articulos agregados</span>
+          <span>Aquí te mostramos tus artículos agregados</span>
         </div>
 
         <div className="flex flex-col w-full font-[poppins]">
@@ -96,7 +95,7 @@ const ShoppingCart = ({}) => {
                 </div>
               </div>
               <div>
-                <Collapse in={opened2}>
+                <Collapse in={opened}>
                   <Textarea maxLength={200} size="xs" />
                   <div className="flex justify-center items-center pt-4">
                     <button className="px-3 py-1 hover:bg-blue-700 bg-blue-800 rounded-full text-sm text-white font-semibold uppercase">
@@ -108,10 +107,10 @@ const ShoppingCart = ({}) => {
             </div>
             <div className="w-[10%] self-center pl-1">
               <button
-                onClick={() => setOpened2((o) => !o)}
+                onClick={() => setOpened((o) => !o)}
                 className="underline italic underline-offset-2 text-blue-400 hover:text-blue-300 text-xs"
               >
-                {opened2 ? 'Descartar nota' : 'Agregar nota'}
+                {opened ? 'Descartar nota' : 'Agregar nota'}
               </button>
             </div>
           </div>
@@ -143,7 +142,7 @@ const ShoppingCart = ({}) => {
                 </div>
               </div>
               <div className="">
-                <Collapse in={opened3}>
+                <Collapse in={opened2}>
                   <Textarea maxLength={200} size="xs" />
                   <div className="flex justify-center items-center pt-4">
                     <button className="px-3 py-1 hover:bg-blue-700 bg-blue-800 rounded-full text-sm text-white font-semibold uppercase">
@@ -155,10 +154,10 @@ const ShoppingCart = ({}) => {
             </div>
             <div className="w-[10%] self-center pl-1">
               <button
-                onClick={() => setOpened3((o) => !o)}
+                onClick={() => setOpened2((o) => !o)}
                 className="underline italic underline-offset-2 text-blue-400 hover:text-blue-300 text-xs"
               >
-                {opened3 ? 'Descartar nota' : 'Agregar nota'}
+                {opened2 ? 'Descartar nota' : 'Agregar nota'}
               </button>
             </div>
           </div>
