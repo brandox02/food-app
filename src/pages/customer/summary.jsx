@@ -1,6 +1,7 @@
 import { Collapse, Textarea } from '@mantine/core';
 import Head from 'next/head';
 import Link from 'next/link';
+import Router from 'next/router';
 import React, { useState } from 'react';
 import { FiArrowLeft, FiCheckCircle } from 'react-icons/fi';
 
@@ -47,12 +48,12 @@ const Summary = ({}) => {
       <div className="w-full lg:max-w-[850px] relative mx-auto bg-white rounded-sm shadow flex flex-col px-6 md:px-14 py-8 gap-8">
         <div className=" text-center flex flex-col gap-2 font-[poppins] text-[#1A579A]">
           <div className="md:absolute flex w-full md:justify-start justify-center lg:-ml-8 md:-mt-4 mb-2 md:mb-0">
-            <Link
-              className=" bg-blue-300 rounded-full p-2"
-              href="/customer/extras"
+            <span
+              className=" bg-blue-300 rounded-full p-2 cursor-pointer"
+              onClick={() => Router.back()}
             >
               <FiArrowLeft className="text-white w-5 h-5" />
-            </Link>
+            </span>
           </div>
           <span>Aqui te mostramos tu resumen de Orden</span>
         </div>

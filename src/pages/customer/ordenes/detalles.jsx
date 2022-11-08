@@ -1,6 +1,6 @@
-import { Tooltip } from '@mantine/core';
 import Head from 'next/head';
 import Link from 'next/link';
+import Router from 'next/router';
 import React from 'react';
 import { FiArrowLeft } from 'react-icons/fi';
 
@@ -20,12 +20,12 @@ const OrderDetails = () => {
         </div>
         <div className="flex flex-col px-6 gap-2 xl:px-12">
           <div className="flex w-full justify-start -mt-4">
-            <Link
-              className=" bg-blue-300 rounded-full p-2"
-              href="/customer/ordenes"
+            <span
+              className=" bg-blue-300 rounded-full p-2 cursor-pointer"
+              onClick={() => Router.back()}
             >
               <FiArrowLeft className="text-white w-5 h-5" />
-            </Link>
+            </span>
           </div>
           <div className="italic font-bold self-center text-blue-900 mb-5">
             Detalles de la Orden
