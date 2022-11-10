@@ -1,7 +1,8 @@
 import { Anchor, Breadcrumbs, Tabs } from '@mantine/core';
 import Head from 'next/head';
 import Image from 'next/image';
-import { FiCamera, FiHome } from 'react-icons/fi';
+import { useState } from 'react';
+import { FiCamera, FiCheckCircle, FiHome } from 'react-icons/fi';
 import { RiLock2Line, RiUser2Fill } from 'react-icons/ri';
 import profilePicture from '../../../public/assets/profilepicture.png';
 
@@ -18,6 +19,7 @@ const Profile = () => {
       {item.title}
     </Anchor>
   ));
+  const [saved, setSaved] = useState(false);
   return (
     <div className="w-full flex flex-col gap-6">
       <Head>
@@ -143,10 +145,29 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div className="w-full flex justify-center pt-10">
-                <button className="bg-sky-800 rounded-md px-14 py-2 uppercase text-white text-sm">
+              <div className="w-full flex flex-col items-center gap-4 justify-center pt-10">
+                <button
+                  onClick={() => setSaved(!saved)}
+                  className={
+                    saved
+                      ? 'bg-gray-300 rounded-md px-14 py-2 uppercase text-white text-sm font-semibold'
+                      : 'bg-sky-800 rounded-md px-14 py-2 uppercase text-white text-sm font-semibold'
+                  }
+                >
                   Guardar Cambios
                 </button>
+                {saved ? (
+                  <div className="text-sm flex flex-col justify-center items-center gap-2 text-center italic">
+                    <div className="flex items-center text-green-500 gap-1 font-semibold">
+                      <span className="text-base">
+                        Cambios realizados con éxito
+                      </span>
+                      <FiCheckCircle className="w-4 h-4" />
+                    </div>
+                  </div>
+                ) : (
+                  ''
+                )}
               </div>
             </Tabs.Panel>
 

@@ -33,7 +33,7 @@ const Ordenes = () => {
           <span className="text-blue-900 text-2xl font-semibold">
             Pendientes
           </span>
-          <div className="h-[3px] w-40 bg-blue-400 self-start rounded-full"></div>
+          <div className="h-[3px] w-20 bg-blue-400 self-start rounded-full"></div>
         </div>
         <div className="grid lg:grid-cols-3 gap-5 lg:gap-10">
           <OrderCard />
