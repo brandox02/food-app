@@ -153,20 +153,31 @@ const Historial = () => {
             </button>
           </div>
         </div>
-        <div id="scrollbar" className="w-full overflow-auto mt-6">
-          <Table highlightOnHover>
-            <thead className="bg-[#47ADF5]/30 font-[poppins]">
-              <tr>
-                <th>No. Orden</th>
-                <th>Fecha Orden</th>
-                <th>Fecha Entrega</th>
-                <th>Productos</th>
-                <th>Cantidad</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody className="font-[poppins]">{rows}</tbody>
-          </Table>
+        <div>
+          <div id="scrollbar" className="w-full overflow-auto mt-6">
+            <Table highlightOnHover verticalSpacing="sm">
+              <thead className="bg-[#47ADF5]/30 font-[poppins] ">
+                <tr>
+                  <th>No. Orden</th>
+                  <th>Fecha Orden</th>
+                  <th>Fecha Entrega</th>
+                  <th>Productos</th>
+                  <th>Cantidad</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody className="font-[poppins]">{rows}</tbody>
+            </Table>
+          </div>
+          <div className="w-full flex text-blue-900 justify-end italic px-3 sm:px-5 md:px-10 text-sm md:text-base bg-gray-100 py-1.5 font-semibold gap-1">
+            Total en Curso: <span className="text-[#4868ae]">RD$1,050</span>
+          </div>
+        </div>
+        <div className="w-full flex justify-end text-right text-xs italic text-blue-900 font-[poppins] mb-3">
+          <p className="w-3/4 md:w-1/3">
+            Dicho monto, será descontado automáticamente de la nómina de manera
+            mensual. Una vez saldado el monto, tu historial será reseteado.
+          </p>
         </div>
       </div>
     </div>
