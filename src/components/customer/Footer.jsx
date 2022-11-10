@@ -8,7 +8,9 @@ export const Footer = () => {
       className={
         router.pathname == '/login'
           ? 'hidden'
-          : '' | (router.pathname == '/register')
+          : 'flex flex-col' | (router.pathname == '/register')
+          ? 'hidden'
+          : 'flex flex-col' | (router.pathname == '/404')
           ? 'hidden'
           : 'flex flex-col'
       }

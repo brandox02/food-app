@@ -26,12 +26,14 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
       className={
         router.pathname == '/login'
           ? 'hidden'
-          : '' | (router.pathname == '/register')
+          : 'flex flex-col gap-10' | (router.pathname == '/register')
+          ? 'hidden'
+          : 'flex flex-col gap-10' | (router.pathname == '/404')
           ? 'hidden'
           : 'flex flex-col gap-10'
       }
     >
-      <div className="lg:px-24 relative max-w-[1750px] mx-auto w-full px-5 py-3 flex flex-col sm:flex-row justify-center sm:justify-between items-start sm:items-center gap-6 bg-white shadow-lg">
+      <div className="lg:px-24 relative max-w-[1750px] mb-6 sm:mb-0 mx-auto w-full px-5 py-3 flex flex-col sm:flex-row justify-center sm:justify-between items-start sm:items-center gap-6 bg-white shadow-lg">
         <Link href="/">
           <Image
             className="cursor-pointer"
@@ -93,8 +95,8 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
         </div>
       </div>
 
-      <div className=" sm:px-5 lg:px-24">
-        <div className="md:max-w-[1750px] bg-[#1A579A] rounded-lg mx-auto w-full hidden sm:flex flex-wrap justify-center xl:justify-between px-2 md:px-10 min-h-[50px] py-4 gap-4  ">
+      <div className=" sm:px-5 lg:px-24 hidden sm:flex mb-6">
+        <div className="md:max-w-[1750px] bg-[#1A579A] rounded-lg mx-auto w-full flex  flex-wrap justify-center xl:justify-between px-2 md:px-10 min-h-[50px] py-4 gap-4  ">
           <div className="flex gap-10">
             <Link href="/customer/lunch">
               <button
@@ -172,8 +174,8 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
       <div
         className={
           nav
-            ? 'sm:hidden fixed z-50 left-0 top-0 w-full h-full min-h-screen bg-black/60'
-            : ''
+            ? 'sm:hidden fixed z-50 left-0 top-0 w-full h-full min-h-screen bg-black/60 transition-all duration-1000'
+            : 'fixed z-50 invisible w-full h-full min-h-screen transition-all duration-1000'
         }
       >
         <div
