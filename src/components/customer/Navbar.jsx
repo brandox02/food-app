@@ -13,11 +13,13 @@ import { FiChevronDown, FiMapPin, FiShoppingCart } from 'react-icons/fi';
 import { RiUserLine } from 'react-icons/ri';
 import { Menu } from '@mantine/core';
 import { useAuth } from '../../hooks/useAuth';
+import { useAppContext } from '../../AppProvider';
 
-export const Navbar = ({ user = 'Juan Pérez' }) => {
+export const Navbar = () => {
   const router = useRouter();
   const [nav, setNav] = useState(false);
-  const {logout} = useAuth();
+  const { logout } = useAuth();
+  const [{ user }] = useAppContext();
 
   const handleNav = () => {
     setNav(!nav);
@@ -29,10 +31,10 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
         router.pathname == '/login'
           ? 'hidden'
           : 'flex flex-col gap-10' | (router.pathname == '/register')
-          ? 'hidden'
-          : 'flex flex-col gap-10' | (router.pathname == '/404')
-          ? 'hidden'
-          : 'flex flex-col gap-10'
+            ? 'hidden'
+            : 'flex flex-col gap-10' | (router.pathname == '/404')
+              ? 'hidden'
+              : 'flex flex-col gap-10'
       }
     >
       <div className="lg:px-24 relative max-w-[1750px] mb-6 sm:mb-0 mx-auto w-full px-5 py-3 flex flex-col sm:flex-row justify-center sm:justify-between items-start sm:items-center gap-6 bg-white shadow-lg">
@@ -54,7 +56,7 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
                 </button>
                 <div className="flex items-center gap-1">
                   <span className="text-[#1A579A] font-[600] font-[poppins]">
-                    {user}
+                    {user && `${user.firstname} ${user.lastname}`}
                   </span>
                   <span className="text-blue-500">
                     <FiChevronDown />
@@ -64,13 +66,17 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
             </Menu.Target>
 
             <Menu.Dropdown className="rounded-xl">
-              <Menu.Label className="text-center italic text-blue-600/50">
-                Departamento de Servicios Digitales
-              </Menu.Label>
-              <Menu.Label className="text-center flex items-center font-normal justify-center gap-1 italic uppercase">
-                <FiMapPin /> Nombre - Sede de EMP
-              </Menu.Label>
-              <Menu.Divider />
+              {user && (
+                <>
+                  <Menu.Label className="text-center italic text-blue-600/50">
+                    {`Departamento de ${user.department.name}`}
+                  </Menu.Label>
+                  <Menu.Label className="text-center flex items-center font-normal justify-center gap-1 italic uppercase">
+                    <FiMapPin /> {`${user.company.name} ${user.company.sede}`}
+                  </Menu.Label>
+                  <Menu.Divider />
+                </>
+              )}
               <Link href="/customer/historial">
                 <Menu.Item className="text-gray-500 font-[poppins] px-5">
                   Historial de Consumo
@@ -81,10 +87,10 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
                   Mi Cuenta
                 </Menu.Item>
               </Link>
-                <Menu.Item className="text-red-400 font-[poppins] px-5" onClick={logout}>
-                  Cerrar Sesión
-                </Menu.Item>
-             
+              <Menu.Item className="text-red-400 font-[poppins] px-5" onClick={logout}>
+                Cerrar Sesión
+              </Menu.Item>
+
             </Menu.Dropdown>
           </Menu>
         </div>
@@ -214,7 +220,7 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
                 </button>
                 <div className="flex items-center gap-1">
                   <span className="text-[#1A579A] font-[600] font-[poppins]">
-                    {user}
+                    {user && `${user.firstname} ${user.lastname}`}
                   </span>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-import { createHttpLink, gql, useApolloClient } from "@apollo/client";
+import { gql, useApolloClient } from "@apollo/client";
 import { toast } from "react-toastify";
 import { useAppContext } from "../AppProvider";
 import { setAuthToken } from '../ApolloProvider';
@@ -52,8 +52,12 @@ export const useAuth = () => {
             enabled
             cedula
             email
-            companyId
-            departmentId
+            company {
+              id location name sede
+            }
+            department {
+              id name
+            }
           }
         }
       `});

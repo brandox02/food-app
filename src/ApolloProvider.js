@@ -1,4 +1,3 @@
-import { useAppContext } from "./AppProvider";
 import {ApolloProvider as ApolloProviderSource, createHttpLink,ApolloClient, InMemoryCache } from '@apollo/client'
 
 const apolloClient = new ApolloClient({
