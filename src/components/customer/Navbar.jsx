@@ -12,10 +12,12 @@ import {
 import { FiChevronDown, FiMapPin, FiShoppingCart } from 'react-icons/fi';
 import { RiUserLine } from 'react-icons/ri';
 import { Menu } from '@mantine/core';
+import { useAuth } from '../../hooks/useAuth';
 
 export const Navbar = ({ user = 'Juan Pérez' }) => {
   const router = useRouter();
   const [nav, setNav] = useState(false);
+  const {logout} = useAuth();
 
   const handleNav = () => {
     setNav(!nav);
@@ -77,11 +79,10 @@ export const Navbar = ({ user = 'Juan Pérez' }) => {
                   Mi Cuenta
                 </Menu.Item>
               </Link>
-              <Link href="/login">
-                <Menu.Item className="text-red-400 font-[poppins] px-5">
+                <Menu.Item className="text-red-400 font-[poppins] px-5" onClick={logout}>
                   Cerrar Sesión
                 </Menu.Item>
-              </Link>
+             
             </Menu.Dropdown>
           </Menu>
         </div>
