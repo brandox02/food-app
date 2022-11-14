@@ -83,6 +83,16 @@ export const Navbar = () => {
               >
                 Cerrar Sesión
               </Menu.Item>
+              <Link href="/admin/dashboard">
+                <Menu.Item className="text-gray-500 font-[poppins] px-5">
+                  Gestion EMP - Admin
+                </Menu.Item>
+              </Link>
+              <Link href="/enterprise/dashboard">
+                <Menu.Item className="text-gray-500 font-[poppins] px-5">
+                  Gestion Empresarial
+                </Menu.Item>
+              </Link>
             </Menu.Dropdown>
           </Menu>
         </div>
