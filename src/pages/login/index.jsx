@@ -48,7 +48,11 @@ const Login = () => {
                   <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
                     Contraseña
                   </span>
-                  <TextInput name={'password'} placeholder={'Contraseña'} />
+                  <TextInput
+                    type="password"
+                    name={'password'}
+                    placeholder={'Contraseña'}
+                  />
                   <Link
                     className="self-end mt-1 italic underline underline-offset-2 text-xs sm:text-sm text-blue-400"
                     href="#"

@@ -1,4 +1,4 @@
-import { Anchor, Breadcrumbs, Radio } from '@mantine/core';
+import { Breadcrumbs, Radio } from '@mantine/core';
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
@@ -10,13 +10,13 @@ const Extras = () => {
     { title: 'Plato del día', href: '/customer/lunch' },
     { title: 'Extras', href: '/customer/extras' },
   ].map((item, index) => (
-    <Anchor
-      className="text-[#003579] font-semibold italic"
+    <Link
+      className="text-[#003579] font-semibold italic hover:underline underline-offset-2"
       href={item.href}
       key={index}
     >
       {item.title}
-    </Anchor>
+    </Link>
   ));
   return (
     <div className="w-full flex flex-col gap-6">

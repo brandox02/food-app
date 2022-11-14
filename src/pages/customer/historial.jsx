@@ -1,12 +1,7 @@
-import {
-  Anchor,
-  Breadcrumbs,
-  Select,
-  createStyles,
-  Table,
-} from '@mantine/core';
+import { Breadcrumbs, Select, createStyles, Table } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import Head from 'next/head';
+import Link from 'next/link';
 import { FiHome, FiSearch } from 'react-icons/fi';
 import { RiBrush3Line } from 'react-icons/ri';
 
@@ -78,13 +73,13 @@ const Historial = () => {
     { title: <FiHome />, href: '/' },
     { title: 'Historial de Consumos', href: '/customer/historial' },
   ].map((item, index) => (
-    <Anchor
-      className="text-[#003579] font-semibold italic"
+    <Link
+      className="text-[#003579] font-semibold italic hover:underline underline-offset-2"
       href={item.href}
       key={index}
     >
       {item.title}
-    </Anchor>
+    </Link>
   ));
   return (
     <div className="w-full flex flex-col gap-6">

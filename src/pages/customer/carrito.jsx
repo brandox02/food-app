@@ -1,4 +1,4 @@
-import { Anchor, Breadcrumbs, Collapse, Textarea } from '@mantine/core';
+import { Breadcrumbs, Collapse, Textarea } from '@mantine/core';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -9,13 +9,13 @@ const ShoppingCart = ({}) => {
     { title: <FiHome />, href: '/' },
     { title: 'Carrito', href: '/customer/carrito' },
   ].map((item, index) => (
-    <Anchor
-      className="text-[#003579] font-semibold italic"
+    <Link
+      className="text-[#003579] font-semibold italic hover:underline underline-offset-2"
       href={item.href}
       key={index}
     >
       {item.title}
-    </Anchor>
+    </Link>
   ));
   const [ordered, setOrdered] = useState(false);
   const [opened, setOpened] = useState(false);
