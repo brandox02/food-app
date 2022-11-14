@@ -1,7 +1,7 @@
-import Head from "next/head";
-import { useAppContext } from "../AppProvider";
-import { MainGrid } from "../components/customer/home/MainGrid";
-import { TodayOrders } from "../components/customer/home/TodayOrders";
+import Head from 'next/head';
+import { useAppContext } from '../AppProvider';
+import { MainGrid } from '../components/customer/home/MainGrid';
+import { TodayOrders } from '../components/customer/home/TodayOrders';
 
 export default function Home() {
   const [{ user }] = useAppContext();
@@ -15,7 +15,9 @@ export default function Home() {
         </Head>
         <div className="w-full max-w-[1750px] mx-auto lg:px-24 px-5 mb-6 text-[#003579] font-[poppins] font-semibold">
           <span>
-            ¡Bienvenido, <span className="text-[#4278bf]">{`${user.firstname} ${user.lastname}`}</span>!
+            ¡Bienvenido,{' '}
+            <span className="text-[#4278bf]">{`${user.firstname} ${user.lastname}`}</span>
+            !
           </span>
         </div>
         <MainGrid />
@@ -23,5 +25,4 @@ export default function Home() {
       </div>
     );
   }
-
 }

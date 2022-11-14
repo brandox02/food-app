@@ -1,20 +1,6 @@
-import { useRouter } from 'next/router';
-
 export const Footer = () => {
-  const router = useRouter();
-
   return (
-    <div
-      className={
-        router.pathname == '/login'
-          ? 'hidden'
-          : 'flex flex-col' | (router.pathname == '/register')
-          ? 'hidden'
-          : 'flex flex-col' | (router.pathname == '/404')
-          ? 'hidden'
-          : 'flex flex-col'
-      }
-    >
+    <div className="flex flex-col">
       <div className="max-w-[1750px] mx-auto w-full flex flex-col">
         <div className="flex flex-col text-center md:flex-row justify-center text-xs md:text-base gap-1 py-16">
           <span className="text-blue-900 font-semibold italic">

@@ -4,14 +4,13 @@ import paComeLogo from '../../../public/assets/logoPaCome.png';
 import { AiOutlineUser } from 'react-icons/ai';
 import Link from 'next/link';
 import Head from 'next/head';
-import { FormProvider } from '../../components/react-hook-form/FormProvider'
+import { FormProvider } from '../../components/react-hook-form/FormProvider';
 import { useActions } from './useActions';
-import { TextInput } from '../../components/react-hook-form/RHFTextInput'
+import { TextInput } from '../../components/react-hook-form/RHFTextInput';
 
 const Login = () => {
   const { methods, onSubmit } = useActions();
   return (
-
     <div className="h-screen flex flex-col bg-white">
       <Head>
         <title>Pa&apos; Come | Login</title>
@@ -32,7 +31,6 @@ const Login = () => {
           <div className="w-0.5 bg-gray-100 my-10 hidden md:flex rounded-full"></div>
           <div className="md:w-7/12 md:h-full">
             <FormProvider methods={methods} onSubmit={onSubmit}>
-
               <div className=" h-full px-6 py-2 md:p-10 flex flex-col gap-4">
                 <div className="self-center hidden md:flex bg-blue-300 rounded-full p-2.5">
                   <AiOutlineUser className="text-white w-8 h-8" />
@@ -58,11 +56,14 @@ const Login = () => {
                     ¿Olvidaste tu contraseña?
                   </Link>
                 </div>
-               
-                <button type="submit" className="bg-[#0064CE] hover:bg-blue-500 transition-all text-white uppercase font-bold w-full rounded-lg py-2">
-                    Ingresar
+
+                <button
+                  type="submit"
+                  className="bg-[#0064CE] hover:bg-blue-500 transition-all text-white uppercase font-bold w-full rounded-lg py-2"
+                >
+                  Ingresar
                 </button>
-               
+
                 <div className="flex gap-1 self-center text-[10px] flex-wrap justify-center sm:text-xs font-[poppins]">
                   <span className="text-[#1A579A] font-semibold">
                     ¿Aún no te has registrado?
@@ -73,13 +74,9 @@ const Login = () => {
                   >
                     Regístrate
                   </Link>
-                 
                 </div>
               </div>
-
-
             </FormProvider>
-
           </div>
         </div>
       </div>
@@ -87,8 +84,6 @@ const Login = () => {
         © 2022 Todos los derechos reservados
       </div>
     </div>
-
-
   );
 };
 

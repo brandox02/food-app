@@ -26,17 +26,7 @@ export const Navbar = () => {
   };
 
   return (
-    <div
-      className={
-        router.pathname == '/login'
-          ? 'hidden'
-          : 'flex flex-col gap-10' | (router.pathname == '/register')
-            ? 'hidden'
-            : 'flex flex-col gap-10' | (router.pathname == '/404')
-              ? 'hidden'
-              : 'flex flex-col gap-10'
-      }
-    >
+    <div className="flex flex-col gap-10">
       <div className="lg:px-24 relative max-w-[1750px] mb-6 sm:mb-0 mx-auto w-full px-5 py-3 flex flex-col sm:flex-row justify-center sm:justify-between items-start sm:items-center gap-6 bg-white shadow-lg">
         <Link href="/">
           <Image
@@ -87,10 +77,12 @@ export const Navbar = () => {
                   Mi Cuenta
                 </Menu.Item>
               </Link>
-              <Menu.Item className="text-red-400 font-[poppins] px-5" onClick={logout}>
+              <Menu.Item
+                className="text-red-400 font-[poppins] px-5"
+                onClick={logout}
+              >
                 Cerrar Sesión
               </Menu.Item>
-
             </Menu.Dropdown>
           </Menu>
         </div>
