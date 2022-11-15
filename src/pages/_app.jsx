@@ -16,6 +16,7 @@ function WithAuth({ children }) {
   const router = useRouter();
 
   useEffect(() => {
+    window.dayjs = dayjs;
     const freePaths = ['/login', '/register'];
     if (!freePaths.includes(router.pathname) && !state.user) {
       router.push('/login');

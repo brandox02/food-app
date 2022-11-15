@@ -40,9 +40,9 @@ const Ordenes = () => {
         <div className="w-full flex flex-col gap-5 max-w-[1750px] bg-white mx-auto px-10 lg:px-24 py-8">
           <div className=" w-fit">
             <span className="text-blue-900 text-2xl font-semibold">
-              Pendientes
+              Pendientes por confirmar
             </span>
-            <div className="h-[3px] w-20 bg-blue-400 self-start rounded-full"></div>
+            <div className="h-[3px] w-30 bg-blue-400 self-start rounded-full"></div>
           </div>
           <div className="grid lg:grid-cols-3 gap-5 lg:gap-10">
             {ordersOrdenated.map(order => (
@@ -57,7 +57,7 @@ const Ordenes = () => {
               <span className="text-blue-900 text-2xl font-semibold">
                 Tus ordenes de hoy
               </span>
-              <div className="h-[3px] w-40 bg-blue-400 self-start rounded-full"></div>
+              <div className="h-[3px] w-50 bg-blue-400 self-start rounded-full"></div>
             </div>
             <div className="grid lg:grid-cols-3 gap-5 lg:gap-10">
               {ordersComfirmedOrDelivered.map(order => (

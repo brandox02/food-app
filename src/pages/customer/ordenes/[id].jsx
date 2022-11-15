@@ -1,11 +1,53 @@
+import { gql, useQuery } from '@apollo/client';
 import { Breadcrumbs } from '@mantine/core';
+import dayjs from 'dayjs';
 import Head from 'next/head';
 import Link from 'next/link';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import React from 'react';
 import { FiArrowLeft, FiHome } from 'react-icons/fi';
 
+const ORDER = gql`
+  query Order($where: OrderWhereInput!) {
+    order(where: $where) {
+      id
+         noOrder
+         typeId
+         details {
+            id name price total isDailyDish quantity comment
+         }
+         status {
+          id
+          name
+         }
+         total
+         dailyDishPrice
+         createdAt
+      
+    }
+}
+
+`
+
 const OrderDetails = () => {
+  const { query: { id } } = useRouter();
+  const { data } = useQuery(ORDER, { variables: { where: { id: parseInt(id) } }, fetchPolicy: 'cache-and-network' });
+  if (!data) {
+    return <div>Cargando...</div>
+  }
+  const isDailyDish = data.order.typeId === 1;
+  const statusColor = (() => {
+    switch (data.order.status.id) {
+      case 2:
+        return 'bg-gray-500';
+      case 3:
+        return 'bg-blue-500';
+      case 4:
+        return 'bg-green-500'
+    }
+  })();
+
+
   const items = [
     { title: <FiHome />, href: '/' },
     { title: 'Ordenes', href: '/customer/ordenes' },
@@ -34,7 +76,7 @@ const OrderDetails = () => {
         <div className="w-full lg:max-w-[850px] relative mx-auto bg-white rounded-sm shadow flex flex-col gap-3 font-[poppins]">
           <div className="flex self-end bg-yellow-400">
             <span className="font-semibold text-sm px-2 py-1">
-              25/10/2022 12:30 PM
+              {dayjs(data.order.createdAt).format('DD/MM/YYYY hh:mm:ssA')}
             </span>
           </div>
           <div className="flex flex-col px-6 gap-2 xl:px-12">
@@ -49,43 +91,50 @@ const OrderDetails = () => {
             <div className="italic font-bold self-center text-blue-900 mb-5">
               Detalles de la Orden
             </div>
-            <div className="w-full text-sm text-gray-500 flex justify-between">
-              <span>Plato del dia</span>
-              <span className="italic font-semibold">RD$ 150</span>
-            </div>
-            <div className="flex flex-col text-sm text-gray-500 pl-3 xl:pl-6">
-              <span>x Arroz blanco</span>
-              <span>x Pollo guisado</span>
-              <span>x Ensalada Rusa</span>
-            </div>
+            {isDailyDish && (
+              <>
+
+                <div className="w-full text-sm text-gray-500 flex justify-between">
+                  <span>Plato del dia</span>
+                  <span className="italic font-semibold">RD$ 150</span>
+                </div>
+                <div className="flex flex-col text-sm text-gray-500 pl-3 xl:pl-6">
+                  {data.order.details.filter(item => item.isDailyDish).map(item => (
+                    <span key={item.id}>{item.name}</span>
+                  ))}
+
+                </div>
+              </>
+            )}
+
           </div>
           <div className="flex flex-col gap-2 px-6 xl:px-12 mb-2">
             <div className="w-full text-sm text-gray-500">
-              <span>Extras</span>
+              <span>{isDailyDish ? 'Extras' : 'Productos'}</span>
             </div>
             <div className="flex flex-col text-sm text-gray-500 pl-3 xl:pl-6">
-              <div className="flex justify-between">
-                <span>x Aguacate</span>
-                <span className="italic font-semibold">RD$ 50</span>
-              </div>
-              <div className="flex justify-between">
-                <span>x Jugo Chinola 20Oz</span>
-                <span className="italic font-semibold">RD$ 45</span>
-              </div>
+              {data.order.details.filter(item => !item.isDailyDish).map(item => (
+                <div key={item.id} className="flex justify-between">
+                  <span>{item.name}</span>
+                  <span className="italic font-semibold">RD$ {item.total}</span>
+                </div>
+              ))}
+
+
             </div>
           </div>
           <div>
             <div className="bg-gray-300 py-2 flex justify-end gap-6 px-6 xl:px-12">
               <span className="font-semibold italic">Total:</span>
-              <span className="font-semibold italic">RD$245</span>
+              <span className="font-semibold italic">RD$${data.order.total}</span>
             </div>
             <div className="flex flex-col items-center px-6 xl:px-12 py-4 gap-5">
               <div className="flex gap-2">
                 <span className="font-semibold italic text-blue-900">
                   Estado:
                 </span>
-                <span className="bg-green-500 text-white px-3 font-semibold italic">
-                  Entregado
+                <span className={`${statusColor} text-white px-3 font-semibold italic`}>
+                  {data.order.status.name}
                 </span>
               </div>
               <div className="flex text-blue-900 flex-col items-center text-center italic">
