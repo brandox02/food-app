@@ -2,7 +2,8 @@ import {ApolloProvider as ApolloProviderSource, createHttpLink,ApolloClient, InM
 
 const apolloClient = new ApolloClient({
   uri: `http://localhost:3000/graphql`,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({addTypename: false}),
+  
 })
 
 export const setAuthToken = (token) => {
@@ -10,7 +11,8 @@ export const setAuthToken = (token) => {
     uri: 'http://localhost:3000/graphql',
     headers: {
       'authorization': `Bearer ${token}`
-    }
+    },
+    
   }));
 }
 

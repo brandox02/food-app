@@ -67,8 +67,8 @@ const Register = () => {
                     <RHFSelectWithQuery
                       name={"departmentId"}
                       query={gql`
-                        query DepartmentAll {
-                          items: departmentsAll {
+                        query DepartmentList {
+                          items: departmentList {
                             id
                             createdAt
                             updatedAt
@@ -108,8 +108,8 @@ const Register = () => {
                     label={"Empresa"}
                     name={"companyId"}
                     query={gql`
-                      query CompaniesAll {
-                        items: companiesAll {
+                      query CompanyList {
+                        items: companyList {
                           id
                           createdAt
                           updatedAt

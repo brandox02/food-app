@@ -4,6 +4,7 @@ import { MainGrid } from "../components/customer/home/MainGrid";
 import { TodayOrders } from "../components/customer/home/TodayOrders";
 
 export default function Home() {
+
   const [{ user }] = useAppContext();
   if (user) {
     return (

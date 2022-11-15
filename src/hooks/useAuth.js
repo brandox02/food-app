@@ -47,6 +47,7 @@ export const useAuth = () => {
       query: gql`
         query GetUserInfo {
           getUserInfo {
+            id
             firstname
             lastname
             enabled

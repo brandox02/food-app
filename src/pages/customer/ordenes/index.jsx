@@ -2,10 +2,16 @@ import { Anchor, Breadcrumbs, Tooltip } from '@mantine/core';
 import Head from 'next/head';
 import React from 'react';
 import { FiHome } from 'react-icons/fi';
-import { OrderCard } from '../../../components/customer/home/OrderCard';
+// import { OrderCard } from '../../../components/customer/home/OrderCard';
 import { TodayOrders } from '../../../components/customer/home/TodayOrders';
+import { OrderCard } from '../../../components/order-card';
+import { v4 as generateId } from 'uuid'
+import { useActions } from './useActions';
+
+
 
 const Ordenes = () => {
+  const { ordersComfirmedOrDelivered, ordersOrdenated } = useActions();
   const items = [
     { title: <FiHome />, href: '/' },
     { title: 'Ordenes', href: '/customer/ordenes' },
@@ -37,12 +43,28 @@ const Ordenes = () => {
             <div className="h-[3px] w-20 bg-blue-400 self-start rounded-full"></div>
           </div>
           <div className="grid lg:grid-cols-3 gap-5 lg:gap-10">
-            <OrderCard />
-            <OrderCard />
-            <OrderCard />
+            {ordersOrdenated.map(order => (
+              <OrderCard key={order.id} order={order} />
+            ))}
+
           </div>
         </div>
-        <TodayOrders />
+        <div className="w-full">
+          <div className="w-full flex flex-col gap-5 max-w-[1750px] bg-white mx-auto px-10 lg:px-24 py-8">
+            <div className=" w-fit">
+              <span className="text-blue-900 text-2xl font-semibold">
+                Tus ordenes de hoy
+              </span>
+              <div className="h-[3px] w-40 bg-blue-400 self-start rounded-full"></div>
+            </div>
+            <div className="grid lg:grid-cols-3 gap-5 lg:gap-10">
+              {ordersComfirmedOrDelivered.map(order => (
+                <OrderCard key={order.id} order={order} />
+              ))}
+
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

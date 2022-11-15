@@ -16,7 +16,7 @@ export const useActions = () => {
 
    const onSubmit = async (data) => {
       try {
-         console.log(data);
+
          const payload = pick(data, ['email', 'password']);
          await login(payload);
 

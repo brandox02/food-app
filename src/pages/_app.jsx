@@ -4,25 +4,25 @@ import { Navbar } from "../components/customer/Navbar";
 import { Footer } from "../components/customer/Footer";
 import { AppProvider, useAppContext } from "../AppProvider";
 import { ApolloProvider } from "../ApolloProvider";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-
+import dayjs from 'dayjs';
 // this component redirect to login if the user not be authenticated
-function WithAuth ({children})  {
+function WithAuth({ children }) {
   const [state] = useAppContext();
   const router = useRouter();
 
   useEffect(() => {
-    
+    window.dayjs = dayjs;
     const freePaths = ['/login', '/register'];
-    if(!freePaths.includes(router.pathname) && !state.user){
+    if (!freePaths.includes(router.pathname) && !state.user) {
 
       router.push('/login');
-      
+
     }
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [router.pathname]);
   return children
 
@@ -31,16 +31,16 @@ function WithAuth ({children})  {
 function MyApp({ Component, pageProps }) {
 
 
- 
+
 
   return (
     <AppProvider>
-     <ToastContainer />
+      <ToastContainer />
       <ApolloProvider>
         <WithAuth>
           <div className="min-h-screen bg-[#47ADF5]/20">
             <MantineProvider withGlobalStyles withNormalizeCSS>
-            
+
               <Navbar />
               <Component {...pageProps} />
               <Footer />
@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }) {
           </div>
         </WithAuth>
       </ApolloProvider>
-  
+
     </AppProvider>
   );
 }

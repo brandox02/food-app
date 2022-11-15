@@ -3,8 +3,115 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 import { FiArrowLeft, FiHome, FiPlus } from 'react-icons/fi';
+import { useAppContext } from '../../AppProvider';
+import dayjs from 'dayjs';
+import { v4 as generateId } from 'uuid'
+import { useRouter } from 'next/router';
+
 
 const Extras = () => {
+  const [{ user }, setGlobalState] = useAppContext();
+  const router = useRouter()
+  function onSummary() {
+    // const payload = {
+    //   "details": [
+    //     {
+    //       "name": "Carne Asada",
+    //       "price": 0,
+    //       "quantity": 0,
+    //       "total": 0,
+    //       "isDailyDish": true,
+    //       id: generateId(),
+    //       "comment": ""
+    //     },
+    //     {
+    //       "name": "Arroz Blanco",
+    //       "price": 0,
+    //       "quantity": 0,
+    //       "total": 0,
+    //       "isDailyDish": true,
+    //       id: generateId(),
+    //       "comment": ""
+    //     },
+    //     {
+    //       "name": "Habichuela",
+    //       "price": 0,
+    //       "quantity": 0,
+    //       "total": 0,
+    //       "isDailyDish": true,
+    //       id: generateId(),
+    //       "comment": ""
+    //     },
+    //     {
+    //       "name": "Aguacate",
+    //       "price": 50,
+    //       "quantity": 1,
+    //       "total": 50,
+    //       "isDailyDish": false,
+    //       id: generateId(),
+    //       "comment": ""
+    //     },
+    //     {
+    //       "name": "Bollito de Yuca",
+    //       "price": 50,
+    //       "quantity": 1,
+    //       "total": 50,
+    //       "isDailyDish": false,
+    //       id: generateId(),
+    //       "comment": ""
+    //     },
+
+    //   ],
+    //   "total": 350,
+    //   "userId": user.id,
+    //   "deliverDate": dayjs().toDate(),
+    //   "typeId": 1,
+    //   "dailyDishPrice": 250
+    // }
+
+    const payload = {
+      "details": [
+        {
+          "name": "Aguacate",
+          "price": 50,
+          "quantity": 1,
+          "total": 50,
+          "isDailyDish": false,
+          "id": generateId(),
+          "comment": ""
+        },
+        {
+          "name": "Bollito de Yuca",
+          "price": 50,
+          "quantity": 1,
+          "total": 50,
+          "isDailyDish": false,
+          "id": generateId(),
+          "comment": ""
+        },
+        {
+          "name": "Patica de cerdo",
+          "price": 100,
+          "quantity": 1,
+          "total": 100,
+          "isDailyDish": false,
+          "id": generateId(),
+          "comment": ""
+        },
+
+      ],
+      "total": 200,
+      "userId": user.id,
+      "deliverDate": dayjs().toDate(),
+      "typeId": 2,
+      "dailyDishPrice": 0
+    }
+
+    setGlobalState(state => ({ ...state, toSummary: payload }));
+
+    router.push('/customer/summary');
+  }
+
   const items = [
     { title: <FiHome />, href: '/' },
     { title: 'Plato del día', href: '/customer/lunch' },
@@ -177,11 +284,11 @@ const Extras = () => {
             </div>
           </div>
           <div className="flex justify-center mt-8 px-10 md:px-24">
-            <Link className="w-full" href="/customer/summary">
-              <button className="bg-[#0064CE] rounded-lg py-2 hover:bg-blue-600 text-white uppercase font-semibold w-full">
-                Ver Resumen de Orden
-              </button>
-            </Link>
+
+            <button onClick={onSummary} className="bg-[#0064CE] rounded-lg py-2 hover:bg-blue-600 text-white uppercase font-semibold w-full">
+              Ver Resumen de Orden
+            </button>
+
           </div>
         </div>
       </div>
