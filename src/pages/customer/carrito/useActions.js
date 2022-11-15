@@ -18,6 +18,7 @@ const ORDERS = gql`
          total
          dailyDishPrice
          createdAt
+         deliverDate
       }
 }
 `

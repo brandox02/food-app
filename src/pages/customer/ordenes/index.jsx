@@ -12,7 +12,7 @@ import { useActions } from './useActions';
 
 
 const Ordenes = () => {
-  const { ordersComfirmedOrDelivered, ordersOrdenated } = useActions();
+  const { ordersComfirmedOrDelivered, ordersOrdenated, refetch } = useActions();
   const items = [
     { title: <FiHome />, href: '/' },
     { title: 'Ordenes', href: '/customer/ordenes' },
@@ -46,7 +46,7 @@ const Ordenes = () => {
           </div>
           <div className="grid lg:grid-cols-3 gap-5 lg:gap-10">
             {ordersOrdenated.map(order => (
-              <OrderCard key={order.id} order={order} />
+              <OrderCard key={order.id} order={order} refetchList={refetch} />
             ))}
 
           </div>

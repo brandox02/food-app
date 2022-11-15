@@ -93,7 +93,6 @@ const OrderDetails = () => {
             </div>
             {isDailyDish && (
               <>
-
                 <div className="w-full text-sm text-gray-500 flex justify-between">
                   <span>Plato del dia</span>
                   <span className="italic font-semibold">RD$ 150</span>

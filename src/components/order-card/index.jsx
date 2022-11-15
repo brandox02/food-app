@@ -1,14 +1,37 @@
 import { Tooltip } from '@mantine/core';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import dayjs from 'dayjs';
-import Countdown from 'react-countdown'
+import Countdown from 'react-countdown';
+import { useAppContext } from '../../AppProvider';
+import { gql, useMutation } from '@apollo/client';
 
-export const OrderCard = ({ order }) => {
+const UPDATE_ORDER = gql`
+   mutation UpdateOrder($input: UpdateOrderInput!) {
+      updateOrder(input: $input) {
+      id
+      noOrder
+      status {
+         name
+         id
+      }
+      details {
+         id
+         name
+      }
+  }
+}`
+
+export const OrderCard = ({ order, refetchList }) => {
 
    const isDailyDish = order.typeId === 1;
-   const diff = dayjs().diff(dayjs(order.createdAt), 'milliseconds');
-   const dateWithDiff = dayjs().subtract(diff, 'milliseconds').toDate();
+   const [{ generalParameters }] = useAppContext();
+
+   const minutesToWaitToConfirmOrder = parseInt(generalParameters.find(x => x.id === 1)?.value || 0);
+
+   const dateWithDiff = dayjs(order.createdAt).add(minutesToWaitToConfirmOrder, 'minutes').valueOf();
+
+
    function generateSeq(size, count) {
       const breakpoint = size - count.toString().length;
       const result =
@@ -75,6 +98,15 @@ export const OrderCard = ({ order }) => {
                            <div className="bg-gray-500 py-1.5 flex justify-center">
                               <span className="font-semibold text-white italic">
                                  {'Ordenado'} <Countdown date={dateWithDiff} renderer={({ hours, minutes, seconds, completed }) => {
+                                    if (completed) {
+                                       setTimeout(() => {
+                                          if (order.statusId === 2) {
+                                             console.log('infinity', order.id)
+                                             refetchList();
+                                          }
+                                       }, 2500);
+                                    }
+
                                     return <span>{`${generateSeq(2, hours)}:${generateSeq(2, minutes)}:${generateSeq(2, seconds)}`}</span>
                                  }} />
 

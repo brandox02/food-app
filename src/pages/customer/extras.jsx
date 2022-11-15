@@ -13,71 +13,42 @@ const Extras = () => {
   const [{ user }, setGlobalState] = useAppContext();
   const router = useRouter()
   function onSummary() {
-    const payload = {
-      "details": [
-        {
-          "name": "Carne Asada",
-          "price": 0,
-          "quantity": 0,
-          "total": 0,
-          "isDailyDish": true,
-          id: generateId(),
-          "comment": ""
-        },
-        {
-          "name": "Arroz Blanco",
-          "price": 0,
-          "quantity": 0,
-          "total": 0,
-          "isDailyDish": true,
-          id: generateId(),
-          "comment": ""
-        },
-        {
-          "name": "Habichuela",
-          "price": 0,
-          "quantity": 0,
-          "total": 0,
-          "isDailyDish": true,
-          id: generateId(),
-          "comment": ""
-        },
-        {
-          "name": "Aguacate",
-          "price": 50,
-          "quantity": 1,
-          "total": 50,
-          "isDailyDish": false,
-          id: generateId(),
-          "comment": ""
-        },
-        {
-          "name": "Bollito de Yuca",
-          "price": 50,
-          "quantity": 1,
-          "total": 50,
-          "isDailyDish": false,
-          id: generateId(),
-          "comment": ""
-        },
-
-      ],
-      "total": 350,
-      "userId": user.id,
-      "deliverDate": dayjs().toDate(),
-      "typeId": 1,
-      "dailyDishPrice": 250
-    }
-
     // const payload = {
     //   "details": [
+    //     {
+    //       "name": "Carne Asada",
+    //       "price": 0,
+    //       "quantity": 0,
+    //       "total": 0,
+    //       "isDailyDish": true,
+    //       id: generateId(),
+    //       "comment": ""
+    //     },
+    //     {
+    //       "name": "Arroz Blanco",
+    //       "price": 0,
+    //       "quantity": 0,
+    //       "total": 0,
+    //       "isDailyDish": true,
+    //       id: generateId(),
+    //       "comment": ""
+    //     },
+    //     {
+    //       "name": "Habichuela",
+    //       "price": 0,
+    //       "quantity": 0,
+    //       "total": 0,
+    //       "isDailyDish": true,
+    //       id: generateId(),
+    //       "comment": ""
+    //     },
     //     {
     //       "name": "Aguacate",
     //       "price": 50,
     //       "quantity": 1,
     //       "total": 50,
     //       "isDailyDish": false,
-    //       "id": generateId(),
+    //       id: generateId(),
     //       "comment": ""
     //     },
     //     {
@@ -86,26 +57,55 @@ const Extras = () => {
     //       "quantity": 1,
     //       "total": 50,
     //       "isDailyDish": false,
-    //       "id": generateId(),
-    //       "comment": ""
-    //     },
-    //     {
-    //       "name": "Patica de cerdo",
-    //       "price": 100,
-    //       "quantity": 1,
-    //       "total": 100,
-    //       "isDailyDish": false,
-    //       "id": generateId(),
+    //       id: generateId(),
     //       "comment": ""
     //     },
 
     //   ],
-    //   "total": 200,
+    //   "total": 350,
     //   "userId": user.id,
     //   "deliverDate": dayjs().toDate(),
-    //   "typeId": 2,
-    //   "dailyDishPrice": 0
+    //   "typeId": 1,
+    //   "dailyDishPrice": 250
     // }
+
+    const payload = {
+      "details": [
+        {
+          "name": "Aguacate",
+          "price": 50,
+          "quantity": 1,
+          "total": 50,
+          "isDailyDish": false,
+          "id": generateId(),
+          "comment": ""
+        },
+        {
+          "name": "Bollito de Yuca",
+          "price": 50,
+          "quantity": 1,
+          "total": 50,
+          "isDailyDish": false,
+          "id": generateId(),
+          "comment": ""
+        },
+        {
+          "name": "Patica de cerdo",
+          "price": 100,
+          "quantity": 1,
+          "total": 100,
+          "isDailyDish": false,
+          "id": generateId(),
+          "comment": ""
+        },
+
+      ],
+      "total": 200,
+      "userId": user.id,
+      "deliverDate": dayjs().toDate(),
+      "typeId": 2,
+      "dailyDishPrice": 0
+    }
 
     setGlobalState(state => ({ ...state, toSummary: payload }));
 

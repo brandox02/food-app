@@ -60,10 +60,14 @@ export const useAuth = () => {
               id name
             }
           }
+
+          generalParameters: generalParameterList {
+            id name value
+          }
         }
       `});
 
-    setState(state => ({ ...state, user: response.data.getUserInfo }));
+    setState(state => ({ ...state, user: response.data.getUserInfo, generalParameters: response.data.generalParameters }));
   }
 
   const signin = async (payload) => {
