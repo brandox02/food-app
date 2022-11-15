@@ -1,42 +1,20 @@
 import { Tooltip } from '@mantine/core';
 import Link from 'next/link';
-import React, { use, useEffect, useState } from 'react';
+import React from 'react';
 import dayjs from 'dayjs';
-
+import Countdown from 'react-countdown'
 
 export const OrderCard = ({ order }) => {
 
    const isDailyDish = order.typeId === 1;
-   const diffSeconds = dayjs().diff(dayjs(order.createdAt), 'seconds');
-   const [counterDate, setCounterDate] = useState(dayjs().set('seconds', diffSeconds).set('minutes', 0).set('hours', 0).set('milliseconds', 0));
-   const [intervalToken, setIntervalToken] = useState(false);
-   console.log({ diffSeconds })
-
-   useEffect(() => {
-
-
-      const intervalToken = setInterval(() => {
-         setCounterDate(counter => counter.subtract(1, 'seconds'));
-
-      }, 1000);
-      setIntervalToken(intervalToken);
-
-
-      return () => {
-         clearInterval(intervalToken);
-      }
-      // eslint-disable-next-line
-   }, []);
-
-
-   useEffect(() => {
-      const diff = counterDate.diff(dayjs(), 'seconds');
-      console.log(diff)
-      if (diff < 0) {
-         clearInterval(intervalToken);
-      }
-      //eslint-disable-next-line
-   }, [counterDate])
+   const diff = dayjs().diff(dayjs(order.createdAt), 'milliseconds');
+   const dateWithDiff = dayjs().subtract(diff, 'milliseconds').toDate();
+   function generateSeq(size, count) {
+      const breakpoint = size - count.toString().length;
+      const result =
+         [...Array(breakpoint)].map(() => '0').join('') + count.toString();
+      return result;
+   }
 
    return (
       <Link href={`/customer/ordenes/${order.id}`}>
@@ -96,7 +74,10 @@ export const OrderCard = ({ order }) => {
                         >
                            <div className="bg-gray-500 py-1.5 flex justify-center">
                               <span className="font-semibold text-white italic">
-                                 Ordenado ({counterDate.format('hh:mm:ss')})
+                                 {'Ordenado'} <Countdown date={dateWithDiff} renderer={({ hours, minutes, seconds, completed }) => {
+                                    return <span>{`${generateSeq(2, hours)}:${generateSeq(2, minutes)}:${generateSeq(2, seconds)}`}</span>
+                                 }} />
+
                               </span>
                            </div>
                         </Tooltip>);
