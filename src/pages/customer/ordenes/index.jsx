@@ -1,5 +1,6 @@
-import { Anchor, Breadcrumbs, Tooltip } from '@mantine/core';
+import { Breadcrumbs } from '@mantine/core';
 import Head from 'next/head';
+import Link from 'next/link';
 import React from 'react';
 import { FiHome } from 'react-icons/fi';
 // import { OrderCard } from '../../../components/customer/home/OrderCard';
@@ -16,14 +17,15 @@ const Ordenes = () => {
     { title: <FiHome />, href: '/' },
     { title: 'Ordenes', href: '/customer/ordenes' },
   ].map((item, index) => (
-    <Anchor
-      className="text-[#003579] font-semibold italic"
+    <Link
+      className="text-[#003579] font-semibold italic hover:underline underline-offset-2"
       href={item.href}
       key={index}
     >
       {item.title}
-    </Anchor>
+    </Link>
   ));
+
   return (
     <div className="w-full flex flex-col gap-6">
       <Head>

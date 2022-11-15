@@ -1,6 +1,7 @@
-import { Anchor, Breadcrumbs, Tabs } from '@mantine/core';
+import { Breadcrumbs, Tabs } from '@mantine/core';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import { FiCamera, FiCheckCircle, FiHome } from 'react-icons/fi';
 import { RiLock2Line, RiUser2Fill } from 'react-icons/ri';
@@ -9,15 +10,15 @@ import profilePicture from '../../../public/assets/profilepicture.png';
 const Profile = () => {
   const items = [
     { title: <FiHome />, href: '/' },
-    { title: 'Mi Cuenta', href: '/customer/lunch' },
+    { title: 'Mi Cuenta', href: '/customer/my-account' },
   ].map((item, index) => (
-    <Anchor
-      className="text-[#003579] font-semibold italic"
+    <Link
+      className="text-[#003579] font-semibold italic hover:underline underline-offset-2"
       href={item.href}
       key={index}
     >
       {item.title}
-    </Anchor>
+    </Link>
   ));
   const [saved, setSaved] = useState(false);
   return (

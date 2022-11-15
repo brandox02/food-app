@@ -1,4 +1,4 @@
-import { Anchor, Breadcrumbs } from '@mantine/core';
+import { Breadcrumbs } from '@mantine/core';
 import Head from 'next/head';
 import Link from 'next/link';
 import Router from 'next/router';
@@ -11,13 +11,13 @@ const OrderDetails = () => {
     { title: 'Ordenes', href: '/customer/ordenes' },
     { title: 'Detalles', href: '/customer/ordenes/detalles' },
   ].map((item, index) => (
-    <Anchor
-      className="text-[#003579] font-semibold italic"
+    <Link
+      className="text-[#003579] font-semibold italic hover:underline underline-offset-2"
       href={item.href}
       key={index}
     >
       {item.title}
-    </Anchor>
+    </Link>
   ));
 
   return (
