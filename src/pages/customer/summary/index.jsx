@@ -21,13 +21,13 @@ const Summary = ({ }) => {
     { title: 'Plato del día', href: '/customer/lunch' },
     { title: 'Resumen', href: '/customer/summary' },
   ].map((item, index) => (
-    <Anchor
+    <Link
       className="text-[#003579] font-semibold italic"
       href={item.href}
       key={index}
     >
       {item.title}
-    </Anchor>
+    </Link>
   ));
 
   // const [ordered, setOrdered] = useState(false);

@@ -6,7 +6,7 @@ export const Footer = () => {
           <span className="text-blue-900 font-semibold italic">
             ¿Necesitas ayuda? Envianos un correo al:
           </span>
-          <span className="underline underline-offset-2 italic text-blue-400 font-semibold" onClick={mail}>
+          <span className="underline underline-offset-2 italic text-blue-400 font-semibold">
             example@gmail.com
           </span>
         </div>
