@@ -76,9 +76,9 @@ const AdminLayout = ({ children }) => {
                       <Menu.Divider />
                     </>
                   )}
-                  <Link href="/customer/my-account">
+                  <Link href="/admin/account">
                     <Menu.Item className="text-gray-500 font-[poppins] px-5">
-                      Mi Cuenta
+                      Cuenta
                     </Menu.Item>
                   </Link>
                   <Menu.Item className="text-red-400 font-[poppins] px-5">
@@ -87,16 +87,6 @@ const AdminLayout = ({ children }) => {
                   <Link href="/">
                     <Menu.Item className="text-gray-500 font-[poppins] px-5">
                       Portal Empleados
-                    </Menu.Item>
-                  </Link>
-                  <Link href="/admin/dashboard">
-                    <Menu.Item className="text-gray-500 font-[poppins] px-5">
-                      Gestion EMP - Admin
-                    </Menu.Item>
-                  </Link>
-                  <Link href="/enterprise/dashboard">
-                    <Menu.Item className="text-gray-500 font-[poppins] px-5">
-                      Gestion Empresarial
                     </Menu.Item>
                   </Link>
                 </Menu.Dropdown>
