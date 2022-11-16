@@ -6,13 +6,13 @@ export const TextInput = ({
   placeholder = "",
   type = "text",
 }) => {
-  const { register,watch } = useFormContext();
+  const { register } = useFormContext();
 
   return (
     <Controller
       name={name}
       render={({ field, fieldState: { error } }) => {
-        
+
         return (
           <>
             {customInput || (
@@ -26,11 +26,11 @@ export const TextInput = ({
             )}
             {error && (
               <span className="font-[poppins] text-sm md:text-base text-[red] font-semibold">
-                
+
                 {error.type === "required" ? 'Este campo es requerido' : error.message}
               </span>
             )}
-            
+
           </>
         );
       }}
