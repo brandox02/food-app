@@ -6,10 +6,9 @@ import { FiHome, FiSearch } from 'react-icons/fi';
 import { RiBrush3Line } from 'react-icons/ri';
 import { RHFSelect } from '../../../components/react-hook-form/RHFSelect';
 import { RHFDatePicker } from '../../../components/react-hook-form/RHFDatePicker';
-import { FormProvider } from '../../../components/react-hook-form/FormProvider'
+import { FormProvider } from '../../../components/react-hook-form/FormProvider';
 import { useActions } from './useActions';
 import dayjs from 'dayjs';
-
 
 const useStyles = createStyles(() => ({
   input: {
@@ -20,9 +19,9 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-
 const Historial = () => {
-  const { methods, onAction, clear, orders, moneyAccumulatedMonth } = useActions()
+  const { methods, onAction, clear, orders, moneyAccumulatedMonth } =
+    useActions();
 
   const rows = orders.map((order) => (
     <tr key={order.id}>
@@ -49,7 +48,6 @@ const Historial = () => {
     </Link>
   ));
 
-
   return (
     <div className="w-full flex flex-col gap-6">
       <Head>
@@ -67,9 +65,8 @@ const Historial = () => {
           </span>
           <div className="h-[3px] w-44 bg-blue-400 self-start rounded-full"></div>
         </div>
-        <div className="w-full flex flex-col gap-5 lg:gap-0 md:flex-row flex-wrap">
-          <FormProvider methods={methods} onSubmit={onAction}>
-
+        <FormProvider methods={methods} onSubmit={onAction}>
+          <div className="w-full flex flex-col gap-5 lg:gap-0 md:flex-row flex-wrap">
             <div className="w-full lg:w-9/12 2xl:w-10/12 grid md:grid-cols-3 gap-3 lg:gap-5 pr-2">
               <div className="flex flex-col gap-1">
                 <span className="text-[#003579] font-[poppins] text-sm">
@@ -77,41 +74,44 @@ const Historial = () => {
                 </span>
 
                 <RHFSelect
-                  name={"keyDateId"}
-                  items={[{ id: 1, name: 'Orden' }, { id: 2, name: 'Entrega' }]}
+                  name={'keyDateId'}
+                  items={[
+                    { id: 1, name: 'Orden' },
+                    { id: 2, name: 'Entrega' },
+                  ]}
                 />
               </div>
               <div className="flex flex-col gap-1">
                 <span className="text-[#003579] font-[poppins] text-sm">
                   Desde:
                 </span>
-                <RHFDatePicker
-                  name={'fromDate'}
-                />
+                <RHFDatePicker name={'fromDate'} />
               </div>
               <div className="flex flex-col gap-1">
                 <span className="text-[#003579] font-[poppins] text-sm">
                   Hasta:
                 </span>
-                <RHFDatePicker
-                  name={'toDate'}
-                />
+                <RHFDatePicker name={'toDate'} />
               </div>
             </div>
 
             <div className="w-full lg:w-3/12 2xl:w-2/12 flex lg:justify-end items-end gap-3">
               <button className="flex gap-1 text-sm bg-blue-600 hover:bg-blue-500 text-white uppercase items-center rounded-lg px-3 py-2">
                 <FiSearch />
-                <span><button type='submit'>Buscar</button></span>
+                <span>
+                  <button type="submit">Buscar</button>
+                </span>
               </button>
-              <button onClick={clear} className="flex gap-1 text-sm bg-red-500 hover:bg-red-400 text-white uppercase items-center rounded-lg px-3 py-2">
+              <button
+                onClick={clear}
+                className="flex gap-1 text-sm bg-red-500 hover:bg-red-400 text-white uppercase items-center rounded-lg px-3 py-2"
+              >
                 <RiBrush3Line />
                 <span>Limpiar</span>
               </button>
             </div>
-
-          </FormProvider>
-        </div>
+          </div>
+        </FormProvider>
         <div>
           <div id="scrollbar" className="w-full overflow-auto mt-6">
             <Table highlightOnHover verticalSpacing="sm">
@@ -129,7 +129,8 @@ const Historial = () => {
             </Table>
           </div>
           <div className="w-full flex text-blue-900 justify-end italic px-3 sm:px-5 md:px-10 text-sm md:text-base bg-gray-100 py-1.5 font-semibold gap-1">
-            Total en Curso: <span className="text-[#4868ae]">RD${moneyAccumulatedMonth}</span>
+            Total en Curso:{' '}
+            <span className="text-[#4868ae]">RD${moneyAccumulatedMonth}</span>
           </div>
         </div>
         <div className="w-full flex justify-end text-right text-xs italic text-blue-900 font-[poppins] mb-3">
