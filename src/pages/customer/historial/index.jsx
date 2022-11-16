@@ -1,4 +1,4 @@
-import { Breadcrumbs, Select, createStyles, Table } from '@mantine/core';
+import { Breadcrumbs, Select, createStyles, Table, Pagination } from '@mantine/core';
 
 import Head from 'next/head';
 import Link from 'next/link';
@@ -10,32 +10,21 @@ import { FormProvider } from '../../../components/react-hook-form/FormProvider'
 import { useActions } from './useActions';
 import dayjs from 'dayjs';
 
-
-const useStyles = createStyles(() => ({
-  input: {
-    borderWidth: 2,
-    borderRadius: 10,
-    borderColor: '#1A579A',
-    fontFamily: 'poppins',
-  },
-}));
-
-
 const Historial = () => {
-  const { methods, onAction, clear, orders, moneyAccumulatedMonth } = useActions()
+  const { methods, onAction, clear, orders, moneyAccumulatedMonth, page, setPage, totalPages } = useActions()
 
   const rows = orders.map((order) => (
     <tr key={order.id}>
       <td>{order.noOrder}</td>
       <td>{dayjs(order.createdDate).format('DD/MM/YYYY')}</td>
       <td>{dayjs(order.deliverDate).format('DD/MM/YYYY')}</td>
-      <td>{'Algun producto'}</td>
-      <td>{0}</td>
+      <td>{order.type.name}</td>
+      {/* <td>{0}</td> */}
       <td>{order.total}</td>
     </tr>
   ));
 
-  const { classes } = useStyles();
+
   const items = [
     { title: <FiHome />, href: '/' },
     { title: 'Historial de Consumos', href: '/customer/historial' },
@@ -120,13 +109,14 @@ const Historial = () => {
                   <th>No. Orden</th>
                   <th>Fecha Orden</th>
                   <th>Fecha Entrega</th>
-                  <th>Productos</th>
-                  <th>Cantidad</th>
+                  <th>Tipo de Orden</th>
+                  {/* <th>Cantidad</th> */}
                   <th>Total</th>
                 </tr>
               </thead>
               <tbody className="font-[poppins]">{rows}</tbody>
             </Table>
+            <Pagination page={page} onChange={setPage} total={totalPages} />
           </div>
           <div className="w-full flex text-blue-900 justify-end italic px-3 sm:px-5 md:px-10 text-sm md:text-base bg-gray-100 py-1.5 font-semibold gap-1">
             Total en Curso: <span className="text-[#4868ae]">RD${moneyAccumulatedMonth}</span>

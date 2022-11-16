@@ -28,7 +28,7 @@ export const useActions = () => {
          where: {
             userId: user?.id, 
             fromDate: today,
-            filterDateByDelivered: true,
+            filterDateByDelivered: false,
             toDate: today,
          }
       }

@@ -30,19 +30,19 @@ export default function Home() {
 
   const [{ user }] = useAppContext();
   const today = dayjs().format('YYYY-MM-DD');
-  const { data } = useQuery(ORDERS, {
+  const { data, refetch } = useQuery(ORDERS, {
     fetchPolicy: 'cache-and-network',
     variables: {
       where: {
         userId: user?.id,
         fromDate: today,
-        filterDateByDelivered: true,
+        filterDateByDelivered: false,
         toDate: today,
       }
     }
   });
 
-  const orders = data?.orders || [];
+  const orders = (data?.orders || []).filter(order => [2, 3, 4].includes(order.statusId));
 
   const items = [
     { title: <FiHome />, href: '/' },
@@ -83,7 +83,7 @@ export default function Home() {
             </div>
             <div className="grid lg:grid-cols-3 gap-5 lg:gap-10">
               {orders.map(order => (
-                <OrderCard order={order} key={order.id} />
+                <OrderCard order={order} key={order.id} refetchList={refetch} />
               ))}
 
             </div>

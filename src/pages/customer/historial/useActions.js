@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { gql, useLazyQuery, useQuery } from "@apollo/client"
 import { useAppContext } from '../../../AppProvider'
 import dayjs from "dayjs"
+import { useState } from "react"
 // const schema= yup.object({
 //    keyDateId: yup.number().required(), fromDate: yup.date().required(), toDate: yup.date().required()
 // });
@@ -11,17 +12,27 @@ import dayjs from "dayjs"
 const QUERY = gql`
    query Orders($page: Float,$where: OrderWhereInput) {
    orders(page: $page, where: $where) {
-      id
-      createdAt
-      deliverDate
-      noOrder
-      details {
-         name
-         price
-         quantity
+      items {
+         id
+         createdAt
+         deliverDate
+         noOrder
+         type {
+            name id
+         }
+         details {
+            name
+            price
+            quantity
+            total
+         }
          total
       }
-      total
+      metadata {
+         totalItems
+         perPage
+         totalPages
+      }
   }
   moneyAccumulatedMonth
 }
@@ -29,7 +40,7 @@ const QUERY = gql`
 
 export const useActions = () => {
    const [{ user }] = useAppContext()
-
+   const [page, setPage] = useState(1);
 
    const methods = useForm({
       // resolver: yupResolver(schema),
@@ -44,11 +55,13 @@ export const useActions = () => {
             "fromDate": dayjs(methods.watch('fromDate') || new Date()).format('YYYY-MM-DD'),
             "filterDateByDelivered": methods.watch('keyDateId') === 2,
             "toDate": dayjs(methods.watch('toDate') || new Date()).format('YYYY-MM-DD'),
-         }, page: 0
-      }
+         }, page: page -1
+      },
+      fetchPolicy: 'cache-and-network'
    });
 
-   const orders = data?.orders || [];
+   const orders = data?.orders.items || [];
+   const totalPages = data?.orders?.metadata?.totalPages || 0;
 
    const onAction = async (data) => {
       
@@ -61,5 +74,5 @@ export const useActions = () => {
 
    }
 
-   return { methods, onAction, clear, orders, moneyAccumulatedMonth: data?.moneyAccumulatedMonth || 0 }
+   return { methods, onAction, clear, orders, moneyAccumulatedMonth: data?.moneyAccumulatedMonth || 0, page,setPage,totalPages }
 }

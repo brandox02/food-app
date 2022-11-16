@@ -1,9 +1,12 @@
 import { Anchor, Breadcrumbs, Collapse, Textarea } from '@mantine/core';
+import dayjs from 'dayjs';
 import Head from 'next/head';
 import Link from 'next/link';
 import Router from 'next/router';
-import React, { useState } from 'react';
-import { FiArrowLeft, FiCheckCircle, FiHome } from 'react-icons/fi';
+import React, { useEffect, useState } from 'react';
+import { FiArrowLeft, FiHome } from 'react-icons/fi';
+import { toast } from 'react-toastify';
+import { useAppContext } from '../../../AppProvider';
 import { OrderSummary } from '../../../components/order-summary';
 import { useActions } from './useActions';
 
@@ -13,6 +16,18 @@ import { useActions } from './useActions';
 
 
 const Summary = ({ }) => {
+  const [{ generalParameters }] = useAppContext();
+  const hourLimit = parseInt(generalParameters.find(item => item.id === 2)?.value || 0);
+  const [canOrder, setCanOrder] = useState(true)
+  useEffect(() => {
+    const countDownDate = dayjs().set('hours', hourLimit).set('minutes', 0).set('seconds', 0).set('millisecond', 0);
+    if (countDownDate.diff(dayjs(), 'milliseconds') < 0) {
+      setCanOrder(false);
+      toast.error('Ya paso el tiempo para poder ordenar por hoy');
+    }
+
+    // eslint-disable-next-line
+  }, []);
 
   const { createOrder, order, setOrder } = useActions();
 
@@ -95,6 +110,7 @@ const Summary = ({ }) => {
           <div className="flex justify-between mt-8 px-10 md:px-24">
             <button
               onClick={() => createOrder({ statusId: 1 })}
+              disabled={!canOrder}
               className={
                 'bg-blue-500 rounded-lg py-2 hover:bg-blue-400 text-white uppercase font-semibold w-full'
               }
@@ -103,6 +119,7 @@ const Summary = ({ }) => {
             </button>
             <button
               onClick={() => createOrder({ statusId: 2 })}
+              disabled={!canOrder}
               className={
                 true
                   ? 'bg-gray-300 rounded-lg py-2 hover:bg-gray-200 text-white uppercase font-semibold w-full'

@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 export const MainGrid = ({ orderTotal = '245', accMount = 0 }) => {
 
   const [{ generalParameters }] = useAppContext();
-  const hourLimit = parseInt(generalParameters.find(item => item.id === 2).value);
+  const hourLimit = parseInt(generalParameters.find(item => item.id === 2)?.value || 0);
 
   const countDownDate = dayjs().set('hours', hourLimit).set('minutes', 0).set('seconds', 0).set('millisecond', 0).valueOf();
   function generateSeq(size, count) {

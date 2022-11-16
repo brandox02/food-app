@@ -7,8 +7,14 @@ import meatIcon from '../../../public/icons/meatIcon.svg';
 import saladIcon from '../../../public/icons/saladIcon.svg';
 import Link from 'next/link';
 import { FiHome } from 'react-icons/fi';
+import { useAppContext } from '../../AppProvider';
 
 const Lunch = () => {
+  const [{ generalParameters }] = useAppContext();
+  const dailyDishPrice = parseFloat(generalParameters.find(item => item.id === 3)?.value || 0);
+
+
+
   const items = [
     { title: <FiHome />, href: '/' },
     { title: 'Plato del día', href: '/customer/lunch' },
@@ -37,7 +43,7 @@ const Lunch = () => {
             <span>
               Este es nuestro menú del día de hoy, recuerda que el monto total
               del plato del día sin importar la opción que selecciones es de{' '}
-              <span className="font-semibold">RD$150.00</span>
+              <span className="font-semibold">RD${dailyDishPrice}</span>
             </span>
           </div>
           <div className="flex flex-col gap-6 mb-10">
