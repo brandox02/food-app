@@ -234,7 +234,7 @@ const AdminLayout = ({ children }) => {
           </div>
           <div
             id="scrollbar"
-            className="w-full h-full bg-white overflow-auto px-5 py-8"
+            className="w-full h-full bg-white overflow-auto p-6"
           >
             {children}
           </div>

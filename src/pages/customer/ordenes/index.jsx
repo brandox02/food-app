@@ -6,10 +6,8 @@ import { FiHome } from 'react-icons/fi';
 // import { OrderCard } from '../../../components/customer/home/OrderCard';
 import { TodayOrders } from '../../../components/customer/home/TodayOrders';
 import { OrderCard } from '../../../components/order-card';
-import { v4 as generateId } from 'uuid'
+import { v4 as generateId } from 'uuid';
 import { useActions } from './useActions';
-
-
 
 const Ordenes = () => {
   const { ordersComfirmedOrDelivered, ordersOrdenated, refetch } = useActions();
@@ -42,13 +40,12 @@ const Ordenes = () => {
             <span className="text-blue-900 text-2xl font-semibold">
               Pendientes por confirmar
             </span>
-            <div className="h-[3px] w-30 bg-blue-400 self-start rounded-full"></div>
+            <div className="h-[3px] w-52 bg-blue-400 self-start rounded-full"></div>
           </div>
           <div className="grid lg:grid-cols-3 gap-5 lg:gap-10">
-            {ordersOrdenated.map(order => (
+            {ordersOrdenated.map((order) => (
               <OrderCard key={order.id} order={order} refetchList={refetch} />
             ))}
-
           </div>
         </div>
         <div className="w-full">
@@ -57,13 +54,12 @@ const Ordenes = () => {
               <span className="text-blue-900 text-2xl font-semibold">
                 Tus ordenes de hoy
               </span>
-              <div className="h-[3px] w-50 bg-blue-400 self-start rounded-full"></div>
+              <div className="h-[3px] w-40 bg-blue-400 self-start rounded-full"></div>
             </div>
             <div className="grid lg:grid-cols-3 gap-5 lg:gap-10">
-              {ordersComfirmedOrDelivered.map(order => (
+              {ordersComfirmedOrDelivered.map((order) => (
                 <OrderCard key={order.id} order={order} />
               ))}
-
             </div>
           </div>
         </div>
