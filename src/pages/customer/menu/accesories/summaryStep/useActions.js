@@ -1,8 +1,9 @@
 import { gql, useMutation } from '@apollo/client';
 import { omit } from 'lodash';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAppContext } from '../../../AppProvider';
+import { useAppContext } from '../../../../../AppProvider';
 
 const CREATE_ORDER_MUTATION = gql`
    mutation CreateOrder($createOrderInput: CreateOrderInput!) {
@@ -22,15 +23,27 @@ const CREATE_ORDER_MUTATION = gql`
    }
 `
 
-export const useActions = () => {
-   const [{ toSummary }, setGlobalState] = useAppContext();
+export const useActions = ({summaryPayload, setSummaryPayload}) => {
+   const [{ generalParameters }] = useAppContext();
   
    const [createOrderMutation] = useMutation(CREATE_ORDER_MUTATION);
    const router = useRouter();
+   const [canOrder, setCanOrder] = useState(true);
+
+   useEffect(() => {
+    const hourLimit = parseInt(generalParameters.find(item => item.id === 2)?.value || 0);
+    const countDownDate = dayjs().set('hours', hourLimit).set('minutes', 0).set('seconds', 0).set('millisecond', 0);
+    if (countDownDate.diff(dayjs(), 'milliseconds') < 0) {
+      setCanOrder(false);
+      toast.error('Ya paso el tiempo para poder ordenar por hoy');
+    }
+
+    // eslint-disable-next-line
+  }, []);
 
    async function createOrder({ statusId }) {
       try {
-         let payload = { statusId, ...toSummary};
+         let payload = { statusId, ...summaryPayload};
          payload.details = payload.details.map(item => omit(item, 'id'));
          
          await createOrderMutation({ variables: { createOrderInput: payload } });
@@ -48,8 +61,5 @@ export const useActions = () => {
    }
 
 
-
-   const setOrder = (order) => setGlobalState(state => ({...state, toSummary: order}));
-
-   return { order: toSummary, setOrder, createOrder }
+   return { order: summaryPayload, setOrder: setSummaryPayload, createOrder, canOrder }
 }

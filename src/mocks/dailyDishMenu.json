@@ -1,0 +1,179 @@
+{
+   "typeId": 1,
+   "items": [
+      {
+         "id": "id-de-arroz",
+         "extra": false,
+         "fieldsetTypeId": 1,
+         "header": {
+            "name": "Arroz",
+            "imageUrl": "https://googla.com/anImage.png"
+         },
+         "items": [
+            {
+               "name": "Arroz blanco",
+               "imageUrl": "https://googla.com/anIç√mage.png",
+               "id": "Arroz blanco-con-id"
+            },
+            {
+               "name": "Moro de guandules",
+               "imageUrl": "https://googla.com/anIç√mage.png",
+               "id": "Moro de guandules-con-id"
+            },
+            {
+               "name": "Moro de habichuela",
+               "imageUrl": "https://googla.com/anIç√mage.png",
+               "id": "Moro de habichuela-con-id"
+            }
+         ]
+      },
+      {
+         "id": "id-de-carne",
+         "fieldsetTypeId": 1,
+         "extra": false,
+         "header": {
+            "name": "Carne",
+            "imageUrl": "https://googla.com/anImage.png"
+         },
+         "items": [
+            {
+               "name": "Pechuga a la plancha",
+               "imageUr ": "https://googla.com/anIç√mage.png",
+               "id": "Pechuga a la plancha-con-id",
+               "price": 0
+            },
+            {
+               "name": "Carne molida",
+               "imageUrl": "https://googla.com/anIç√mage.png",
+               "id": "Carne molida-con-id",
+               "price": 0
+            }
+         ]
+      },
+      {
+         "id": "id-de-ensalada",
+         "fieldsetTypeId": 1,
+         "extra": false,
+         "header": {
+            "name": "Ensaladas",
+            "imageUrl": "https://googla.com/anImage.png"
+         },
+         "items": [
+            {
+               "name": "Ensalada de Codito",
+               "imageUr ": "https://googla.com/anIç√mage.png",
+               "id": "122",
+               "price": 0
+            },
+            {
+               "name": "Ensalada de Pasta",
+               "imageUrl": "https://googla.com/anIç√mage.png",
+               "id": "2132",
+               "price": 0
+            }
+         ]
+      },
+      {
+         "id": "Acompañantes-id-bro",
+         "extra": true,
+         "fieldsetTypeId": 1,
+         "header": {
+            "name": "Acompañantes",
+            "imageUrl": "https://googla.com/anImage.png"
+         },
+         "items": [
+            {
+               "name": "Platano maduro frito",
+               "imageUrl": "https://googla.com/anIç√mage.png",
+               "id": "Platano maduro frito-id",
+               "price": 35
+            },
+            {
+               "name": "Bollitos de yuca",
+               "imageUrl": "https://googla.com/anIç√mage.png",
+               "id": "Bollitos de yuca-id",
+               "price": 40
+            }
+         ]
+      },
+      {
+         "extra": true,
+         "fieldsetTypeId": 2,
+         "id": "jugos-id",
+         "header": {
+            "name": "Jugos",
+            "imageUrl": "https://googla.com/anImage.png"
+         },
+         "sizes": [
+            {
+               "name": "Pequeño",
+               "price": 35,
+               "id": "Pequeño-id"
+            },
+            {
+               "name": "Grande",
+               "price": 50,
+               "id": "Grande-id"
+            }
+         ],
+         "flavors": [
+            {
+               "name": "Chinola",
+               "id": "Chinola-id"
+            },
+            {
+               "name": "Tamarindo",
+               "id": "Tamarindo-id"
+            },
+            {
+               "name": "Piña",
+               "id": "uuid:Piña-id"
+            }
+         ]
+      },
+      {
+         "extra": true,
+         "fieldsetTypeId": 2,
+         "id": "refrescos-id",
+         "header": {
+            "name": "Refrescos",
+            "imageUrl": "https://googla.com/anImage.png"
+         },
+         "sizes": [
+            {
+               "name": "100onzas",
+               "price": 35,
+               "id": "Pequeño-id"
+            },
+            {
+               "name": "120onzas",
+               "price": 50,
+               "id": "120onzas"
+            },
+            {
+               "name": "160onzas",
+               "price": 80,
+               "id": "160onzas"
+            }
+         ],
+         "flavors": [
+            {
+               "name": "Pepsi",
+               "id": "Pepsi-id"
+            },
+            {
+               "name": "cocacola",
+               "id": "cocacola-id"
+            },
+            {
+               "name": "Uva",
+               "id": "uva-id"
+            },
+            {
+               "name": "Merengue",
+               "id": "merengue-id"
+            }
+         ]
+      }
+   ]
+}

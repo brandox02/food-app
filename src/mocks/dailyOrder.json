@@ -1,0 +1,54 @@
+{
+   "details": [
+      {
+         "name": "Carne Asada",
+         "price": 0,
+         "quantity": 0,
+         "total": 0,
+         "isDailyDish": true,
+         "id": "fdsfsd",
+         "comment": ""
+      },
+      {
+         "name": "Arroz Blanco",
+         "price": 0,
+         "quantity": 0,
+         "total": 0,
+         "isDailyDish": true,
+         "id": "fsdfds",
+         "comment": ""
+      },
+      {
+         "name": "Habichuela",
+         "price": 0,
+         "quantity": 0,
+         "total": 0,
+         "isDailyDish": true,
+         "id": "dgsfds2",
+         "comment": ""
+      },
+      {
+         "name": "Aguacate",
+         "price": 50,
+         "quantity": 1,
+         "total": 50,
+         "isDailyDish": false,
+         "id": "dsgdf22",
+         "comment": ""
+      },
+      {
+         "name": "Bollito de Yuca",
+         "price": 50,
+         "quantity": 1,
+         "total": 50,
+         "isDailyDish": false,
+         "id": "fdsfds",
+         "comment": ""
+      }
+   ],
+   "total": 350,
+   "userId": 1,
+   "deliverDate": "2022-10-11",
+   "typeId": 1,
+   "dailyDishPrice": 250
+}

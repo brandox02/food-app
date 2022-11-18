@@ -1,0 +1,36 @@
+{
+   "details": [
+      {
+         "name": "Aguacate",
+         "price": 50,
+         "quantity": 1,
+         "total": 50,
+         "isDailyDish": false,
+         "id": "dsfds02",
+         "comment": ""
+      },
+      {
+         "name": "Bollito de Yuca",
+         "price": 50,
+         "quantity": 1,
+         "total": 50,
+         "isDailyDish": false,
+         "id": "dsvds1",
+         "comment": ""
+      },
+      {
+         "name": "Patica de cerdo",
+         "price": 100,
+         "quantity": 1,
+         "total": 100,
+         "isDailyDish": false,
+         "id": "dsdfs0",
+         "comment": ""
+      }
+   ],
+   "total": 200,
+   "userId": 1,
+   "deliverDate": "2022-10-22",
+   "typeId": 1,
+   "dailyDishPrice": 0
+}

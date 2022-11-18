@@ -107,7 +107,7 @@ export const Navbar = () => {
       <div className=" sm:px-5 lg:px-24 hidden sm:flex mb-6">
         <div className="md:max-w-[1750px] bg-[#1A579A] rounded-lg mx-auto w-full flex  flex-wrap justify-center xl:justify-between px-2 md:px-10 min-h-[50px] py-4 gap-4  ">
           <div className="flex gap-10">
-            <Link href="/customer/lunch">
+            <Link href="/customer/menu">
               <button
                 className={
                   router.pathname == '/customer/lunch'

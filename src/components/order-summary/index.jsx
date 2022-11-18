@@ -27,17 +27,11 @@ export function OrderSummary({ order, setOrder }) {
                   </div>
                 </div>
                 <div>
-                  {/* <span className="italic font-semibold">RD$ {item.price}</span> */}
                 </div>
               </div>
               <div className="">
                 <Collapse in={opened}>
                   <Textarea maxLength={200} size="xs" value={item.comment} onChange={(evt) => setComment({ value: evt.currentTarget.value, id: item.id })} />
-                  <div className="flex justify-center items-center pt-4">
-                    <button className="px-3 py-1 hover:bg-blue-700 bg-blue-800 rounded-full text-sm text-white font-semibold uppercase">
-                      Guardar
-                    </button>
-                  </div>
                 </Collapse>
               </div>
             </div>
@@ -53,11 +47,9 @@ export function OrderSummary({ order, setOrder }) {
       ))}
 
     </div>
-    <div className="flex flex-col w-[90%] border-b py-2 px-2 sm:px-6 xl:px-12">
-      <div className="w-full text-sm text-gray-500">
-        <span>Extras</span>
-      </div>
-    </div></>
+  </>
+
+  const thereAreExtra = restDetails.length > 0;
 
   return <> <div className="flex flex-col w-full font-[poppins]" key={order.id}>
     <span className="text-2xl text-[#1A579A] font-semibold italic pl-2">
@@ -69,17 +61,25 @@ export function OrderSummary({ order, setOrder }) {
     <div className="flex flex-col">
 
       {dailyDishJsx}
-      {/* ----------------- COMPONENTE TABLE HEADER------------------- */}
-      <div className="flex flex-col w-[90%] bg-blue-100 border-b py-1 italic font-semibold text-blue-900 px-3 sm:px-8 xl:px-14">
-        <div className="flex justify-between">
-          <div className="flex gap-9 md:gap-0 truncate">
-            <span className="md:max-w-[90px] md:min-w-[90px]">Cant.</span>
-            <span className="truncate">Producto</span>
+
+      {orderTypeId === 1 && thereAreExtra && <>
+        <div className="flex flex-col w-[90%] border-b py-2 px-2 sm:px-6 xl:px-12">
+          <div className="w-full text-sm text-gray-500">
+            <span>Extras</span>
           </div>
-          <div>Precio</div>
-          <div>Total</div>
         </div>
-      </div>
+
+        <div className="flex flex-col w-[90%] bg-blue-100 border-b py-1 italic font-semibold text-blue-900 px-3 sm:px-8 xl:px-14">
+          <div className="flex justify-between">
+            <div className="flex gap-9 md:gap-0 truncate">
+              <span className="md:max-w-[90px] md:min-w-[90px]">Cant.</span>
+              <span className="truncate">Producto</span>
+            </div>
+            <div>Precio</div>
+            <div>Total</div>
+          </div>
+        </div>
+      </>}
 
       {restDetails.map((item, index) => (
         <>
@@ -114,11 +114,6 @@ export function OrderSummary({ order, setOrder }) {
               <div>
                 <Collapse in={opened2}>
                   <Textarea maxLength={200} value={item.comment} size="xs" onChange={(evt) => setComment({ value: evt.currentTarget.value, id: item.id })} />
-                  <div className="flex justify-center items-center pt-4">
-                    <button className="px-3 py-1 hover:bg-blue-700 bg-blue-800 rounded-full text-sm text-white font-semibold uppercase">
-                      Guardar
-                    </button>
-                  </div>
                 </Collapse>
               </div>
             </div>
