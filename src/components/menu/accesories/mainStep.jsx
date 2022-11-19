@@ -1,10 +1,8 @@
 import { Radio } from "@mantine/core";
 import Image from "next/image";
-import { useAppContext } from "../../../../AppProvider";
-import riceIcon from '../../../../../public/icons/riceIcon.svg';
+import { useAppContext } from "../../../AppProvider";
+import riceIcon from '../../../../public/icons/riceIcon.svg';
 import { Controller, useFormContext } from "react-hook-form";
-// import meatIcon from '../../../../../public/icons/meatIcon.svg';
-// import saladIcon from '../../../../../public/icons/saladIcon.svg';
 
 export function RadioGroup({ item }) {
    const { setValue, trigger, formState: { isSubmitted } } = useFormContext();

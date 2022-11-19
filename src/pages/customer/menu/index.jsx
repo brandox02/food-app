@@ -3,14 +3,11 @@ import Head from 'next/head';
 import React from 'react';
 import Link from 'next/link';
 import { FiHome } from 'react-icons/fi';
-import { MainStep } from './accesories/mainStep';
-import { ExtrasStep } from './accesories/ExtrasStep';
-import { useActions } from './useActions';
-import { FormProvider } from '../../../components/react-hook-form/FormProvider';
-import { SummaryStep } from './accesories/summaryStep';
+import { Menu } from '../../../components/menu'
+import { useActions } from './useActions'
 
-const Menu = () => {
-  const { currentStep, setCurrentStep, stepOneItems, extraStepItems, methods, onAction, summaryPayload, setSummaryPayload } = useActions()
+const MenuPage = () => {
+  const { menu } = useActions()
 
   const items = [
     { title: <FiHome />, href: '/' },
@@ -34,13 +31,9 @@ const Menu = () => {
       <div className="w-full max-w-[1750px] mx-auto lg:px-24 px-5">
         <Breadcrumbs separator=">">{items}</Breadcrumbs>
       </div>
-      <FormProvider methods={methods} onSubmit={onAction}>
-        {currentStep === 1 && <MainStep items={stepOneItems} />}
-        {currentStep === 2 && <ExtrasStep goBack={() => setCurrentStep(1)} items={extraStepItems} />}
-        {currentStep === 3 && <SummaryStep goBack={() => setCurrentStep(2)} summaryPayload={summaryPayload} setSummaryPayload={setSummaryPayload} />}
-      </FormProvider>
+      <Menu menu={menu} />
     </div>
   );
 };
 
-export default Menu;
+export default MenuPage;

@@ -3,7 +3,7 @@ import { omit } from 'lodash';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAppContext } from '../../../../../AppProvider';
+import { useAppContext } from '../../../../AppProvider';
 
 const CREATE_ORDER_MUTATION = gql`
    mutation CreateOrder($createOrderInput: CreateOrderInput!) {

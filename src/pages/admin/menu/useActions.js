@@ -34,6 +34,7 @@ export const useActions = () => {
    const [json, setJson] = useState([]);
    const [dailyDishPrice, setDailyDishPrice] = useState(0);
    const [typeId, setTypeId] = useState();
+   const [openPreviewModal, setOpenPreviewModal] = useState(false);
    const { data } = useQuery(MENU, {
       variables: { where: { id: 1 } },
       fetchPolicy: 'cache-and-network'
@@ -196,6 +197,7 @@ export const useActions = () => {
       addShapeTwoItem,
       removeShapeTwoItem,
       onSave,
-      dailyDishPrice
+      dailyDishPrice,
+      openPreviewModal, setOpenPreviewModal
    }
 }
