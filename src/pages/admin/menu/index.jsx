@@ -1,13 +1,21 @@
-import { Collapse, Modal, Switch, Tabs } from '@mantine/core';
+import { Group, Tabs } from '@mantine/core';
 import Head from 'next/head';
 
 import { FiEye, FiPlus } from 'react-icons/fi';
+import { BiSave } from 'react-icons/bi';
+
 import AdminLayout from '../../../components/admin/Layout';
-import { MenuDish } from '../../../components/admin/MenuDish';
-import { MenuDishOption } from '../../../components/admin/MenuDishOption';
 import { MenuModule } from '../../../components/admin/MenuModule';
+import { ShapeOne } from './accesories/ShapeOne';
+
+
+import { ShapeTwo } from './accesories/ShapeTwo';
+import { useActions } from './useActions';
 
 const Menu = () => {
+  const { json, addShapeOneItem, removeShapeOneItem, updateShapeOneItem, addShapeOne,
+    removeShapeOne, updateShapeOne, updateShapeTwoItem, addShapeTwoItem, addShapeTwo,
+    removeShapeTwo, removeShapeTwoItem, updateShapeTwo, dailyDishPrice, onSave, setDailyDishPrice } = useActions();
   return (
     <>
       <Head>
@@ -29,6 +37,12 @@ const Menu = () => {
                 <FiEye className="shrink-0" />
                 Vista Previa
               </button>
+
+              <button onClick={onSave} className="mt-1 text-white bg-blue-400 hover:bg-blue-300 flex items-center py-1.5 px-4 gap-2 uppercase italic rounded-md">
+                <BiSave />
+                Guardar
+              </button>
+
             </div>
           </div>
           <div>
@@ -81,25 +95,59 @@ const Menu = () => {
                         className="outline-none max-w-[100px] px-1 font-[poppins] py-2 h-full"
                         type="text"
                         placeholder="150"
+                        value={dailyDishPrice}
+                        onChange={e => setDailyDishPrice(parseInt(e.currentTarget.value || 0))}
                       />
                       <span className="bg-blue-100 rounded-lg py-2 px-3 text-gray-400">
                         DOP
                       </span>
                     </div>
                   </div>
-                  <MenuModule title="Plato del día" />
-                  <div className="flex flex-col gap-5">
-                    <MenuDish title="Arroz" />
-                    <MenuDishOption dish="Arroz blanco" />
-                    <MenuDishOption dish="Moro de habichuelas" />
-                    <MenuDishOption dish="Moro de guandules" />
-                  </div>
-                  <div className="flex flex-col gap-5">
-                    <MenuDish title="Ensalada" />
-                    <MenuDishOption dish="Ensalada rusa" />
-                    <MenuDishOption dish="Ensalada verde" />
-                    <MenuDishOption dish="Ensalada de coditos" />
-                  </div>
+                  <MenuModule
+                    title="Plato del día"
+                    onAccept={({ name }) => addShapeOne({ name, extra: false })}
+                    shapeAvalibles={[{ value: 1, label: 'Forma 1' }]}
+                  />
+                  {json.filter(x => !x.extra).map(x => (
+                    <ShapeOne
+                      isDailyDish={true}
+                      key={x.id}
+                      item={x}
+                      updateShapeOne={updateShapeOne}
+                      removeShapeOne={removeShapeOne}
+                      addShapeOneItem={addShapeOneItem}
+                      removeShapeOneItem={removeShapeOneItem}
+                      updateShapeOneItem={updateShapeOneItem}
+                    />
+                  ))}
+                  <MenuModule
+                    title="Extras"
+                    onAccept={({ name, fieldsetTypeId }) => fieldsetTypeId === 1 ? addShapeOne({ name, extra: true }) : addShapeTwo({ name })}
+                    shapeAvalibles={[{ value: 1, label: 'Forma 1' }, , { value: 2, label: 'Forma 2' }]}
+                  />
+                  {json
+                    .filter(x => x.extra)
+                    .map(x => x.fieldsetTypeId === 1 ?
+                      <ShapeOne
+                        isDailyDish={false}
+                        key={x.id}
+                        item={x}
+                        updateShapeOne={updateShapeOne}
+                        removeShapeOne={removeShapeOne}
+                        addShapeOneItem={addShapeOneItem}
+                        removeShapeOneItem={removeShapeOneItem}
+                        updateShapeOneItem={updateShapeOneItem}
+                      />
+                      : <ShapeTwo
+                        key={x.id}
+                        item={x}
+                        updateShapeTwoItem={updateShapeTwoItem}
+                        addShapeTwoItem={addShapeTwoItem}
+                        removeShapeTwo={removeShapeTwo}
+                        removeShapeTwoItem={removeShapeTwoItem}
+                        updateShapeTwo={updateShapeTwo}
+                      />
+                    )}
                 </div>
               </Tabs.Panel>
 
@@ -120,6 +168,7 @@ const Menu = () => {
               </Tabs.Panel>
             </Tabs>
           </div>
+
         </div>
       </AdminLayout>
     </>

@@ -4,21 +4,32 @@ import { AiOutlinePicture } from 'react-icons/ai';
 import { FiMenu, FiTrash2 } from 'react-icons/fi';
 import { RiPencilLine } from 'react-icons/ri';
 
-export const MenuDish = ({ title }) => {
+export const MenuDish = ({ title, onRemove, updateTitle, togleEnabled, enabled }) => {
   const [openedModal, setOpenedModal] = useState(false);
+  const [editing, setEditing] = useState(false);
+
+
+  function onChange(e) {
+    const { value } = e.currentTarget;
+    updateTitle(value);
+  }
+
   return (
     <>
       <div className="flex">
         <div className="flex w-full items-center bg-[#e9f5ff]">
-          <div className="bg-[#0064CE]/30 text-gray-500 p-3 cursor-pointer hover:text-red-500">
+          <div onClick={onRemove} className="bg-[#0064CE]/30 text-gray-500 p-3 cursor-pointer hover:text-red-500">
             <FiTrash2 size={24} />
           </div>
           <div className="flex h-full w-full justify-between">
             <div className="flex items-center gap-2 px-2">
-              <span className="text-2xl underline underline-offset-2 text-[#1A579A] italic font-semibold">
-                {title}
-              </span>
+              {editing ?
+                <input value={title} onChange={onChange} className="text-2xl underline underline-offset-2 text-[#1A579A] italic font-semibold" type='text' /> :
+                <span className="text-2xl underline underline-offset-2 text-[#1A579A] italic font-semibold">
+                  {title}
+                </span>}
               <RiPencilLine
+                onClick={() => setEditing(!editing)}
                 className="text-blue-400 cursor-pointer"
                 size={25}
               />
@@ -39,7 +50,7 @@ export const MenuDish = ({ title }) => {
                 <AiOutlinePicture />
                 Seleccionar ícono
               </button>
-              <Switch className="flex" />
+              <Switch className="flex" checked={enabled} onClick={togleEnabled} />
             </div>
           </div>
         </div>

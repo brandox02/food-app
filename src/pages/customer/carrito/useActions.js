@@ -54,7 +54,6 @@ export const useActions = () => {
    }, [data])
    
    function setOrder(order) {
-      console.log({order})
       setOrders(orders => orders.map(ordersItem => ordersItem.id === order.id ? order : ordersItem));
    }
 

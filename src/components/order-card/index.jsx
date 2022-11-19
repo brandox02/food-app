@@ -101,7 +101,6 @@ export const OrderCard = ({ order, refetchList }) => {
                                     if (completed) {
                                        setTimeout(() => {
                                           if (order.statusId === 2) {
-                                             console.log('infinity', order.id)
                                              refetchList();
                                           }
                                        }, 2500);

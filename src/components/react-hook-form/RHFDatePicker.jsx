@@ -38,7 +38,6 @@ export const RHFDatePicker = ({
             />
             {error && (
               <span className="font-[poppins] text-sm md:text-base text-[red] font-semibold">
-                {console.log({ error })}
                 {error.type === "required" ? 'Este campo es requerido' : error.message}
               </span>
             )}

@@ -1,13 +1,14 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import mock from '../../../mocks/dailyDishMenu.json';
+// import mock from '../../../mocks/dailyDishMenu.json';
 import { toast } from "react-toastify";
 import { v4 as generateId } from 'uuid';
 import dayjs from 'dayjs';
 import { useAppContext } from "../../../AppProvider";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { gql, useQuery } from "@apollo/client";
 
 const toApi = {
    "details": [
@@ -65,29 +66,42 @@ const toApi = {
    "dailyDishPrice": 250
 }
 
+const MENU = gql`
+   query Menu($where: MenuWhereInput!){
+      menu(where: $where){
+         id json name
+      }
+   }
+`
+
 export const useActions = () => {
+
+   const { data } = useQuery(MENU, {
+      variables: { where: { id: 1 } },
+      fetchPolicy: 'cache-and-network',
+
+   })
+
+   const [mock, setMock] = useState({ typeId: null, items: [] });
+
+   useEffect(() => {
+      if (data) {
+         const filteredByEnabled = data.menu.json.items.filter(item => item.header?.enabled).map(item => {
+            if (item.fieldsetTypeId === 1) {
+               return { ...item, items: item.items.filter(x => x?.enabled) }
+            } else {
+               return { ...item, sizes: item.sizes.filter(x => x?.enabled), flavors: item.flavors.filter(x => x?.enabled) }
+            }
+         });
+         setMock({ typeId: data.menu.json.typeId, items: filteredByEnabled });
+      }
+   }, [data])
+
+
    const [{ user, generalParameters }, setGlobalState] = useAppContext();
    const [summaryPayload, setSummaryPayload] = useState();
    const stepOneItems = mock.items.filter(item => !item.extra && item.fieldsetTypeId === 1);
    const extraStepItems = mock.items.filter(item => item.extra);
-   const router = useRouter();
-   // const tecnica = extraStepItems.reduce((acc, item) => {
-   //    if (item.fieldsetTypeId === 1) {
-   //       return {
-   //          ...acc,
-   //          [item.id]: item.items.reduce((acc2, item2) => ({ ...acc2, [item2.id]: yup.number().required() }), {})
-   //       }
-   //    } else if (item.fieldsetTypeId === 2) {
-   //       // return acc;
-   //       return {
-   //          ...acc, [item.id]: {
-   //             sizes: item.sizes.reduce((accSizes, currSizes) => ({ ...accSizes, [currSizes.id]: yup.string().required() }), {}),
-   //             flavors: item.flavors.reduce((accFlavors, currFlavors) => ({ ...accFlavors, [currFlavors.id]: yup.string().required() }), {}),
-   //          }
-   //       }
-   //    }
-   //    return acc;
-   // }, {})
 
    const schema = yup.object().shape({
       currentStep: yup.number(),
@@ -116,7 +130,7 @@ export const useActions = () => {
             if (item.fieldsetTypeId === 1) {
                if (!item.extra) {
                   const value = methods.watch(`stepOne.${item.id}`) || '';
-                  const name = item.items.find(x => x.id === value)?.name ||'';
+                  const name = item.items.find(x => x.id === value)?.name || '';
                   return {
                      comment: '',
                      id: generateId(),
@@ -169,7 +183,7 @@ export const useActions = () => {
          .flat();
 
       const dailyDishPrice = parseInt(generalParameters.find(x => x.id === 3).value);
- 
+
       const payload = {
          total: details.reduce((acc, item) => acc + item.total, 0) + (mock.typeId === 1 ? dailyDishPrice : 0),
          userId: user.id,
@@ -184,10 +198,8 @@ export const useActions = () => {
    function validationToProcess() {
       const every = extraStepItems.every(item => {
          if (item.fieldsetTypeId === 2) {
-            // const keys = item.sizes.map(i => i.id);
             const sizes = Object.entries(methods.watch(`extrasStep.${item.id}.size`) || {});
             const flavor = methods.watch(`extrasStep.${item.id}.flavor`)
-            // console.log({sizes})
             const someSizeAdded = sizes.some(([_, value]) => {
                return !!value;
             });
@@ -203,10 +215,12 @@ export const useActions = () => {
 
 
    function onAction(data) {
+      console.log('cadena', extraStepItems)
       // console.log({ data, mock, toApi });
       if (methods.watch('currentStep') == 1) {
          setCurrentStep(2);
       } else if (methods.watch('currentStep') == 2) {
+        
          if (!validationToProcess()) return;
 
          const payload = process();
@@ -215,7 +229,7 @@ export const useActions = () => {
 
          // router.push('/customer/summary');
 
-         setCurrentStep(3)
+         setCurrentStep(3);
 
       }
    }
@@ -224,5 +238,5 @@ export const useActions = () => {
    const setCurrentStep = (currentStep) => methods.setValue('currentStep', currentStep);
    const currentStep = methods.watch('currentStep');
 
-   return { currentStep, setCurrentStep, mock, extraStepItems, stepOneItems, methods, onAction, summaryPayload,setSummaryPayload }
+   return { currentStep, setCurrentStep, mock, extraStepItems, stepOneItems, methods, onAction, summaryPayload, setSummaryPayload }
 }

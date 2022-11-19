@@ -263,18 +263,20 @@ export const ExtrasStep = ({ goBack, items }) => {
                   </div>
                   <div className="h-[3px] w-full bg-orange-400 self-start rounded-full"></div>
                </div>
-               <div className="flex flex-col gap-6 italic px-10 lg:px-20 font-[poppins]">
-                  {items.map(item => {
-                     switch (item.fieldsetTypeId) {
-                        case 1:
-                           return <ProductPickerType1 item={item} key={item.id} />
-                        case 2:
-                           return <PorductPickerType2 item={item} key={item.id} />
-                        default:
-                           return ''
-                     }
-                  })}
-               </div>
+               {items.length ? (
+                  <div className="flex flex-col gap-6 italic px-10 lg:px-20 font-[poppins]">
+                     {items.map(item => {
+                        switch (item.fieldsetTypeId) {
+                           case 1:
+                              return <ProductPickerType1 item={item} key={item.id} />
+                           case 2:
+                              return <PorductPickerType2 item={item} key={item.id} />
+                           default:
+                              return ''
+                        }
+                     })}
+                  </div>
+               ) : <div>No hay extras en estos momentos</div>}
                <div className="flex justify-center mt-8 px-10 md:px-24">
                   <button type='submit' onClick={() => { }} className="bg-[#0064CE] rounded-lg py-2 hover:bg-blue-600 text-white uppercase font-semibold w-full">
                      Ver Resumen de Orden

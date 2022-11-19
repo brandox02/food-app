@@ -4,7 +4,7 @@ import { AiOutlinePicture } from 'react-icons/ai';
 import { FiChevronDown, FiChevronRight } from 'react-icons/fi';
 
 export const MenuDishOption = ({ dish = 'Nombre del Plato' }) => {
-  const [openedCollapse, setOpenedCollapse] = useState(false);
+  const [openedCollapse, setOpenedCollapse] = useState(true);
   return (
     <>
       <div className="flex gap-2">
