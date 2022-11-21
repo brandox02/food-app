@@ -7,11 +7,11 @@ import { Menu } from '../../../components/menu'
 import { useActions } from './useActions'
 
 const MenuPage = () => {
-  const { menu } = useActions()
+  const { menu, menuName, menuId } = useActions()
 
   const items = [
     { title: <FiHome />, href: '/' },
-    { title: 'Plato del día', href: '/customer/lunch' },
+    { title: `Menú de ${menuName}`, href: `/customer/menu?id=${menuId}` },
   ].map((item, index) => (
     <Link
       className="text-[#003579] font-semibold italic hover:underline underline-offset-2"

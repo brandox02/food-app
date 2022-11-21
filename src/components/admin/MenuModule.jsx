@@ -32,10 +32,6 @@ export const MenuModule = ({ title, shapeAvalibles, onAccept }) => {
           placeholder="Seleccionar una"
           value={formSelected}
           onChange={setFormSelected}
-          // data={[
-          //   { value: 1, label: 'Forma 1' },
-          //   { value: 2, label: 'Forma 2' }
-          // ]}
           data={shapeAvalibles}
         />
         <Group position="center">

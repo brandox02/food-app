@@ -32,7 +32,7 @@ export const MenuDishOption = ({ dish = 'Nombre del Plato' }) => {
               </div>
             </div>
             <button className="text-blue-400 italic text-sm underline underline-offset-2 hover:text-blue-300">
-              Eliminar Sub-Categoría
+              Eliminar item
             </button>
           </Collapse>
         </div>

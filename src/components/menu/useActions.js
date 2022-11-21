@@ -6,35 +6,12 @@ import { v4 as generateId } from 'uuid';
 import dayjs from 'dayjs';
 import { useAppContext } from "../../AppProvider";
 import { useEffect, useState } from "react";
-import { gql, useQuery } from "@apollo/client";
-
-const MENU = gql`
-   query Menu($where: MenuWhereInput!){
-      menu(where: $where){
-         id json name
-      }
-   }
-`
 
 export const useActions = ({ menu }) => {
 
    const [mock, setMock] = useState({ typeId: null, items: [] });
 
-   useEffect(() => {
-      if (menu) {
-         const filteredByEnabled = menu.items.filter(item => item.header?.enabled).map(item => {
-            if (item.fieldsetTypeId === 1) {
-               return { ...item, items: item.items.filter(x => x?.enabled) }
-            } else {
-               return { ...item, sizes: item.sizes.filter(x => x?.enabled), flavors: item.flavors.filter(x => x?.enabled) }
-            }
-         });
-         setMock({ typeId: menu.typeId, items: filteredByEnabled });
-      }
-   }, [menu])
-
-
-   const [{ user, generalParameters }, setGlobalState] = useAppContext();
+   const [{ user, generalParameters }] = useAppContext();
    const [summaryPayload, setSummaryPayload] = useState();
    const stepOneItems = mock.items.filter(item => !item.extra && item.fieldsetTypeId === 1);
    const extraStepItems = mock.items.filter(item => item.extra);
@@ -55,9 +32,24 @@ export const useActions = ({ menu }) => {
    });
 
    const methods = useForm({
-      resolver: yupResolver(schema),
-      defaultValues: { currentStep: 1 }
+      ...(menu.typeId === 1 ? { resolver: yupResolver(schema) } : {}),
+      defaultValues: { currentStep: menu.typeId === 1 ? 1 : 2 }
    });
+
+   useEffect(() => {
+      if (menu) {
+         const filteredByEnabled = menu.items.filter(item => item.header?.enabled).map(item => {
+            if (item.fieldsetTypeId === 1) {
+               return { ...item, items: item.items.filter(x => x?.enabled) }
+            } else {
+               return { ...item, sizes: item.sizes.filter(x => x?.enabled), flavors: item.flavors.filter(x => x?.enabled) }
+            }
+         });
+         setMock({ typeId: menu.typeId, items: filteredByEnabled });
+         methods.setValue('currentStep', menu.typeId === 1 ? 1 : 2);
+      }
+      // eslint-disable-next-line
+   }, [menu])
 
    function process() {
       const details = mock.items
@@ -156,7 +148,7 @@ export const useActions = ({ menu }) => {
       if (methods.watch('currentStep') == 1) {
          setCurrentStep(2);
       } else if (methods.watch('currentStep') == 2) {
-        
+
          if (!validationToProcess()) return;
 
          const payload = process();

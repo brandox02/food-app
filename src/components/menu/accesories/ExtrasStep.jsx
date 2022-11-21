@@ -1,9 +1,6 @@
 import { Radio } from '@mantine/core';
 import React from 'react';
 import { FiArrowLeft, FiPlus } from 'react-icons/fi';
-import { useAppContext } from '../../../AppProvider';
-import dayjs from 'dayjs';
-import { v4 as generateId } from 'uuid'
 import { Controller, useFormContext } from 'react-hook-form';
 
 export function ProductPickerType1({ item }) {
@@ -129,133 +126,35 @@ export function PorductPickerType2({ item }) {
    </>
 }
 
-export const ExtrasStep = ({ goBack, items }) => {
-   const [{ user }, setGlobalState] = useAppContext();
-
-   function onSummary() {
-      // const payload = {
-      //    "details": [
-      //       {
-      //          "name": "Carne Asada",
-      //          "price": 0,
-      //          "quantity": 0,
-      //          "total": 0,
-      //          "isDailyDish": true,
-      //          id: generateId(),
-      //          "comment": ""
-      //       },
-      //       {
-      //          "name": "Arroz Blanco",
-      //          "price": 0,
-      //          "quantity": 0,
-      //          "total": 0,
-      //          "isDailyDish": true,
-      //          id: generateId(),
-      //          "comment": ""
-      //       },
-      //       {
-      //          "name": "Habichuela",
-      //          "price": 0,
-      //          "quantity": 0,
-      //          "total": 0,
-      //          "isDailyDish": true,
-      //          id: generateId(),
-      //          "comment": ""
-      //       },
-      //       {
-      //          "name": "Aguacate",
-      //          "price": 50,
-      //          "quantity": 1,
-      //          "total": 50,
-      //          "isDailyDish": false,
-      //          id: generateId(),
-      //          "comment": ""
-      //       },
-      //       {
-      //          "name": "Bollito de Yuca",
-      //          "price": 50,
-      //          "quantity": 1,
-      //          "total": 50,
-      //          "isDailyDish": false,
-      //          id: generateId(),
-      //          "comment": ""
-      //       },
-
-      //    ],
-      //    "total": 350,
-      //    "userId": user.id,
-      //    "deliverDate": dayjs().add(1, 'day').toDate(),
-      //    "typeId": 1,
-      //    "dailyDishPrice": 250
-      // }
-
-      const payload = {
-         "details": [
-            {
-               "name": "Aguacate",
-               "price": 50,
-               "quantity": 1,
-               "total": 50,
-               "isDailyDish": false,
-               "id": generateId(),
-               "comment": ""
-            },
-            {
-               "name": "Bollito de Yuca",
-               "price": 50,
-               "quantity": 1,
-               "total": 50,
-               "isDailyDish": false,
-               "id": generateId(),
-               "comment": ""
-            },
-            {
-               "name": "Patica de cerdo",
-               "price": 100,
-               "quantity": 1,
-               "total": 100,
-               "isDailyDish": false,
-               "id": generateId(),
-               "comment": ""
-            },
-
-         ],
-         "total": 200,
-         "userId": user.id,
-         "deliverDate": dayjs().add(1, 'day').toDate(),
-         "typeId": 1,
-         "dailyDishPrice": 0
-      }
-
-      setGlobalState(state => ({ ...state, toSummary: payload }));
-
-      // router.push('/customer/summary');
-   }
+export const ExtrasStep = ({ goBack, items, typeId }) => {
 
    return (
       <div className="w-full flex flex-col gap-6">
          <div className="px-5">
             <div className="w-full lg:max-w-[850px] relative mx-auto bg-white rounded-sm shadow flex flex-col px-6 md:px-14 py-8 gap-8">
-               <div className=" text-center flex flex-col font-[poppins] text-[#1A579A]">
-                  <div className="md:absolute flex w-full md:justify-start justify-center lg:-ml-8 md:-mt-4 mb-2 md:mb-0">
-                     <div
-                        className=" bg-blue-300 rounded-full p-2 cursor-pointer"
-                        href="/customer/lunch"
-                        onClick={goBack}
-                     >
-                        <FiArrowLeft className="text-white w-5 h-5" />
+               {typeId === 1 &&
+                  (
+                     <div className=" text-center flex flex-col font-[poppins] text-[#1A579A]">
+                        <div className="md:absolute flex w-full md:justify-start justify-center lg:-ml-8 md:-mt-4 mb-2 md:mb-0">
+                           <div
+                              className=" bg-blue-300 rounded-full p-2 cursor-pointer"
+                              href="/customer/lunch"
+                              onClick={goBack}
+                           >
+                              <FiArrowLeft className="text-white w-5 h-5" />
+                           </div>
+                        </div>
+                        <span>Antes de terminar, ¿Deseas agregar un adicional?</span>
+                        <span className="text-gray-400">
+                           Recuerda que el total del extra se te sumará al monto del plato
+                           del día.
+                        </span>
                      </div>
-                  </div>
-                  <span>Antes de terminar, ¿Deseas agregar un adicional?</span>
-                  <span className="text-gray-400">
-                     Recuerda que el total del extra se te sumará al monto del plato
-                     del día.
-                  </span>
-               </div>
+                  )}
                <div className="flex flex-col w-full font-[poppins]">
                   <div className="w-full flex items-end justify-between">
                      <span className="text-2xl text-[#1A579A] font-semibold italic pl-2">
-                        Extras
+                        {typeId === 1 ? 'Extras' : "Menú"}
                      </span>
                      <span className="text-xs text-gray-400 italic">
                         Selecciona lo que desees
@@ -278,7 +177,7 @@ export const ExtrasStep = ({ goBack, items }) => {
                   </div>
                ) : <div>No hay extras en estos momentos</div>}
                <div className="flex justify-center mt-8 px-10 md:px-24">
-                  <button type='submit' onClick={() => { }} className="bg-[#0064CE] rounded-lg py-2 hover:bg-blue-600 text-white uppercase font-semibold w-full">
+                  <button type='submit' onClick={() => { }} className="p-5 bg-[#0064CE] rounded-lg py-2 hover:bg-blue-600 text-white uppercase font-semibold w-full">
                      Ver Resumen de Orden
                   </button>
                </div>

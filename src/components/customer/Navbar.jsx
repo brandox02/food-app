@@ -14,16 +14,34 @@ import { RiUserLine } from 'react-icons/ri';
 import { Menu } from '@mantine/core';
 import { useAuth } from '../../hooks/useAuth';
 import { useAppContext } from '../../AppProvider';
+import { gql, useQuery } from '@apollo/client';
+
+const MENUS = gql`
+   query Menus{
+      menuList{
+        id json name
+      }
+   }
+`
 
 export const Navbar = () => {
   const router = useRouter();
   const [nav, setNav] = useState(false);
   const { logout } = useAuth();
   const [{ user }] = useAppContext();
+  const { id } = router.query;
+
+  const { data } = useQuery(MENUS, {
+    fetchPolicy: 'cache-and-network'
+  });
+
+  const menus = data?.menuList || [];
 
   const handleNav = () => {
     setNav(!nav);
   };
+
+
 
   return (
     <div className="flex flex-col gap-10">
@@ -107,61 +125,21 @@ export const Navbar = () => {
       <div className=" sm:px-5 lg:px-24 hidden sm:flex mb-6">
         <div className="md:max-w-[1750px] bg-[#1A579A] rounded-lg mx-auto w-full flex  flex-wrap justify-center xl:justify-between px-2 md:px-10 min-h-[50px] py-4 gap-4  ">
           <div className="flex gap-10">
-            <Link href="/customer/menu">
-              <button
-                className={
-                  router.pathname == '/customer/lunch'
-                    ? 'md:text-sm text-xs font-semibold text-white bg-[#0064CE] px-2 min-h-[40px] h-full flex items-center rounded-lg tracking-wider font-[poppins] hover:text-blue-500'
-                    : 'md:text-sm text-xs font-semibold text-white tracking-wider px-2 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500'
-                }
-              >
-                Plato del día
-              </button>
-            </Link>
-            <Link href="/customer/cafeteria">
-              <button
-                className={
-                  router.pathname == '/customer/cafeteria'
-                    ? 'md:text-sm text-xs font-semibold text-white bg-[#0064CE] px-2 min-h-[40px] h-full flex items-center rounded-lg tracking-wider font-[poppins] hover:text-blue-500'
-                    : 'md:text-sm text-xs font-semibold text-white tracking-wider px-2 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500'
-                }
-              >
-                Cafetería
-              </button>
-            </Link>
-            <Link href="/customer/breakfast">
-              <button
-                className={
-                  router.pathname == '/customer/breakfast'
-                    ? 'md:text-sm text-xs font-semibold text-white bg-[#0064CE] px-2 min-h-[40px] h-full flex items-center rounded-lg tracking-wider font-[poppins] hover:text-blue-500'
-                    : 'md:text-sm text-xs font-semibold text-white tracking-wider px-2 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500'
-                }
-              >
-                Desayunos
-              </button>
-            </Link>
-            <Link href="/customer/pastry">
-              <button
-                className={
-                  router.pathname == '/customer/pastry'
-                    ? 'md:text-sm text-xs font-semibold text-white bg-[#0064CE] px-2 min-h-[40px] h-full flex items-center rounded-lg tracking-wider font-[poppins] hover:text-blue-500'
-                    : 'md:text-sm text-xs font-semibold text-white tracking-wider px-2 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500'
-                }
-              >
-                Repostería
-              </button>
-            </Link>
-            <Link href="/customer/bakery">
-              <button
-                className={
-                  router.pathname == '/customer/bakery'
-                    ? 'md:text-sm text-xs font-semibold text-white bg-[#0064CE] px-2 min-h-[40px] h-full flex items-center rounded-lg tracking-wider font-[poppins] hover:text-blue-500'
-                    : 'md:text-sm text-xs font-semibold text-white tracking-wider px-2 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500'
-                }
-              >
-                Panadería
-              </button>
-            </Link>
+            {menus.map(menu => (
+              <Link href={`/customer/menu?id=${menu.id}`} key={menu.id}>
+                <button
+                  className={
+                    id == menu.id
+                      ? 'md:text-sm text-xs font-semibold text-white bg-[#0064CE] px-2 min-h-[40px] h-full flex items-center rounded-lg tracking-wider font-[poppins] hover:text-blue-500'
+                      : 'md:text-sm text-xs font-semibold text-white tracking-wider px-2 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500'
+                  }
+                >
+                  {menu.name}
+                </button>
+              </Link>
+            ))}
+
+
           </div>
           <div className="flex items-center gap-3">
             <Link href="/customer/ordenes">
@@ -228,7 +206,7 @@ export const Navbar = () => {
               </div>
             </div>
           </div>
-          <div className="border-b py-3">
+          {/* <div className="border-b py-3">
             <ul className="uppercase flex flex-col gap-0">
               <Link href="/customer/lunch">
                 <li
@@ -291,7 +269,7 @@ export const Navbar = () => {
                 </li>
               </Link>
             </ul>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

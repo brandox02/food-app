@@ -1,13 +1,5 @@
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-// import mock from '../../../mocks/dailyDishMenu.json';
-import { toast } from "react-toastify";
-import { v4 as generateId } from 'uuid';
-import dayjs from 'dayjs';
-import { useAppContext } from "../../../AppProvider";
-import { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 
 const MENU = gql`
    query Menu($where: MenuWhereInput!){
@@ -18,14 +10,16 @@ const MENU = gql`
 `
 
 export const useActions = () => {
-
+   const router = useRouter();
+   const { id }= router.query;
    const { data } = useQuery(MENU, {
-      variables: { where: { id: 1 } },
+      variables: { where: { id: parseInt(id) } },
       fetchPolicy: 'cache-and-network',
 
    })
 
    const menu = data ? data?.menu.json : { typeId: null, items: [] };
-
-   return { menu }
+   const menuName = data?.menu?.name || '';
+   const menuId = data?.menu?.id;
+   return { menu, menuName, menuId }
 }
