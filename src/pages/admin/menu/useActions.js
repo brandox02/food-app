@@ -103,7 +103,7 @@ export const useActions = () => {
       }
    }
 
-   const addMenu = async ({ name }) => {
+   const addMenu = async () => {
       try {
          const input = { name: `Nuevo Menu ${(Math.random() * 10000).toFixed(0)}`, json: { items: [] } }
          const { data: { createMenu: newMenu } } = await createMenuMutation({ variables: { input } });
