@@ -13,6 +13,7 @@ import {
   FiList,
   FiMapPin,
   FiUser,
+  FiX,
 } from 'react-icons/fi';
 import { RiUserLine } from 'react-icons/ri';
 import { MdOutlineDining } from 'react-icons/md';
@@ -34,12 +35,12 @@ const AdminLayout = ({ children }) => {
         <div
           className={
             sidebar
-              ? 'w-[300px] flex flex-col h-full min-h-screen bg-[#0064CE] z-50 px-5 py-6 transition-all'
-              : 'w-[75px] flex flex-col items-center bg-[#0064CE] h-full min-h-screen z-50 px-5 py-6 transition-all'
+              ? 'w-[300px] fixed md:static md:flex flex-col h-full min-h-screen bg-[#0064CE] z-50 px-5 py-6 transition-all'
+              : 'w-[75px] hidden md:static md:flex flex-col items-center bg-[#0064CE] h-full min-h-screen z-50 px-5 py-6 transition-all'
           }
         >
           <div className="pb-4 flex">
-            <div className="justify-center flex items-center mb-4 sm:mb-0">
+            <div className="justify-between flex items-center w-full mb-4 sm:mb-0">
               <Menu shadow="md" width={250} position="bottom-start">
                 <Menu.Target>
                   <div className="cursor-pointer flex items-center gap-2">
@@ -91,6 +92,18 @@ const AdminLayout = ({ children }) => {
                   </Link>
                 </Menu.Dropdown>
               </Menu>
+              <div>
+                <button
+                  onClick={handleSidebar}
+                  className={
+                    sidebar
+                      ? 'bg-white flex md:hidden shadow-sm rounded-full p-1 text-[#2493ee]'
+                      : 'hidden'
+                  }
+                >
+                  <FiX size={20} />
+                </button>
+              </div>
             </div>
           </div>
           <div className=" py-3 h-full">

@@ -1,7 +1,87 @@
+import { Table } from '@mantine/core';
 import Head from 'next/head';
+import Image from 'next/image';
+import { FiCheck, FiSearch, FiX } from 'react-icons/fi';
+import { RiBrush3Line, RiCoinLine, RiCoinsLine } from 'react-icons/ri';
 import AdminLayout from '../../components/admin/Layout';
+import pdfexport from '../../../public/assets/pdfexport.png';
+import docexport from '../../../public/assets/docexport.png';
+import xlsexport from '../../../public/assets/xlsexport.png';
+
+const orderDetails = [
+  {
+    orderNumber: '0022548',
+    time: '10:34 AM',
+    name: 'Juan Pérez',
+    department: 'Plataformas y Servicios',
+    validation: <span className="text-green-500">true</span>,
+    details: (
+      <div className="cursor-pointer underline underline-offset-2 text-blue-400">
+        Ver detalles
+      </div>
+    ),
+  },
+  {
+    orderNumber: '0022548',
+    time: '10:34 AM',
+    name: 'Juan Pérez',
+    department: 'Plataformas y Servicios',
+    validation: <span className="text-green-500">true</span>,
+    details: (
+      <div className="cursor-pointer underline underline-offset-2 text-blue-400">
+        Ver detalles
+      </div>
+    ),
+  },
+  {
+    orderNumber: '0022548',
+    time: '10:34 AM',
+    name: 'Juan Pérez',
+    department: 'Plataformas y Servicios',
+    validation: <span className="text-green-500">true</span>,
+    details: (
+      <div className="cursor-pointer underline underline-offset-2 text-blue-400">
+        Ver detalles
+      </div>
+    ),
+  },
+  {
+    orderNumber: '0022548',
+    time: '10:34 AM',
+    name: 'Juan Pérez',
+    department: 'Plataformas y Servicios',
+    validation: <span className="text-green-500">true</span>,
+    details: (
+      <div className="cursor-pointer underline underline-offset-2 text-blue-400">
+        Ver detalles
+      </div>
+    ),
+  },
+  {
+    orderNumber: '0022548',
+    time: '10:34 AM',
+    name: 'Juan Pérez',
+    department: 'Plataformas y Servicios',
+    validation: <span className="text-green-500">true</span>,
+    details: (
+      <div className="cursor-pointer underline underline-offset-2 text-blue-400">
+        Ver detalles
+      </div>
+    ),
+  },
+];
 
 const Ordenes = () => {
+  const rows = orderDetails.map((orderDetail) => (
+    <tr key={orderDetail.name}>
+      <td>{orderDetail.orderNumber}</td>
+      <td>{orderDetail.time}</td>
+      <td>{orderDetail.name}</td>
+      <td>{orderDetail.department}</td>
+      <td>{orderDetail.validation}</td>
+      <td>{orderDetail.details}</td>
+    </tr>
+  ));
   return (
     <>
       <Head>
@@ -10,7 +90,105 @@ const Ordenes = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AdminLayout>
-        <div>Ordenes</div>
+        <div className="w-full flex flex-col gap-8">
+          <div className="w-fit">
+            <span className="text-blue-900 text-2xl font-semibold">
+              Ordenes
+            </span>
+            <div className="h-[3px] w-16 bg-blue-400 self-start rounded-full" />
+          </div>
+
+          <div className="-mb-3">
+            <span className="text-md italic font-semibold text-blue-400">
+              Filtro de búsqueda
+            </span>
+          </div>
+
+          <div className="w-full grid gap-4 grid-cols-1 lg:grid-cols-2">
+            <div className="w-full flex-wrap md:flex-nowrap flex items-end gap-3">
+              <div className="flex w-full sm:w-[60%] flex-col gap-1">
+                <span className="text-[#003579] font-[poppins] text-sm">
+                  Buscar por nombre o ID:
+                </span>
+                <input
+                  placeholder="Nombre/ID"
+                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
+                />
+              </div>
+              <div className="flex gap-1 text-sm bg-blue-600 hover:bg-blue-500 text-white uppercase items-center rounded-lg px-3 py-2">
+                <FiSearch />
+                <span>
+                  <button type="submit">Buscar</button>
+                </span>
+              </div>
+            </div>
+            <div className="w-full flex-wrap md:flex-nowrap flex items-end gap-3">
+              <div className="flex w-full sm:w-[60%] flex-col gap-1">
+                <span className="text-[#003579] font-[poppins] text-sm">
+                  Filtra por Item:
+                </span>
+                <input
+                  placeholder="Orden"
+                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
+                />
+              </div>
+              <div className="flex gap-2">
+                <div className="flex gap-1 text-sm bg-blue-600 hover:bg-blue-500 text-white uppercase items-center rounded-lg px-3 py-2 cursor-pointer">
+                  <FiSearch />
+                  <span>
+                    <button type="submit">Buscar</button>
+                  </span>
+                </div>
+                <div className="flex gap-1 text-sm bg-red-600 hover:bg-red-500 text-white uppercase items-center rounded-lg px-3 py-2 cursor-pointer">
+                  <RiBrush3Line />
+                  <span>
+                    <button type="submit">Limpiar</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3 mt-6">
+            <div className="flex items-center gap-3">
+              <span className="text-md whitespace-nowrap text-blue-900 font-semibold italic">
+                Exportación de Datos
+              </span>
+              <div className="bg-gray-300 h-0.5 rounded-full w-full"></div>
+            </div>
+            <div className="flex gap-4 px-2">
+              <Image className="cursor-pointer" src={pdfexport} alt="" />
+              <Image className="cursor-pointer" src={docexport} alt="" />
+              <Image className="cursor-pointer" src={xlsexport} alt="" />
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <div className="flex gap-2 items-center justify-between flex-wrap">
+              <span className="text-lg italic font-semibold text-blue-400">
+                Listado de ordenes entregadas hoy (23)
+              </span>
+              <button className="bg-green-500 flex items-center gap-2 hover:bg-green-400 uppercase font-semibold text-sm rounded py-2 px-4 text-white">
+                <RiCoinsLine size={20} /> Saldar todo
+              </button>
+            </div>
+            <div id="scrollbar" className="w-auto overflow-auto">
+              <Table highlightOnHover verticalSpacing="sm">
+                <thead className="bg-[#47ADF5]/30 italic font-[poppins] ">
+                  <tr>
+                    <th>No. Orden</th>
+                    <th>Hora</th>
+                    <th>Nombre</th>
+                    <th>Departamento</th>
+                    <th>Validación</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody className="font-[poppins]">{rows}</tbody>
+              </Table>
+            </div>
+          </div>
+        </div>
       </AdminLayout>
     </>
   );
