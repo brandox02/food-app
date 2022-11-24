@@ -1,7 +1,109 @@
+import { createStyles, Modal, Select, Table } from '@mantine/core';
 import Head from 'next/head';
+import Image from 'next/image';
+import { FiSearch } from 'react-icons/fi';
+import { RiBrush3Line, RiCoinsLine } from 'react-icons/ri';
 import AdminLayout from '../../components/admin/Layout';
+import pdfexport from '../../../public/assets/pdfexport.png';
+import docexport from '../../../public/assets/docexport.png';
+import xlsexport from '../../../public/assets/xlsexport.png';
+import { useState } from 'react';
+import { RHFSelect } from '../../components/react-hook-form/RHFSelect';
+import { RHFDatePicker } from '../../components/react-hook-form/RHFDatePicker';
+import { DatePicker } from '@mantine/dates';
 
 const Reportes = () => {
+  const useStyles = createStyles(() => ({
+    input: {
+      borderWidth: 2,
+      borderRadius: 10,
+      borderColor: '#1A579A',
+      fontFamily: 'poppins',
+    },
+  }));
+  const { classes } = useStyles();
+  const orderDetails = [
+    {
+      orderNumber: '0022548',
+      time: '10:34 AM',
+      name: 'Juan Pérez',
+      email: 'correo@correo.com',
+      department: 'Plataformas y Servicios',
+
+      details: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-400">
+          Ver reporte
+        </div>
+      ),
+    },
+    {
+      orderNumber: '0022548',
+      time: '10:34 AM',
+      name: 'Juan Pérez',
+      email: 'correo@correo.com',
+      department: 'Plataformas y Servicios',
+
+      details: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-400">
+          Ver reporte
+        </div>
+      ),
+    },
+    {
+      orderNumber: '0022548',
+      time: '10:34 AM',
+      name: 'Juan Pérez',
+      email: 'correo@correo.com',
+      department: 'Plataformas y Servicios',
+
+      details: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-400">
+          Ver reporte
+        </div>
+      ),
+    },
+    {
+      orderNumber: '0022548',
+      time: '10:34 AM',
+      name: 'Juan Pérez',
+      email: 'correo@correo.com',
+      department: 'Plataformas y Servicios',
+
+      details: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-400">
+          Ver reporte
+        </div>
+      ),
+    },
+    {
+      orderNumber: '0022548',
+      time: '10:34 AM',
+      name: 'Juan Pérez',
+      email: 'correo@correo.com',
+      department: 'Plataformas y Servicios',
+
+      details: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-400">
+          Ver reporte
+        </div>
+      ),
+    },
+  ];
+
+  const rows = orderDetails.map((orderDetail) => (
+    <tr key={orderDetail.name}>
+      <td>{orderDetail.orderNumber}</td>
+      <td>{orderDetail.time}</td>
+      <td>{orderDetail.name}</td>
+      <td>{orderDetail.email}</td>
+      <td>{orderDetail.department}</td>
+      <td className="cursor-pointer" onClick={() => setOpened(true)}>
+        {orderDetail.details}
+      </td>
+    </tr>
+  ));
+  const [opened, setOpened] = useState(false);
+
   return (
     <>
       <Head>
@@ -10,7 +112,148 @@ const Reportes = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AdminLayout>
-        <div>Reportes</div>
+        <div className="w-full flex flex-col gap-8">
+          <div className="w-fit">
+            <span className="text-blue-900 text-2xl font-semibold">
+              Reportes
+            </span>
+            <div className="h-[3px] w-16 bg-blue-400 self-start rounded-full" />
+          </div>
+
+          <div className="-mb-3">
+            <span className="text-md italic font-semibold text-blue-400">
+              Filtro de búsqueda
+            </span>
+          </div>
+
+          <div className="w-full flex flex-col gap-4">
+            <div className="w-full flex flex-col gap-5 lg:gap-0 md:flex-row flex-wrap">
+              <div className="w-full lg:w-9/12 2xl:w-10/12 grid md:grid-cols-3 gap-3 lg:gap-5">
+                <div className="flex flex-col gap-1">
+                  <span className="text-[#003579] font-[poppins] text-sm">
+                    Filtrar por fecha de:
+                  </span>
+                  <Select
+                    classNames={{
+                      input: classes.input,
+                    }}
+                    placeholder="Orden"
+                    data={[
+                      { value: 'Orden', label: 'Orden' },
+                      { value: 'Entrega', label: 'Entrega' },
+                    ]}
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <span className="text-[#003579] font-[poppins] text-sm">
+                    Desde:
+                  </span>
+                  <DatePicker
+                    placeholder="Fecha"
+                    classNames={{
+                      input: classes.input,
+                    }}
+                    name={'fromDate'}
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <span className="text-[#003579] font-[poppins] text-sm">
+                    Hasta:
+                  </span>
+                  <DatePicker
+                    placeholder="Fecha"
+                    classNames={{
+                      input: classes.input,
+                    }}
+                    name={'toDate'}
+                  />
+                </div>
+              </div>
+              <div className="w-full lg:w-3/12 2xl:w-2/12 flex lg:justify-end items-end gap-3">
+                <button className="flex gap-1 text-sm bg-blue-600 hover:bg-blue-500 text-white uppercase items-center rounded-lg px-3 py-2">
+                  <FiSearch />
+                  <span>
+                    <button type="submit">Buscar</button>
+                  </span>
+                </button>
+                <button className="flex gap-1 text-sm bg-red-500 hover:bg-red-400 text-white uppercase items-center rounded-lg px-3 py-2">
+                  <RiBrush3Line />
+                  <span>Limpiar</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="w-full flex-wrap md:flex-nowrap flex items-end gap-3">
+              <div className="flex w-full sm:w-[50%] flex-col gap-1">
+                <span className="text-[#003579] font-[poppins] text-sm">
+                  Buscar por nombre o ID:
+                </span>
+                <input
+                  placeholder="Nombre/ID"
+                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
+                />
+              </div>
+              <div className="flex gap-1 text-sm bg-blue-600 hover:bg-blue-500 text-white uppercase items-center rounded-lg px-3 py-2">
+                <FiSearch />
+                <span>
+                  <button type="submit">Buscar</button>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3 mt-6">
+            <div className="flex items-center gap-3">
+              <span className="text-md whitespace-nowrap text-blue-900 font-semibold italic">
+                Exportación de Datos
+              </span>
+              <div className="bg-gray-300 h-0.5 rounded-full w-full"></div>
+            </div>
+            <div className="flex gap-4 px-2">
+              <Image className="cursor-pointer" src={pdfexport} alt="" />
+              <Image className="cursor-pointer" src={docexport} alt="" />
+              <Image className="cursor-pointer" src={xlsexport} alt="" />
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-6">
+            <div className="flex gap-2 items-center justify-between flex-wrap">
+              <span className="text-lg italic font-semibold text-blue-400">
+                Listado de Reportes entregadas hoy (12)
+              </span>
+            </div>
+
+            <div id="scrollbar" className="w-auto overflow-auto">
+              <Table highlightOnHover verticalSpacing="sm">
+                <thead className="bg-[#47ADF5]/30 italic font-[poppins] ">
+                  <tr>
+                    <th>No. Orden</th>
+                    <th>Fecha Reporte</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Departamento</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody className="font-[poppins]">{rows}</tbody>
+                <Modal
+                  size={'xl'}
+                  centered
+                  opened={opened}
+                  onClose={() => setOpened(false)}
+                  title={
+                    <div className="w-fit mb-5">
+                      <span className="text-blue-900 text-xl font-semibold">
+                        {'Reporte de Pedido'}
+                      </span>
+                      <div className="h-[3px] w-40 bg-blue-400 self-start rounded-full"></div>
+                    </div>
+                  }
+                ></Modal>
+              </Table>
+            </div>
+          </div>
+        </div>
       </AdminLayout>
     </>
   );
