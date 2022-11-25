@@ -59,7 +59,7 @@ export const useActions = () => {
    const [noOrderInput, setNoOrderInput] = useState('');
    const [confirmModalAllOrderDelivered, setConfirmModalAllOrderDelivered] = useState(false);
 
-  const [markAsDeliveredAllMutation] = useMutation(MARK_AS_DELIVERED_ALL);
+   //   const [markAsDeliveredAllMutation] = useMutation(MARK_AS_DELIVERED_ALL);
    const { data, refetch } = useQuery(ORDERS, {
       variables: {
          page: page, 
@@ -68,7 +68,7 @@ export const useActions = () => {
             "filterDateByDelivered": false,
             "toDate": dayjs().format('YYYY-MM-DD'),
             noOrder: noOrderInput,
-            statusIds: [2,3,4]
+            statusId: 4
          }
       },
       fetchPolicy: 'cache-and-network',
@@ -79,22 +79,22 @@ export const useActions = () => {
       // eslint-disable-next-line
    }, [page])
 
-   const markAllAsDeliveredAll = async () => {
-      try {
+   // const markAllAsDeliveredAll = async () => {
+   //    try {
          
-         const {data} = await markAsDeliveredAllMutation();
-         if(!data.markAsDeliveredToday){
-            throw new Error()
-         }
-         await refetch();
-         setConfirmModalAllOrderDelivered(false);
-         toast.success('Todas las ordenes de hoy fueron marcadas como entregadas');
-      } catch (error) {
-         console.error(error);
-         toast.error('Ocurrió un error a la hora de marcar todas las ordenes de hoy como entregadas');
+   //       const {data} = await markAsDeliveredAllMutation();
+   //       if(!data.markAsDeliveredToday){
+   //          throw new Error()
+   //       }
+   //       await refetch();
+   //       setConfirmModalAllOrderDelivered(false);
+   //       toast.success('Todas las ordenes de hoy fueron marcadas como entregadas');
+   //    } catch (error) {
+   //       console.error(error);
+   //       toast.error('Ocurrió un error a la hora de marcar todas las ordenes de hoy como entregadas');
 
-      }
-   }
+   //    }
+   // }
 
    const orders = (data?.orders?.items) || [];
    const modalOrder = orders.find(item => item.id === detailModalOpen);
@@ -107,6 +107,6 @@ export const useActions = () => {
       modalOrder, orders, setPage, page, totalPages,
       detailModalOpen, setDetailModalOpen, dailyDishPrice, totalItems, noOrderInput, setNoOrderInput,
       confirmModalAllOrderDelivered, setConfirmModalAllOrderDelivered,
-      markAllAsDeliveredAll
+   
    }
 }

@@ -3,6 +3,7 @@ import { v4 as generateId } from 'uuid'
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useAppContext } from '../../../AppProvider'
 import { toast } from "react-toastify";
+import { getBase64FromUrl } from "../../../utils/imageUrlToBase64";
 
 const UPDATE_GENERAL_PARAMETER = gql`
    mutation UpdateGeneralParameter($input: UpdateGeneralParameterInput!){
@@ -44,20 +45,56 @@ const CREATE_MENU = gql`
    }
 `
 
+const DESTROY_IMAGE = gql`
+   mutation DestroyImage($publicId: String!){
+      destroyImage(publicId: $publicId)
+   }
+`
+
 export const useActions = () => {
    const [{ generalParameters }, setGlobalContext] = useAppContext();
    const [dailyDishPrice, setDailyDishPrice] = useState(0);
    const [openPreviewModal, setOpenPreviewModal] = useState(false);
+   const [openImagePickerModal, setImagePickerModal] = useState(false);
    const [selectedMenu, setSelectedMenu] = useState('1');
    const [menus, setMenus] = useState([]);
-   const { data } = useQuery(MENUS, {
+   const { data, refetch } = useQuery(MENUS, {
       fetchPolicy: 'cache-and-network'
    });
    const [deleteMenuMutation] = useMutation(DELETE_MENU);
+   const [destroyImageMutation] = useMutation(DESTROY_IMAGE);
    const json = menus.find(menu => menu.id === parseInt(selectedMenu))?.json?.items || [];
    const typeId = menus.find(menu => menu.id === parseInt(selectedMenu))?.id;
+   const [onLoadImagePickerFn, setOnLoadImagePickerFn] = useState({ fn: () => { } });
+   const [imagePicker, setImagePicker] = useState();
 
-   useEffect(() => data && setMenus(data.menuList), [data]);
+   useEffect(() => {
+      if (data) {
+         Promise.all(data.menuList.map(async item => {
+            let cloneItems = [...item.json.items];
+            cloneItems = await Promise.all(cloneItems.map(async item2 => {
+               let cloneItem = { ...item2 };
+               if (cloneItem.header?.imageUrl) {
+                  cloneItem.header = { ...cloneItem.header, image: await getBase64FromUrl(cloneItem.header.imageUrl) };
+               }
+               if (item2.fieldsetTypeId === 1) {
+                  cloneItem.items = await Promise.all(cloneItem.items.map(async x => {
+                     let copyX = { ...x };
+                     if (copyX?.imageUrl) {
+                        copyX.image = await getBase64FromUrl(copyX.imageUrl);
+                     }
+                     return copyX;
+                  }));
+               }
+               return cloneItem;
+            }))
+            return { ...item, json: { ...item.json, items: cloneItems } };
+         })).then(result => {
+            setMenus(result);
+         });
+      }
+   }, [data]);
+
 
    // useEffect(() => {
    //    const menu = menus.find(x => x.id === parseInt(selectedMenu));
@@ -97,8 +134,9 @@ export const useActions = () => {
    const [createMenuMutation] = useMutation(CREATE_MENU);
 
    const updateJson = (fn) => {
-      return (...args) => {
-         const response = fn(...args);
+      return async (...args) => {
+         const response = await fn(...args);
+         console.log({ response });
          setMenus(menus => menus.map(menu => menu.id === parseInt(selectedMenu) ? { ...menu, json: { typeId: menu.id, items: response } } : menu));
       }
    }
@@ -120,6 +158,7 @@ export const useActions = () => {
       let newA = {
          name,
          imageUrl: "",
+         imageId: "",
          id: generateId(),
          enabled: true,
          price: 0
@@ -134,10 +173,29 @@ export const useActions = () => {
       );
    })
 
-   const removeShapeOneItem = updateJson(({ id1, id2 }) => {
-      return (
-         json.map(item => item.id === id1 ? { ...item, items: item.items.filter(item2 => item2.id !== id2) } : item)
-      );
+   const removeShapeOneItem = updateJson(async ({ id1, id2 }) => {
+      const response = await Promise.all(json.map(async item => {
+         if (item.id === id1) {
+            const items = await Promise.all(item.items.filter(item2 => {
+               if (item2.id === id2) {
+                  const publicId = item2?.imageId;
+                  if (publicId) {
+                     console.log({ publicId });
+                     destroyImageMutation({ variables: { publicId } });
+                  }
+                  return false;
+               }
+               return true;
+            }))
+            return {
+               ...item,
+               items: items
+            }
+         }
+         return item;
+      }));
+      console.log({ response });
+      return response;
    })
 
    const addShapeOne = updateJson(({ name, extra }) => {
@@ -148,6 +206,7 @@ export const useActions = () => {
          "header": {
             "name": name,
             "imageUrl": "",
+            "imageId": "",
             enabled: true
          },
          "items": []
@@ -155,9 +214,24 @@ export const useActions = () => {
       return ([...json, newItem]);
    })
 
-   const removeShapeOne = updateJson( ({ id }) => {
+   const removeShapeOne = updateJson(async ({ id }) => {
       return (
-         json.filter(item => item.id !== id)
+         await Promise.all(json.filter(item => {
+            if (item.id === id) {
+               if (item.header?.imageId) {
+                  destroyImageMutation({ variables: { publicId: item.header.imageId } })
+               }
+
+               Promise.all(item.items.map(que => {
+                  if (que?.imageId) {
+                     destroyImageMutation({ variables: { publicId: que?.imageId } });
+                  }
+               }));
+
+               return false;
+            }
+            return true;;
+         }))
       );
    })
 
@@ -175,6 +249,7 @@ export const useActions = () => {
          "header": {
             "name": name,
             "imageUrl": "",
+            "imageId": "",
             "enabled": true
          },
          "sizes": [],
@@ -183,9 +258,20 @@ export const useActions = () => {
       return ([...json, newItem]);
    })
 
-   const removeShapeTwo = updateJson(({ id }) => {
+   const removeShapeTwo = updateJson(async ({ id }) => {
       return (
-         json.filter(item => item.id !== id)
+         await Promise.all(json.filter(item => {
+
+            if (item.id === id) {
+               if (item.header?.imageId) {
+                  destroyImageMutation({ variables: { publicId: item.header.imageId } })
+               }
+
+               return false;
+            }
+
+            return true;
+         }))
       );
    })
 
@@ -207,6 +293,7 @@ export const useActions = () => {
       let newA = {
          name,
          imageUrl: "",
+         imageId: "",
          id: generateId(),
          enabled: true,
          price: 0,
@@ -230,6 +317,8 @@ export const useActions = () => {
 
          await updateMenuMutation({ variables: { input: { id: typeId, json: { typeId, items: json } } } });
 
+         await refetch();
+
          setGlobalContext(state => ({ ...state, generalParameters: state.generalParameters.map(x => x.id === 3 ? { ...x, value: dailyDishPrice } : x) }));
 
          toast.success('Menu guardado correctamente!');
@@ -240,6 +329,11 @@ export const useActions = () => {
       }
    }
 
+   const executeImagePickerModal = ({ onLoadFn, image }) => {
+      setOnLoadImagePickerFn({ fn: onLoadFn });
+      setImagePicker(image);
+      setImagePickerModal(true);
+   }
 
    return {
       json,
@@ -267,6 +361,9 @@ export const useActions = () => {
       addMenu,
       deleteMenuMutation,
       updateMenuMutation,
-      setMenus
+      setMenus,
+      openImagePickerModal, setImagePickerModal,
+      executeImagePickerModal, onLoadImagePickerFn,
+      imagePicker, setImagePicker
    }
 }

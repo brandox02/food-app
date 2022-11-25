@@ -1,26 +1,10 @@
 import { Tooltip } from '@mantine/core';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 import dayjs from 'dayjs';
 import Countdown from 'react-countdown';
 import { useAppContext } from '../../AppProvider';
-import { gql, useMutation } from '@apollo/client';
 
-const UPDATE_ORDER = gql`
-   mutation UpdateOrder($input: UpdateOrderInput!) {
-      updateOrder(input: $input) {
-      id
-      noOrder
-      status {
-         name
-         id
-      }
-      details {
-         id
-         name
-      }
-  }
-}`
 
 export const OrderCard = ({ order, refetchList }) => {
 
@@ -42,12 +26,16 @@ export const OrderCard = ({ order, refetchList }) => {
    return (
       <Link href={`/customer/ordenes/${order.id}`}>
          <div className="bg-gray-200 flex flex-col gap-3 font-[poppins] hover:scale-[98.5%] cursor-pointer transition-all">
-            <div className="flex self-end bg-yellow-400">
-               <span className="font-semibold text-sm px-2 py-1">
+            <div className="flex justify-between ">
+               <div className="font-semibold  px-4 py-1 bg-blue-700 text-white">
+                  {order.noOrder}
+               </div>
+               <div className="font-semibold text-sm px-4 py-1 bg-yellow-400">
                   {dayjs(order.createdAt).format('DD/MM/YYYY hh:mmA')}
-               </span>
+               </div>
             </div>
-            <div className="flex flex-col px-6 gap-2 xl:px-12">
+
+            <div className="flex flex-col px-6 gap-2 xl:px-12 mt-3">
                <div className="italic font-bold text-blue-900">
                   Detalles de la Orden
                </div>

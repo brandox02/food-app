@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { Breadcrumbs } from '@mantine/core';
 import dayjs from 'dayjs';
 import Head from 'next/head';
@@ -6,16 +6,35 @@ import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import React from 'react';
 import { FiArrowLeft, FiHome } from 'react-icons/fi';
+import { toast } from 'react-toastify';
+
+const UPDATE_ORDER = gql`
+   mutation UpdateOrder($input: UpdateOrderInput!) {
+      updateOrder(input: $input) {
+      id
+      noOrder
+      status {
+         name
+         id
+      }
+      details {
+         id
+         name
+      }
+  }
+}
+`
 
 const ORDER = gql`
   query Order($where: OrderWhereInput!) {
     order(where: $where) {
-      id
+        id
          noOrder
          typeId
          details {
             id name price total isDailyDish quantity comment
          }
+         statusId
          status {
           id
           name
@@ -29,12 +48,38 @@ const ORDER = gql`
 
 `
 
+
+
 const OrderDetails = () => {
   const { query: { id } } = useRouter();
-  const { data } = useQuery(ORDER, { variables: { where: { id: parseInt(id) } }, fetchPolicy: 'cache-and-network' });
+  const { data, refetch } = useQuery(ORDER, { variables: { where: { id: parseInt(id) } }, fetchPolicy: 'cache-and-network' });
+  const [updateOrderMutation] = useMutation(UPDATE_ORDER);
+  const router = useRouter();
   if (!data) {
     return <div>Cargando...</div>
   }
+
+  const cancelOrder = async () => {
+    try {
+      const { data } = await refetch();
+      if (data.order.statusId === 2) {
+        await updateOrderMutation({ variables: { input: { id: data.order.id, statusId: 5 } } });
+        toast.success('Orden Cancelada correctamente');
+        router.push('/');
+        return;
+      }
+
+      toast.error('Ya paso el tiempo para poder cancelar este pedido');
+
+
+
+    } catch (error) {
+      toast.error('Ocurrió un error a la hora de cancelar la orden');
+      console.error(error);
+    }
+
+  }
+
   const isDailyDish = data.order.typeId === 1;
   const statusColor = (() => {
     switch (data.order.status.id) {
@@ -74,9 +119,15 @@ const OrderDetails = () => {
       </div>
       <div className="px-5">
         <div className="w-full lg:max-w-[850px] relative mx-auto bg-white rounded-sm shadow flex flex-col gap-3 font-[poppins]">
-          <div className="flex self-end bg-yellow-400">
+          <div className="flex self-end bg-yellow-400 px-4">
             <span className="font-semibold text-sm px-2 py-1">
               {dayjs(data.order.createdAt).format('DD/MM/YYYY hh:mm:ssA')}
+            </span>
+
+          </div>
+          <div className="flex self-end bg-blue-700 text-white px-4">
+            <span className="font-semibold px-2 py-1">
+              {data.order.noOrder}
             </span>
           </div>
           <div className="flex flex-col px-6 gap-2 xl:px-12">
@@ -145,9 +196,14 @@ const OrderDetails = () => {
                 </span>
               </div>
               <div className="flex flex-col items-center gap-4">
-                <button className="bg-red-500 hover:bg-red-400 transition-all text-white font-semibold uppercase text-sm w-full px-10 md:px-16 rounded-lg py-2">
+                <button className="bg-orange-500 hover:bg-red-400 transition-all text-white font-semibold uppercase text-sm w-full px-10 md:px-16 rounded-lg py-2">
                   Realizar Reporte
                 </button>
+                {data.order.statusId === 2 && (
+                  <button onClick={cancelOrder} className="bg-red-500 hover:bg-red-400 transition-all text-white font-semibold uppercase text-sm w-full px-10 md:px-16 rounded-lg py-2">
+                    Cancelar Orden
+                  </button>
+                )}
                 <Link
                   className="underline underline-offset-2 text-xs text-blue-400"
                   href="/customer/ordenes"

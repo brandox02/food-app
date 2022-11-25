@@ -61,7 +61,7 @@ export const Item2 = ({ item, remove, update }) => {
    </>
 }
 
-export const ShapeTwo = ({ item, updateShapeTwoItem, addShapeTwoItem, removeShapeTwo, removeShapeTwoItem, updateShapeTwo, isDailyDish }) => {
+export const ShapeTwo = ({ item, updateShapeTwoItem, addShapeTwoItem, removeShapeTwo, removeShapeTwoItem, updateShapeTwo, executeImagePickerModal }) => {
    const [sizeText, setSizeText] = useState('');
    const [flavorText, setFlavorText] = useState('');
 
@@ -72,6 +72,7 @@ export const ShapeTwo = ({ item, updateShapeTwoItem, addShapeTwoItem, removeShap
 
    return <div className="flex flex-col gap-5">
       <MenuDish
+         onSelecIcon={() => executeImagePickerModal({ onLoadFn: (image) => updateShapeTwo({ id: item.id, key: 'image', value: image }), image: item.header?.image })}
          title={item.header.name}
          onRemove={() => removeShapeTwo({ id: item.id })}
          updateTitle={(value) => updateShapeTwo({ id: item.id, key: 'name', value })}

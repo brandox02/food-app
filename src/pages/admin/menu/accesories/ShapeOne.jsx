@@ -1,11 +1,12 @@
 import { Collapse, Switch } from "@mantine/core";
+import Image from "next/image";
 import { useState } from "react";
 import { AiOutlinePicture } from "react-icons/ai";
 import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { MenuDish } from "../../../../components/admin/MenuDish"
 
-export const MenuDishOption = ({ remove, update, dish, isDailyDish, item }) => {
+export const MenuDishOption = ({ remove, update, dish, isDailyDish, item, onLoadImage }) => {
    const [openedCollapse, setOpenedCollapse] = useState(false);
    return (
       <>
@@ -37,14 +38,14 @@ export const MenuDishOption = ({ remove, update, dish, isDailyDish, item }) => {
                      </div>
                   </div>}
                   <div className="flex gap-3">
-                     <div className="bg-gray-200 rounded-lg flex justify-center items-center px-3 py-1">
-                        <AiOutlinePicture size={45} />
-                     </div>
+
+                     {item?.image ? <Image className="rounded" src={item.image} height={70} width={70} alt={'image'} /> : (
+                        <div className="bg-gray-200 rounded-lg flex justify-center items-center px-3 py-1">
+                           <AiOutlinePicture size={45} />
+                        </div>
+                     )}
                      <div className="flex flex-col gap-2 text-xs justify-center">
-                        <span className="bg-gray-200 italic px-2 text-gray-500 font-semibold">
-                           imagen.png
-                        </span>
-                        <button className="text-white bg-blue-600 rounded-md py-0.5 hover:bg-blue-500">
+                        <button onClick={onLoadImage} className="text-white bg-blue-600 rounded-md p-1 hover:bg-blue-500">
                            Seleccionar
                         </button>
                      </div>
@@ -59,7 +60,7 @@ export const MenuDishOption = ({ remove, update, dish, isDailyDish, item }) => {
    );
 };
 
-export const ShapeOne = ({ item, addShapeOneItem, removeShapeOneItem, updateShapeOneItem, removeShapeOne, updateShapeOne, isDailyDish }) => {
+export const ShapeOne = ({ item, addShapeOneItem, removeShapeOneItem, updateShapeOneItem, removeShapeOne, updateShapeOne, isDailyDish, executeImagePickerModal }) => {
    const [text, setText] = useState('');
    function newItem() {
       if (text.trim()) {
@@ -72,6 +73,7 @@ export const ShapeOne = ({ item, addShapeOneItem, removeShapeOneItem, updateShap
    }
    return <div className="flex flex-col gap-5">
       <MenuDish
+         onSelecIcon={() => executeImagePickerModal({ onLoadFn: (image) => updateShapeOne({ id: item.id, key: 'image', value: image }), image: item.header?.image })}
          title={item.header.name}
          onRemove={() => removeShapeOne({ id: item.id })}
          updateTitle={(text) => updateShapeOne({ id: item.id, key: 'name', value: text })}
@@ -100,8 +102,9 @@ export const ShapeOne = ({ item, addShapeOneItem, removeShapeOneItem, updateShap
             item={x}
             dish={x.name}
             key={x.id}
-            remove={() => removeShapeOneItem({ id1: item.id, id2: x.id })}
+            remove={async () => await removeShapeOneItem({ id1: item.id, id2: x.id })}
             update={({ key, value }) => updateShapeOneItem({ id1: item.id, id2: x.id, key, value })}
+            onLoadImage={() => executeImagePickerModal({ onLoadFn: (image) => updateShapeOneItem({ id1: item.id, id2: x.id, key: 'image', value: image }), image: x?.image })}
          />
       ))}
 

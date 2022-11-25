@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import dayjs from "dayjs";
 import { useAppContext } from "../../../AppProvider";
 
@@ -30,6 +30,7 @@ export const useActions = () => {
             fromDate: today,
             filterDateByDelivered: false,
             toDate: today,
+            statusIds: [2,3,4]
          }
       }
    });
@@ -38,5 +39,5 @@ export const useActions = () => {
    const ordersOrdenated = orders.filter(item => item.statusId === 2);
    const ordersComfirmedOrDelivered = orders.filter(item => [3, 4].includes(item.statusId));
 
-   return { orders, ordersOrdenated, ordersComfirmedOrDelivered, refetch };
+   return { orders, ordersOrdenated, ordersComfirmedOrDelivered, refetch, };
 }

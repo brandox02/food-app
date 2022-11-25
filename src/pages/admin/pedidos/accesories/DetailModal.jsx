@@ -65,20 +65,22 @@ export const DetailModal = ({ open, setOpen, order, dailyDishPrice }) => {
                </div>
                <div className='px-10'>
                   <span className='text-lg my-5 flex justify-center font-bold'>Detalles de Orden</span>
-                  <div className='flex justify-between'>
-                     <span className='text-slate-600'>Plato del dia</span>
-                     <span className='text-slate-600'>RD${dailyDishPrice}</span>
-                  </div>
-                  <div className='ml-7'>
-                     {nonExtraItems.map(item => (
-                        <div key={item.id} className='text-slate-600'>
-                           {'X'} {item.name}
-                        </div>
-                     ))}
-                  </div>
+                  {order.type.id === 1 && <>
+                     <div className='flex justify-between'>
+                        <span className='text-slate-600'>Plato del dia</span>
+                        <span className='text-slate-600'>RD${dailyDishPrice}</span>
+                     </div>
+                     <div className='ml-7'>
+                        {nonExtraItems.map(item => (
+                           <div key={item.id} className='text-slate-600'>
+                              {'X'} {item.name}
+                           </div>
+                        ))}
+                     </div>
+                  </>}
                   {extraItems.length ? (
                      <div className='flex justify-between mt-2'>
-                        <span className='text-slate-600'>Extras</span>
+                        <span className='text-slate-600'>{order.type.id === 1 ? 'Extras' : 'Productos:'}</span>
                      </div>
                   ) : ''}
                   <div className='ml-7'>
@@ -93,8 +95,8 @@ export const DetailModal = ({ open, setOpen, order, dailyDishPrice }) => {
                      ))}
                   </div>
                </div>
-               <div className='bg-stone-100 flex justify-end px-10 py-1'>Total: RD$${order.total}</div>
-               <div className='flex justify-center'>
+               <div className='bg-stone-100 flex justify-end px-10 py-1 mt-4'>Total: RD$${order.total}</div>
+               <div className='flex justify-center mt-4'>
                   <span className='text-blue-900 font-bold' >{'Confirmación:'}</span>
                   <AiOutlineCheck color='#A8DBFF' size={20} className="mt-1 ml-3" />
                </div>

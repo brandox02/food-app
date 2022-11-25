@@ -4,7 +4,7 @@ import { AiOutlinePicture } from 'react-icons/ai';
 import { FiMenu, FiTrash2 } from 'react-icons/fi';
 import { RiPencilLine } from 'react-icons/ri';
 
-export const MenuDish = ({ title, onRemove, updateTitle, togleEnabled, enabled }) => {
+export const MenuDish = ({ title, onRemove, updateTitle, togleEnabled, enabled, onSelecIcon }) => {
   const [openedModal, setOpenedModal] = useState(false);
   const [editing, setEditing] = useState(false);
 
@@ -35,16 +35,8 @@ export const MenuDish = ({ title, onRemove, updateTitle, togleEnabled, enabled }
               />
             </div>
             <div className="flex items-center gap-3 px-4">
-              <Modal
-                centered
-                opened={openedModal}
-                onClose={() => setOpenedModal(false)}
-                title="Seleccionar ícono"
-              >
-                {/* Modal content */}
-              </Modal>
               <button
-                onClick={() => setOpenedModal(true)}
+                onClick={onSelecIcon}
                 className="bg-blue-500 hover:bg-blue-400 py-1 px-3 rounded-md text-white h-fit flex items-center gap-1"
               >
                 <AiOutlinePicture />

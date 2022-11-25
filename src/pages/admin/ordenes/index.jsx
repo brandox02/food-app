@@ -1,85 +1,28 @@
-import { Table } from '@mantine/core';
+import { Pagination, Table } from '@mantine/core';
 import Head from 'next/head';
 import Image from 'next/image';
-import { FiCheck, FiSearch, FiX } from 'react-icons/fi';
-import { RiBrush3Line, RiCoinLine, RiCoinsLine } from 'react-icons/ri';
-import AdminLayout from '../../components/admin/Layout';
-import pdfexport from '../../../public/assets/pdfexport.png';
-import docexport from '../../../public/assets/docexport.png';
-import xlsexport from '../../../public/assets/xlsexport.png';
-
-const orderDetails = [
-  {
-    orderNumber: '0022548',
-    time: '10:34 AM',
-    name: 'Juan Pérez',
-    department: 'Plataformas y Servicios',
-    validation: <span className="text-green-500">true</span>,
-    details: (
-      <div className="cursor-pointer underline underline-offset-2 text-blue-400">
-        Ver detalles
-      </div>
-    ),
-  },
-  {
-    orderNumber: '0022548',
-    time: '10:34 AM',
-    name: 'Juan Pérez',
-    department: 'Plataformas y Servicios',
-    validation: <span className="text-green-500">true</span>,
-    details: (
-      <div className="cursor-pointer underline underline-offset-2 text-blue-400">
-        Ver detalles
-      </div>
-    ),
-  },
-  {
-    orderNumber: '0022548',
-    time: '10:34 AM',
-    name: 'Juan Pérez',
-    department: 'Plataformas y Servicios',
-    validation: <span className="text-green-500">true</span>,
-    details: (
-      <div className="cursor-pointer underline underline-offset-2 text-blue-400">
-        Ver detalles
-      </div>
-    ),
-  },
-  {
-    orderNumber: '0022548',
-    time: '10:34 AM',
-    name: 'Juan Pérez',
-    department: 'Plataformas y Servicios',
-    validation: <span className="text-green-500">true</span>,
-    details: (
-      <div className="cursor-pointer underline underline-offset-2 text-blue-400">
-        Ver detalles
-      </div>
-    ),
-  },
-  {
-    orderNumber: '0022548',
-    time: '10:34 AM',
-    name: 'Juan Pérez',
-    department: 'Plataformas y Servicios',
-    validation: <span className="text-green-500">true</span>,
-    details: (
-      <div className="cursor-pointer underline underline-offset-2 text-blue-400">
-        Ver detalles
-      </div>
-    ),
-  },
-];
+import { FiSearch } from 'react-icons/fi';
+import { RiBrush3Line, RiCoinsLine } from 'react-icons/ri';
+import AdminLayout from '../../../components/admin/Layout';
+import pdfexport from '../../../../public/assets/pdfexport.png';
+import docexport from '../../../../public/assets/docexport.png';
+import xlsexport from '../../../../public/assets/xlsexport.png';
+import { useActions } from './useActions';
 
 const Ordenes = () => {
-  const rows = orderDetails.map((orderDetail) => (
-    <tr key={orderDetail.name}>
-      <td>{orderDetail.orderNumber}</td>
-      <td>{orderDetail.time}</td>
-      <td>{orderDetail.name}</td>
-      <td>{orderDetail.department}</td>
-      <td>{orderDetail.validation}</td>
-      <td>{orderDetail.details}</td>
+  const { orders, setPage, totalPages, totalItems, noOrderInput, setNoOrderInput } = useActions();
+
+  const rows = orders.map((order) => (
+    <tr key={order.id}>
+      <td>{order.noOrder}</td>
+      <td>{dayjs(order.createdAt).format('hh:mmA')}</td>
+      <td>{`${order.user.firstname} ${order.user.lastname}`}</td>
+      <td>{order.user.department.name}</td>
+      <td>
+        <div className="cursor-pointer underline underline-offset-2 text-blue-400">
+          Ver detalles
+        </div>
+      </td>
     </tr>
   ));
   return (
@@ -108,10 +51,12 @@ const Ordenes = () => {
             <div className="w-full flex-wrap md:flex-nowrap flex items-end gap-3">
               <div className="flex w-full sm:w-[60%] flex-col gap-1">
                 <span className="text-[#003579] font-[poppins] text-sm">
-                  Buscar por nombre o ID:
+                  Buscar por No. Ordern:
                 </span>
                 <input
-                  placeholder="Nombre/ID"
+                  value={noOrderInput}
+                  onChange={evt => setNoOrderInput(evt.currentTarget.value)}
+                  placeholder="No. Orden"
                   className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
                 />
               </div>
@@ -122,7 +67,7 @@ const Ordenes = () => {
                 </span>
               </div>
             </div>
-            <div className="w-full flex-wrap md:flex-nowrap flex items-end gap-3">
+            {/* <div className="w-full flex-wrap md:flex-nowrap flex items-end gap-3">
               <div className="flex w-full sm:w-[60%] flex-col gap-1">
                 <span className="text-[#003579] font-[poppins] text-sm">
                   Filtra por Item:
@@ -146,7 +91,7 @@ const Ordenes = () => {
                   </span>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="flex flex-col gap-3 mt-6">
@@ -166,7 +111,7 @@ const Ordenes = () => {
           <div className="flex flex-col gap-6">
             <div className="flex gap-2 items-center justify-between flex-wrap">
               <span className="text-lg italic font-semibold text-blue-400">
-                Listado de ordenes entregadas hoy (23)
+                Listado de ordenes entregadas hoy ({totalItems})
               </span>
               <button className="bg-green-500 flex items-center gap-2 hover:bg-green-400 uppercase font-semibold text-sm rounded py-2 px-4 text-white">
                 <RiCoinsLine size={20} /> Saldar todo
@@ -180,12 +125,12 @@ const Ordenes = () => {
                     <th>Hora</th>
                     <th>Nombre</th>
                     <th>Departamento</th>
-                    <th>Validación</th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody className="font-[poppins]">{rows}</tbody>
               </Table>
+              <Pagination total={totalPages} onChange={e => setPage(e - 1)} />;
             </div>
           </div>
         </div>

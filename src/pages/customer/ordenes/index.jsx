@@ -3,10 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
 import { FiHome } from 'react-icons/fi';
-// import { OrderCard } from '../../../components/customer/home/OrderCard';
-import { TodayOrders } from '../../../components/customer/home/TodayOrders';
 import { OrderCard } from '../../../components/order-card';
-import { v4 as generateId } from 'uuid';
 import { useActions } from './useActions';
 
 const Ordenes = () => {
