@@ -1,8 +1,8 @@
 import { Radio } from "@mantine/core";
-import Image from "next/image";
 import { useAppContext } from "../../../AppProvider";
-import riceIcon from '../../../../public/icons/riceIcon.svg';
 import { Controller, useFormContext } from "react-hook-form";
+import Image from "next/image";
+import unknownFoodImage from '../../../../public/assets/unknown-food.jpg';
 
 export function RadioGroup({ item }) {
    const { setValue, trigger, formState: { isSubmitted } } = useFormContext();
@@ -20,12 +20,14 @@ export function RadioGroup({ item }) {
             <div className="flex flex-col gap-5 font-[poppins]">
                <div className="flex items-end w-full">
                   <div className="w-[30px] md:w-auto">
-                     <Image src={riceIcon} alt="" />
+                     {/* <Image width={100} height={100} src={riceIcon} alt="" /> */}
                   </div>
                   <div className="flex flex-col w-full">
-                     <div className="w-full flex gap-3 items-end justify-between">
-                        <span className="text-2xl text-[#1A579A] font-semibold italic pl-2">
-                           {item.header.name}
+                     <div className="mb-1 w-full flex gap-3 items-end justify-between">
+                        <span className="items-center  flex text-2xl text-[#1A579A] font-semibold italic pl-2">
+                           <Image className="rounded" src={item.header?.imageUrl ? item.header.imageUrl : unknownFoodImage} alt={'image'} width={60} height={60} />
+                           <span className="ml-2">{item.header.name}</span>
+
                         </span>
                         <span className="text-[10px] sm:text-xs text-right text-gray-400 italic">
                            Favor seleccionar una opción
@@ -37,7 +39,9 @@ export function RadioGroup({ item }) {
                <div className=" font-semibold italic px-10 lg:px-24">
                   <Radio.Group name={item.id} orientation="vertical" spacing="xs" onChange={onChange} value={field.value}>
                      {item.items.map(option => (
-                        <div className="flex text-sm gap-1" key={option.id}>
+                        <div className="flex text-sm gap-1 border items-center p-1" key={option.id}>
+
+                           <Image className="rounded mr-2" src={option?.imageUrl ? option.imageUrl : unknownFoodImage} alt={'img'} width={175} height={175} />
                            <Radio value={option.id} label={option.name} />
                         </div>
                      ))}
@@ -70,84 +74,10 @@ export function MainStep({ items }) {
          </div>
          <div className="flex flex-col gap-6 mb-10">
             {items.map(item => (
+
                <RadioGroup item={item} key={item.id} />
+
             ))}
-            {/* <div className="flex flex-col gap-5 font-[poppins]">
-               <div className="flex items-end w-full">
-                  <div className="w-[30px] md:w-auto">
-                     <Image src={meatIcon} alt="" />
-                  </div>
-                  <div className="flex flex-col w-full">
-                     <div className="w-full flex items-end justify-between">
-                        <span className="text-2xl text-[#1A579A] font-semibold italic pl-2">
-                           Carnes
-                        </span>
-                        <span className="text-[10px] sm:text-xs text-right text-gray-400 italic">
-                           Favor seleccionar una opción
-                        </span>
-                     </div>
-                     <div className="h-[3px] w-full bg-red-400 self-start rounded-full"></div>
-                  </div>
-               </div>
-               <div className=" font-semibold italic px-10 lg:px-24">
-                  <Radio.Group name="meat" orientation="vertical" spacing="xs">
-                     <div className="flex text-sm gap-1">
-                        <input type="radio" id="pollo" name="meat" />
-                        <label for="pollo">Pollo guisado</label>
-                     </div>
-                     <div className="flex text-sm gap-1">
-                        <input type="radio" id="cerdo" name="meat" />
-                        <label for="cerdo">Cerdo guisado</label>
-                     </div>
-                     <div className="flex text-sm gap-1">
-                        <input type="radio" id="pechuga" name="meat" />
-                        <label for="pechuga">Pechuga a la plancha</label>
-                     </div>
-                     <div className="flex text-sm gap-1">
-                        <input type="radio" id="noneMeat" name="meat" value="" />
-                        <label for="noneMeat">Ninguno/a</label>
-                     </div>
-                  </Radio.Group>
-               </div>
-            </div>
-            <div className="flex flex-col gap-5 font-[poppins]">
-               <div className="flex items-end w-full">
-                  <div className="w-[30px] md:w-auto">
-                     <Image src={saladIcon} alt="" />
-                  </div>
-                  <div className="flex flex-col w-full">
-                     <div className="w-full flex items-end justify-between">
-                        <span className="text-2xl text-[#1A579A] font-semibold italic pl-2">
-                           Ensalada
-                        </span>
-                        <span className="text-[10px] sm:text-xs text-right text-gray-400 italic">
-                           Favor seleccionar una opción
-                        </span>
-                     </div>
-                     <div className="h-[3px] w-full bg-green-400 self-start rounded-full"></div>
-                  </div>
-               </div>
-               <div className=" font-semibold italic px-10 lg:px-24">
-                  <Radio.Group name="salad" orientation="vertical" spacing="xs">
-                     <div className="flex text-sm gap-1">
-                        <input type="radio" id="verde" name="salad" />
-                        <label for="verde">Ensalada verde</label>
-                     </div>
-                     <div className="flex text-sm gap-1">
-                        <input type="radio" id="rusa" name="salad" />
-                        <label for="rusa">Ensalada rusa</label>
-                     </div>
-                     <div className="flex text-sm gap-1">
-                        <input type="radio" id="coditos" name="salad" />
-                        <label for="coditos">Ensalada de coditos</label>
-                     </div>
-                     <div className="flex text-sm gap-1">
-                        <input type="radio" id="noneSalad" name="salad" value="" />
-                        <label for="noneSalad">Ninguno/a</label>
-                     </div>
-                  </Radio.Group>
-               </div>
-            </div> */}
          </div>
          <div className="flex justify-center px-10 md:px-24">
             <button className="bg-[#0064CE] rounded-lg py-2 hover:bg-blue-600 text-white uppercase font-semibold w-full">
