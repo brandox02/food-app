@@ -1,4 +1,4 @@
-import { Button, Group, Modal, Tabs } from '@mantine/core';
+import { Group, Modal, Tabs } from '@mantine/core';
 import Head from 'next/head';
 
 import { FiEye, FiPlus, FiTrash2 } from 'react-icons/fi';
@@ -9,7 +9,6 @@ import AdminLayout from '../../../components/admin/Layout';
 import { MenuModule } from '../../../components/admin/MenuModule';
 import { ShapeOne } from './accesories/ShapeOne';
 
-
 import { ShapeTwo } from './accesories/ShapeTwo';
 import { useActions } from './useActions';
 import { PreviewModal } from './accesories/PreviewModal';
@@ -18,7 +17,13 @@ import { useDebounce } from '../../../hooks/useDebounce';
 import { toast } from 'react-toastify';
 import { ImagePicker } from '../../../components/image-picker';
 
-function A({ menu, setSelectedMenu, updateMenuMutation, deleteMenuMutation, setMenus }) {
+function A({
+  menu,
+  setSelectedMenu,
+  updateMenuMutation,
+  deleteMenuMutation,
+  setMenus,
+}) {
   const [isHover, setIsHover] = useState(false);
   const [editable, setEditable] = useState(false);
   const [text, setText] = useState(menu.name);
@@ -28,26 +33,29 @@ function A({ menu, setSelectedMenu, updateMenuMutation, deleteMenuMutation, setM
     execute: async () => {
       try {
         if (text === '') {
-          setMenus(item => item.id === menu.id ? { ...menu, name: text } : item);
+          setMenus((item) =>
+            item.id === menu.id ? { ...menu, name: text } : item
+          );
           toast.error('No puedes dejar el nombre del menu vacio');
           return;
         }
-        await updateMenuMutation({ variables: { input: { id: menu.id, name: text } } });
+        await updateMenuMutation({
+          variables: { input: { id: menu.id, name: text } },
+        });
         toast.success('Nombre de menu actualizado correctamente');
 
       } catch (error) {
         toast.error('Ocurrió un error al actualizar el nombre del menú');
         console.error(error);
       }
-
-    }
+    },
   });
 
   const onChange = (evt) => {
     const { value } = evt.currentTarget;
     setText(value);
     debounce();
-  }
+  };
 
   const onDelete = async () => {
     try {
@@ -57,26 +65,31 @@ function A({ menu, setSelectedMenu, updateMenuMutation, deleteMenuMutation, setM
       }
       await deleteMenuMutation({ variables: { id: menu.id } });
       setSelectedMenu('1');
-      setMenus(menus => menus.filter(item => item.id !== menu.id));
+      setMenus((menus) => menus.filter((item) => item.id !== menu.id));
       toast.success('Menu eliminado correctamente');
       setConfirmDeleteModal(false);
     } catch (error) {
       toast.error('Ocurrió un error al borrar el menú');
       console.error(error);
     }
-
-  }
+  };
 
   return (
     <div
-      className='flex'
+      className="flex"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
-      <Modal opened={!!confirmDeleteModal} title={`Estas seguro de que deseas eliminar este menú: ${menu.name}?`} onClose={() => setConfirmDeleteModal(false)}>
+      <Modal
+        opened={!!confirmDeleteModal}
+        title={`Estas seguro de que deseas eliminar este menú: ${menu.name}?`}
+        onClose={() => setConfirmDeleteModal(false)}
+      >
         <Group position="center">
-          <button onClick={onDelete} className=" text-white bg-blue-400 hover:bg-blue-300 flex items-center py-1.5 px-4 gap-2 uppercase">
-
+          <button
+            onClick={onDelete}
+            className=" text-white bg-blue-400 hover:bg-blue-300 flex items-center py-1.5 px-4 gap-2 uppercase"
+          >
             Confirmar
           </button>
         </Group>
@@ -87,25 +100,31 @@ function A({ menu, setSelectedMenu, updateMenuMutation, deleteMenuMutation, setM
         value={menu.id.toString()}
         onClick={() => setSelectedMenu(menu.id.toString())}
       >
-        {editable ? <input value={text} className='p-3 text-black' onChange={onChange} /> : <span>{text}</span>}
-
+        {editable ? (
+          <input value={text} className="p-3 text-black" onChange={onChange} />
+        ) : (
+          <span>{text}</span>
+        )}
       </Tabs.Tab>
-      {
-        isHover && (
-          <>
-            <div onClick={() => setConfirmDeleteModal(true)} className="bg-[#0064CE]/30 text-gray-500 p-3 cursor-pointer hover:text-red-500">
-              <FiTrash2 size={24} />
-            </div>
-            <div onClick={() => setEditable(!editable)} className="bg-[#0064CE]/30 text-gray-500 p-3 cursor-pointer hover:text-blue-500">
-              <AiFillEdit size={24} />
-            </div>
-          </>
-        )
-      }
+      {isHover && (
+        <>
+          <div
+            onClick={() => setConfirmDeleteModal(true)}
+            className="bg-[#0064CE]/30 text-gray-500 p-3 cursor-pointer hover:text-red-500"
+          >
+            <FiTrash2 size={24} />
+          </div>
+          <div
+            onClick={() => setEditable(!editable)}
+            className="bg-[#0064CE]/30 text-gray-500 p-3 cursor-pointer hover:text-blue-500"
+          >
+            <AiFillEdit size={24} />
+          </div>
+        </>
+      )}
     </div>
-  )
+  );
 }
-
 
 const Menu = () => {
   const { json, addShapeOneItem, removeShapeOneItem, updateShapeOneItem, addShapeOne,
@@ -142,12 +161,17 @@ const Menu = () => {
               <div className="h-[3px] w-40 bg-blue-400 self-start rounded-full"></div>
             </div>
             <div>
-
-              <button onClick={onSave} className=" text-white bg-blue-400 hover:bg-blue-300 flex items-center py-1.5 px-4 gap-2 uppercase italic rounded-md">
+              <button
+                onClick={onSave}
+                className=" text-white bg-blue-400 hover:bg-blue-300 flex items-center py-1.5 px-4 gap-2 uppercase italic rounded-md"
+              >
                 <BiSave />
                 Guardar
               </button>
-              <button onClick={() => setOpenPreviewModal(true)} className="mt-5 bg-yellow-400 hover:bg-yellow-300 flex items-center py-1.5 px-4 gap-2 uppercase italic rounded-md">
+              <button
+                onClick={() => setOpenPreviewModal(true)}
+                className="mt-5 bg-yellow-400 hover:bg-yellow-300 flex items-center py-1.5 px-4 gap-2 uppercase italic rounded-md"
+              >
                 <FiEye className="shrink-0" />
                 Vista Previa
               </button>
@@ -156,15 +180,25 @@ const Menu = () => {
           <div>
             <Tabs variant="pills" value={selectedMenu}>
               <Tabs.List className="w-100 gap-3 bg-[#1A579A] px-5 py-1.5 rounded-md font-semibold">
-                {menus.map(menu => (
-                  <A key={menu.id} setMenus={setMenus} menu={menu} setSelectedMenu={setSelectedMenu} updateMenuMutation={updateMenuMutation} deleteMenuMutation={deleteMenuMutation} />
+                {menus.map((menu) => (
+                  <A
+                    key={menu.id}
+                    setMenus={setMenus}
+                    menu={menu}
+                    setSelectedMenu={setSelectedMenu}
+                    updateMenuMutation={updateMenuMutation}
+                    deleteMenuMutation={deleteMenuMutation}
+                  />
                 ))}
-                <span onClick={addMenu} className="md:text-sm text-xs font-semibold cursor-pointer text-white tracking-wider bg-blue-600 rounded-md px-2.5 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500">
+                <span
+                  onClick={addMenu}
+                  className="md:text-sm self-center text-xs font-semibold cursor-pointer text-white tracking-wider bg-blue-600 rounded-md px-2.5 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500"
+                >
                   <FiPlus size={20} />
                 </span>
               </Tabs.List>
               {/* PLATO DEL DIA JSX*/}
-              <Tabs.Panel value={'1'} pt="xs">
+              <Tabs.Panel value={"1"} pt="xs">
                 <div className="flex flex-col gap-5">
                   <div className="py-4 flex flex-col gap-2">
                     <span className="text-[#1A579A] font-semibold">
@@ -177,7 +211,9 @@ const Menu = () => {
                         type="text"
                         placeholder="150"
                         value={dailyDishPrice}
-                        onChange={e => setDailyDishPrice(parseInt(e.currentTarget.value || 0))}
+                        onChange={(e) =>
+                          setDailyDishPrice(parseInt(e.currentTarget.value || 0))
+                        }
                       />
                       <span className="bg-blue-100 rounded-lg py-2 px-3 text-gray-400">
                         DOP
@@ -187,29 +223,39 @@ const Menu = () => {
                   <MenuModule
                     title="Plato del día"
                     onAccept={({ name }) => addShapeOne({ name, extra: false })}
-                    shapeAvalibles={[{ value: 1, label: 'Forma 1' }]}
-                  />
-                  {json.filter(x => !x.extra).map(x => (
-                    <ShapeOne
-                      executeImagePickerModal={executeImagePickerModal}
-                      isDailyDish={true}
-                      key={x.id}
-                      item={x}
-                      updateShapeOne={updateShapeOne}
-                      removeShapeOne={removeShapeOne}
-                      addShapeOneItem={addShapeOneItem}
-                      removeShapeOneItem={removeShapeOneItem}
-                      updateShapeOneItem={updateShapeOneItem}
-                    />
-                  ))}
-                  <MenuModule
-                    title="Extras"
-                    onAccept={({ name, fieldsetTypeId }) => fieldsetTypeId === 1 ? addShapeOne({ name, extra: true }) : addShapeTwo({ name })}
-                    shapeAvalibles={[{ value: 1, label: 'Forma 1' }, , { value: 2, label: 'Forma 2' }]}
+                    shapeAvalibles={[{ value: 1, label: "Forma 1" }]}
                   />
                   {json
-                    .filter(x => x.extra)
-                    .map(x => x.fieldsetTypeId === 1 ?
+                    .filter((x) => !x.extra)
+                    .map((x) => (
+                      <ShapeOne
+                        executeImagePickerModal={executeImagePickerModal}
+                        isDailyDish={true}
+                        key={x.id}
+                        item={x}
+                        updateShapeOne={updateShapeOne}
+                        removeShapeOne={removeShapeOne}
+                        addShapeOneItem={addShapeOneItem}
+                        removeShapeOneItem={removeShapeOneItem}
+                        updateShapeOneItem={updateShapeOneItem}
+                      />
+                    ))}
+                  <MenuModule
+                    title="Extras"
+                    onAccept={({ name, fieldsetTypeId }) =>
+                      fieldsetTypeId === 1
+                        ? addShapeOne({ name, extra: true })
+                        : addShapeTwo({ name })
+                    }
+                    shapeAvalibles={[
+                      { value: 1, label: "Forma 1" },
+                      ,
+                      { value: 2, label: "Forma 2" },
+                    ]}
+                  />
+                  {json
+                    .filter((x) => !x.extra)
+                    .map((x) => (
                       <ShapeOne
                         executeImagePickerModal={executeImagePickerModal}
                         isDailyDish={false}
@@ -221,44 +267,42 @@ const Menu = () => {
                         removeShapeOneItem={removeShapeOneItem}
                         updateShapeOneItem={updateShapeOneItem}
                       />
-                      : <ShapeTwo
-                        executeImagePickerModal={executeImagePickerModal}
-                        key={x.id}
-                        item={x}
-                        updateShapeTwoItem={updateShapeTwoItem}
-                        addShapeTwoItem={addShapeTwoItem}
-                        removeShapeTwo={removeShapeTwo}
-                        removeShapeTwoItem={removeShapeTwoItem}
-                        updateShapeTwo={updateShapeTwo}
-                      />
-                    )}
+                    ))}
                 </div>
               </Tabs.Panel>
+
               {menus
-                .filter(x => x.id !== 1)
-                .map(menu => (
+                .filter((x) => x.id !== 1)
+                .map((menu) => (
                   <Tabs.Panel key={menu.id} value={menu.id.toString()} pt="xs">
                     <div className="flex flex-col gap-5">
-
                       <MenuModule
                         title={menu.name}
-                        onAccept={({ name, fieldsetTypeId }) => fieldsetTypeId === 1 ? addShapeOne({ name, extra: true }) : addShapeTwo({ name })}
-                        shapeAvalibles={[{ value: 1, label: 'Forma 1' }, { value: 2, label: 'Forma 2' }]}
+                        onAccept={({ name, fieldsetTypeId }) =>
+                          fieldsetTypeId === 1
+                            ? addShapeOne({ name, extra: true })
+                            : addShapeTwo({ name })
+                        }
+                        shapeAvalibles={[
+                          { value: 1, label: "Forma 1" },
+                          { value: 2, label: "Forma 2" },
+                        ]}
                       />
-                      {json.map(x => (
-                        x.fieldsetTypeId === 1 ? <ShapeOne
-                          executeImagePickerModal={executeImagePickerModal}
-                          isDailyDish={false}
-                          key={x.id}
-                          item={x}
-                          updateShapeOne={updateShapeOne}
-                          removeShapeOne={removeShapeOne}
-                          addShapeOneItem={addShapeOneItem}
-                          removeShapeOneItem={removeShapeOneItem}
-                          updateShapeOneItem={updateShapeOneItem}
-                        /> : (
-                          <ShapeTwo
+                      {json.map((x) =>
+                        x.fieldsetTypeId === 1 ? (
+                          <ShapeOne
                             executeImagePickerModal={executeImagePickerModal}
+                            isDailyDish={false}
+                            key={x.id}
+                            item={x}
+                            updateShapeOne={updateShapeOne}
+                            removeShapeOne={removeShapeOne}
+                            addShapeOneItem={addShapeOneItem}
+                            removeShapeOneItem={removeShapeOneItem}
+                            updateShapeOneItem={updateShapeOneItem}
+                          />
+                        ) : (
+                          <ShapeTwo
                             key={x.id}
                             item={x}
                             updateShapeTwoItem={updateShapeTwoItem}
@@ -268,14 +312,12 @@ const Menu = () => {
                             updateShapeTwo={updateShapeTwo}
                           />
                         )
-                      ))}
-
+                      )}
                     </div>
                   </Tabs.Panel>
                 ))}
             </Tabs>
           </div>
-
         </div>
       </AdminLayout>
     </>
