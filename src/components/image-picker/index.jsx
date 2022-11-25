@@ -10,8 +10,8 @@ import { toast } from 'react-toastify';
 
 export const ImagePicker = ({ open, setOpen, onLoad, image, setImage }) => {
 
-   return <Modal centered title={'Carga una imagen'} opened={open} onClose={() => setOpen(false)} size={'70%'}>
-      <div className='flex'>
+   return <Modal centered title={'Carga una imagen'} opened={open} onClose={() => setOpen(false)} size={'60%'}>
+      <div className='flex justify-center'>
          <Dropzone
             onDrop={async ([file]) => {
                const base64Image = await getBase64(file);
@@ -54,7 +54,7 @@ export const ImagePicker = ({ open, setOpen, onLoad, image, setImage }) => {
                </div>
             </Group>
          </Dropzone>
-         <Image width={200} height={0} src={image || imageNonFound} alt={'load-image'} />
+         <Image width={250} height={0} src={image || imageNonFound} alt={'load-image'} />
       </div>
    </Modal>
 }

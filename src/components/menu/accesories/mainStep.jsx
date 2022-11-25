@@ -1,8 +1,8 @@
 import { Radio } from "@mantine/core";
 import { useAppContext } from "../../../AppProvider";
 import { Controller, useFormContext } from "react-hook-form";
-import Image from "next/image";
 import unknownFoodImage from '../../../../public/assets/unknown-food.jpg';
+import { ZoomImage } from "./ZoomImage";
 
 export function RadioGroup({ item }) {
    const { setValue, trigger, formState: { isSubmitted } } = useFormContext();
@@ -25,9 +25,8 @@ export function RadioGroup({ item }) {
                   <div className="flex flex-col w-full">
                      <div className="mb-1 w-full flex gap-3 items-end justify-between">
                         <span className="items-center  flex text-2xl text-[#1A579A] font-semibold italic pl-2">
-                           <Image className="rounded" src={item.header?.imageUrl ? item.header.imageUrl : unknownFoodImage} alt={'image'} width={60} height={60} />
+                           <ZoomImage className="rounded" src={item.header?.imageUrl ? item.header.imageUrl : unknownFoodImage} alt={'image'} width={60} height={60} />
                            <span className="ml-2">{item.header.name}</span>
-
                         </span>
                         <span className="text-[10px] sm:text-xs text-right text-gray-400 italic">
                            Favor seleccionar una opción
@@ -41,7 +40,7 @@ export function RadioGroup({ item }) {
                      {item.items.map(option => (
                         <div className="flex text-sm gap-1 border items-center p-1" key={option.id}>
 
-                           <Image className="rounded mr-2" src={option?.imageUrl ? option.imageUrl : unknownFoodImage} alt={'img'} width={175} height={175} />
+                           <ZoomImage className="rounded mr-2" src={option?.imageUrl ? option.imageUrl : unknownFoodImage} alt={'img'} width={140} height={140} />
                            <Radio value={option.id} label={option.name} />
                         </div>
                      ))}
