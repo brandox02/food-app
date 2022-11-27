@@ -136,7 +136,6 @@ export const useActions = () => {
    const updateJson = (fn) => {
       return async (...args) => {
          const response = await fn(...args);
-         console.log({ response });
          setMenus(menus => menus.map(menu => menu.id === parseInt(selectedMenu) ? { ...menu, json: { typeId: menu.id, items: response } } : menu));
       }
    }
@@ -180,7 +179,6 @@ export const useActions = () => {
                if (item2.id === id2) {
                   const publicId = item2?.imageId;
                   if (publicId) {
-                     console.log({ publicId });
                      destroyImageMutation({ variables: { publicId } });
                   }
                   return false;
@@ -194,7 +192,6 @@ export const useActions = () => {
          }
          return item;
       }));
-      console.log({ response });
       return response;
    })
 

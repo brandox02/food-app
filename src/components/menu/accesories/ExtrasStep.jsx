@@ -1,7 +1,10 @@
 import { Radio } from '@mantine/core';
 import React from 'react';
 import { FiArrowLeft, FiPlus } from 'react-icons/fi';
+import { CgMathMinus } from 'react-icons/cg';
 import { Controller, useFormContext } from 'react-hook-form';
+import unknownFoodImage from '../../../../public/assets/unknown-food.jpg';
+import { ZoomImage } from './ZoomImage';
 
 export function ProductPickerType1({ item }) {
    const { setValue } = useFormContext();
@@ -17,43 +20,54 @@ export function ProductPickerType1({ item }) {
          <span className="text-orange-400 font-semibold">
             {item.header.name}
          </span>
-         {item.items.map(product => {
-            return (
-               <Controller
-                  key={product.id}
-                  name={concatName(product.id)}
-                  render={({ field }) => {
-                     const quantity = field.value || 0;
-                     return <div key={product.id} className="flex justify-between w-full max-w-[300px]">
-                        <div>
-                           {product.name} <span className="font-semibold">RD${product.price}</span>
-                        </div>
-                        <div className="p-1 bg-orange-400 rounded-full active:scale-95"
-                           onClick={() => onClick({ id: product.id, value: quantity - 1 })}
-                        >
-                           -
-                        </div>
-                        <div className="p-1 bg-orange-400 rounded-full active:scale-95"
-                           onClick={() => onClick({ id: product.id, value: quantity + 1 })}
-                        >
-                           <FiPlus className="text-white" />
-                        </div>
+         <div>
+            {item.items.map(product => {
+               return (
+                  <Controller
+                     key={product.id}
+                     name={concatName(product.id)}
+                     render={({ field }) => {
+                        const quantity = field.value || 0;
+                        return (
+                           <div key={product.id} className="flex flex-row my-3 items-center">
+                              <ZoomImage
+                                 className="rounded mr-2"
+                                 src={product?.imageUrl ? product.imageUrl : unknownFoodImage}
+                                 alt={'img'}
+                                 width={100}
+                                 height={100}
+                              />
+                              <div className='flex flex-col ml-2'>
+                                 <span className='text-base'>
+                                    {product.name}
+                                 </span>
+                                 <span className="font-semibold">RD${product.price}</span>
+                                 <div className='flex flex-row justify-around my-2'>
+                                    <div className="p-1.5 bg-orange-400 rounded-full active:scale-95 cursor-pointer"
+                                       onClick={() => onClick({ id: product.id, value: quantity - 1 })}
+                                    >
+                                       <CgMathMinus className="text-white" />
+                                    </div>
+                                    <span className='mx-2'>{quantity}</span>
+                                    <div className="p-1.5 bg-orange-400 rounded-full active:scale-95 cursor-pointer"
+                                       onClick={() => onClick({ id: product.id, value: quantity + 1 })}
+                                    >
+                                       <FiPlus className="text-white" />
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        )
+                     }} />
 
-                        <span>{quantity}</span>
-                     </div>
-                  }} />
-
-            )
-         })}
+               )
+            })}
+         </div>
       </div>
-
-
-
-
    )
 }
 
-export function PorductPickerType2({ item }) {
+export function ProductPickerType2({ item }) {
    const { setValue, watch } = useFormContext();
    const concatFlavorName = () => `extrasStep.${item.id}.flavor`;
    const concatSizeName = (name) => `extrasStep.${item.id}.size.${name}`;
@@ -64,9 +78,17 @@ export function PorductPickerType2({ item }) {
    };
    const onChange = (value) => setValue(concatFlavorName(), value);
    const disabled = Object.values(watch(`extrasStep.${item.id}.size`) || {}).every(x => !x);
+   console.log({ item })
    return <>
       <div className="flex flex-col gap-2">
          <span className="text-orange-400 font-semibold">{item.header.name}</span>
+         <ZoomImage
+            className="rounded my-2 "
+            src={item.header?.imageUrl ? item.header.imageUrl : unknownFoodImage}
+            alt={'img'}
+            width={100}
+            height={100}
+         />
          <span className="text-sm font-semibold text-blue-900">
             Tamaño
          </span>
@@ -81,22 +103,21 @@ export function PorductPickerType2({ item }) {
                         <div>
                            {size.name} <span className="font-semibold">RD${size.price}</span>
                         </div>
-                        <div className="p-1 bg-orange-400 rounded-full active:scale-95" onClick={() => onClick({ id: size.id, value: quantity - 1 })}>
-                           {'-'}
-                        </div>
-                        <div className="p-1 bg-orange-400 rounded-full active:scale-95" onClick={() => onClick({ id: size.id, value: quantity + 1 })}>
-                           <FiPlus className="text-white" />
+                        <div className="p-1.5 cursor-pointer bg-orange-400 rounded-full active:scale-95" onClick={() => onClick({ id: size.id, value: quantity - 1 })}>
+                           <CgMathMinus className="text-white" />
                         </div>
                         <span>{quantity}</span>
+                        <div className="p-1.5 cursor-pointer bg-orange-400 rounded-full active:scale-95" onClick={() => onClick({ id: size.id, value: quantity + 1 })}>
+                           <FiPlus className="text-white" />
+                        </div>
+
                      </div>
                   )
                }}
             />
-
          ))}
       </div>
       <div className="flex flex-col gap-2">
-
          <span className="text-sm font-semibold text-blue-900">
             {'Sabores'}
          </span>
@@ -119,8 +140,6 @@ export function PorductPickerType2({ item }) {
 
                </Radio.Group>
             }} />
-
-
       </div>
 
    </>
@@ -169,7 +188,7 @@ export const ExtrasStep = ({ goBack, items, typeId }) => {
                            case 1:
                               return <ProductPickerType1 item={item} key={item.id} />
                            case 2:
-                              return <PorductPickerType2 item={item} key={item.id} />
+                              return <ProductPickerType2 item={item} key={item.id} />
                            default:
                               return ''
                         }

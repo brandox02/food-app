@@ -11,16 +11,9 @@ export const PreviewModal = ({ open, setOpen, menu }) => {
          opened={open}
          onClose={() => setOpen(false)}
          title="Vista Previa del Menu"
-         size={'2xl'}
-
-
+         size={'60%'}
       >
-
-
-
          <Menu menu={menu} isPreview />
-
-
       </Modal>
    </>
 }
