@@ -12,7 +12,14 @@ import { useActions } from './useActions';
 import { useState } from 'react';
 
 const Ordenes = () => {
-  const { orders, setPage, totalPages, totalItems, noOrderInput, setNoOrderInput } = useActions();
+  const {
+    orders,
+    setPage,
+    totalPages,
+    totalItems,
+    noOrderInput,
+    setNoOrderInput,
+  } = useActions();
 
   const rows = orders.map((order) => (
     <tr key={order.id}>
@@ -58,7 +65,7 @@ const Ordenes = () => {
                 </span>
                 <input
                   value={noOrderInput}
-                  onChange={evt => setNoOrderInput(evt.currentTarget.value)}
+                  onChange={(evt) => setNoOrderInput(evt.currentTarget.value)}
                   placeholder="No. Orden"
                   className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
                 />
@@ -231,7 +238,7 @@ const Ordenes = () => {
                   </>
                 </Modal>
               </Table>
-              <Pagination total={totalPages} onChange={e => setPage(e - 1)} />;
+              <Pagination total={totalPages} onChange={(e) => setPage(e - 1)} />
             </div>
           </div>
         </div>

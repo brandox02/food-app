@@ -1,0 +1,334 @@
+import { Breadcrumbs, createStyles, Modal, Select, Table } from '@mantine/core';
+import Head from 'next/head';
+import { FiArrowLeft, FiHome, FiPlusCircle, FiSearch } from 'react-icons/fi';
+import { RiBrush3Line } from 'react-icons/ri';
+import AdminLayout from '../../../components/admin/Layout';
+import { useState } from 'react';
+import { DatePicker } from '@mantine/dates';
+import Link from 'next/link';
+
+const GestionarEmpleados = () => {
+  const useStyles = createStyles(() => ({
+    input: {
+      borderWidth: 2,
+      borderRadius: 10,
+      borderColor: '#1A579A',
+      fontFamily: 'poppins',
+    },
+  }));
+  const { classes } = useStyles();
+  const employeeDetails = [
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      creationDate: '2/12/2022',
+      department: 'Plataformas y Servicios',
+      edit: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
+          Editar
+        </div>
+      ),
+    },
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      creationDate: '2/12/2022',
+      department: 'Plataformas y Servicios',
+      edit: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
+          Editar
+        </div>
+      ),
+    },
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      creationDate: '2/12/2022',
+      department: 'Plataformas y Servicios',
+      edit: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
+          Editar
+        </div>
+      ),
+    },
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      creationDate: '2/12/2022',
+      department: 'Plataformas y Servicios',
+      edit: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
+          Editar
+        </div>
+      ),
+    },
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      creationDate: '2/12/2022',
+      department: 'Plataformas y Servicios',
+      edit: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
+          Editar
+        </div>
+      ),
+    },
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      creationDate: '2/12/2022',
+      department: 'Plataformas y Servicios',
+      edit: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
+          Editar
+        </div>
+      ),
+    },
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      creationDate: '2/12/2022',
+      department: 'Plataformas y Servicios',
+      edit: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
+          Editar
+        </div>
+      ),
+    },
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      creationDate: '2/12/2022',
+      department: 'Plataformas y Servicios',
+      edit: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
+          Editar
+        </div>
+      ),
+    },
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      creationDate: '2/12/2022',
+      department: 'Plataformas y Servicios',
+      edit: (
+        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
+          Editar
+        </div>
+      ),
+    },
+  ];
+
+  const rows2 = employeeDetails.map((employeeDetail) => (
+    <tr key={employeeDetail.name}>
+      <td>{employeeDetail.employeeID}</td>
+      <td>{employeeDetail.employeeName}</td>
+      <td>{employeeDetail.employeeEmail}</td>
+      <td>{employeeDetail.creationDate}</td>
+      <td>{employeeDetail.department}</td>
+      <td className="cursor-pointer" onClick={() => setOpened(true)}>
+        {employeeDetail.edit}
+      </td>
+    </tr>
+  ));
+  const [opened, setOpened] = useState(false);
+  const [opened2, setOpened2] = useState(false);
+
+  const items = [
+    { title: <FiHome />, href: '/admin/dashboard' },
+    { title: 'Empleados', href: '/admin/empleados' },
+    { title: 'Gestionar empleados', href: '/admin/empleados/gestionar' },
+  ].map((item, index) => (
+    <Link
+      className="text-[#003579] font-semibold italic hover:underline underline-offset-2"
+      href={item.href}
+      key={index}
+    >
+      {item.title}
+    </Link>
+  ));
+
+  return (
+    <>
+      <Head>
+        <title>Pa&apos; Come Admin | GestionarEmpleados</title>
+        <meta name="description" content="Generated by create next app" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <AdminLayout>
+        <div className="w-full flex flex-col gap-8">
+          <div className="w-full">
+            <Breadcrumbs separator=">">{items}</Breadcrumbs>
+          </div>
+          <div className="w-fit flex flex-col gap-3">
+            <div className=" flex w-full justify-start">
+              <Link
+                className=" bg-blue-300 rounded-full p-2 cursor-pointer"
+                href="/admin/empleados"
+              >
+                <FiArrowLeft className="text-white w-5 h-5" />
+              </Link>
+            </div>
+            <div>
+              <span className="text-blue-900 text-2xl font-semibold">
+                Gestionar empleados
+              </span>
+              <div className="h-[3px] w-44 bg-blue-400 self-start rounded-full" />
+            </div>
+          </div>
+
+          <div className="-mb-3">
+            <span className="text-md italic font-semibold text-blue-400">
+              Filtro de búsqueda
+            </span>
+          </div>
+
+          <div className="w-full flex flex-col gap-4">
+            <div className="w-full flex flex-col gap-5 lg:gap-0 md:flex-row flex-wrap">
+              <div className="w-full lg:w-9/12 2xl:w-10/12 grid md:grid-cols-3 gap-3 lg:gap-5">
+                <div className="flex flex-col gap-1">
+                  <span className="text-[#003579] font-[poppins] text-sm">
+                    Filtrar por fecha de:
+                  </span>
+                  <Select
+                    classNames={{
+                      input: classes.input,
+                    }}
+                    placeholder="Creación"
+                    data={[
+                      { value: 'Creación', label: 'Creación' },
+                      { value: 'Solicitud', label: 'Solicitud' },
+                    ]}
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <span className="text-[#003579] font-[poppins] text-sm">
+                    Desde:
+                  </span>
+                  <DatePicker
+                    placeholder="Fecha"
+                    classNames={{
+                      input: classes.input,
+                    }}
+                    name={'fromDate'}
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <span className="text-[#003579] font-[poppins] text-sm">
+                    Hasta:
+                  </span>
+                  <DatePicker
+                    placeholder="Fecha"
+                    classNames={{
+                      input: classes.input,
+                    }}
+                    name={'toDate'}
+                  />
+                </div>
+              </div>
+              <div className="w-full lg:w-3/12 2xl:w-2/12 flex lg:justify-end items-end gap-3">
+                <div className="flex cursor-pointer gap-1 text-sm bg-blue-600 hover:bg-blue-500 text-white uppercase items-center rounded-lg px-3 py-2">
+                  <FiSearch />
+                  <span>
+                    <button>Buscar</button>
+                  </span>
+                </div>
+                <button className="flex gap-1 text-sm bg-red-500 hover:bg-red-400 text-white uppercase items-center rounded-lg px-3 py-2">
+                  <RiBrush3Line />
+                  Limpiar
+                </button>
+              </div>
+            </div>
+
+            <div className="w-full flex-wrap md:flex-nowrap flex items-end gap-3">
+              <div className="flex w-full sm:w-[50%] flex-col gap-1">
+                <span className="text-[#003579] font-[poppins] text-sm">
+                  Buscar por nombre o ID:
+                </span>
+                <input
+                  placeholder="Nombre/ID"
+                  className="border-2 border-[#1A579A] px-3 py-1.5 font-[poppins] placeholder:text-sm rounded-lg w-full outline-none"
+                />
+              </div>
+              <div className="flex cursor-pointer gap-1 text-sm bg-blue-600 hover:bg-blue-500 text-white uppercase items-center rounded-lg px-3 py-2">
+                <FiSearch />
+                <span>
+                  <button>Buscar</button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-6">
+            <div className="flex gap-2 items-center justify-between flex-wrap">
+              <span className="text-lg italic font-semibold text-blue-400">
+                Listado de empleados (30)
+              </span>
+            </div>
+            <div className="flex items-center">
+              <button
+                onClick={() => setOpened2(true)}
+                className="bg-blue-500 flex items-center gap-2 hover:bg-blue-400 uppercase font-semibold text-sm rounded py-2 px-4 text-white"
+              >
+                <FiPlusCircle size={20} /> Agregar empleado
+              </button>
+              <Modal
+                size={'lg'}
+                centered
+                opened={opened2}
+                onClose={() => setOpened2(false)}
+                title={
+                  <div className="w-fit mb-5">
+                    <span className="text-blue-900 text-xl font-semibold">
+                      {'Agregar Empleado'}
+                    </span>
+                    <div className="h-[3px] w-40 bg-blue-400 self-start rounded-full"></div>
+                  </div>
+                }
+              ></Modal>
+            </div>
+            <div id="scrollbar" className="w-auto overflow-auto">
+              <Table highlightOnHover verticalSpacing="sm">
+                <thead className="bg-[#47ADF5]/30 italic font-[poppins] ">
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Fecha de creación</th>
+                    <th>Departamento</th>
+                    <th />
+                  </tr>
+                </thead>
+                <tbody className="font-[poppins]">{rows2}</tbody>
+              </Table>
+              <Modal
+                size={'lg'}
+                centered
+                opened={opened}
+                onClose={() => setOpened(false)}
+                title={
+                  <div className="w-fit mb-5">
+                    <span className="text-blue-900 text-xl font-semibold">
+                      {'Editar empleado'}
+                    </span>
+                    <div className="h-[3px] w-40 bg-blue-400 self-start rounded-full"></div>
+                  </div>
+                }
+              ></Modal>
+            </div>
+          </div>
+        </div>
+      </AdminLayout>
+    </>
+  );
+};
+
+export default GestionarEmpleados;

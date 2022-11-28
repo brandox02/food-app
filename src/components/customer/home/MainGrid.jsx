@@ -1,22 +1,28 @@
 import React from 'react';
 import { RiCoinsLine, RiStarFill } from 'react-icons/ri';
 import { GiSandsOfTime } from 'react-icons/gi';
-import { useAppContext } from '../../../AppProvider'
-import CounterDown from 'react-countdown'
+import { useAppContext } from '../../../AppProvider';
+import CounterDown from 'react-countdown';
 import dayjs from 'dayjs';
+
 export const MainGrid = ({ orderTotal = '245', accMount = 0 }) => {
-
   const [{ generalParameters }] = useAppContext();
-  const hourLimit = parseInt(generalParameters.find(item => item.id === 2)?.value || 0);
+  const hourLimit = parseInt(
+    generalParameters.find((item) => item.id === 2)?.value || 0
+  );
 
-  const countDownDate = dayjs().set('hours', hourLimit).set('minutes', 0).set('seconds', 0).set('millisecond', 0).valueOf();
+  const countDownDate = dayjs()
+    .set('hours', hourLimit)
+    .set('minutes', 0)
+    .set('seconds', 0)
+    .set('millisecond', 0)
+    .valueOf();
   function generateSeq(size, count) {
     const breakpoint = size - count.toString().length;
     const result =
       [...Array(breakpoint)].map(() => '0').join('') + count.toString();
     return result;
   }
-
 
   return (
     <div className="w-full flex mb-8">
@@ -86,7 +92,15 @@ export const MainGrid = ({ orderTotal = '245', accMount = 0 }) => {
           </span>
           <GiSandsOfTime className="text-blue-500 w-20 h-20" />
           <span className="text-blue-900 italic font-semibold text-4xl">
-            <CounterDown date={countDownDate} renderer={({ hours, minutes, seconds }) => <>{`${generateSeq(2, hours)}:${generateSeq(2, minutes)}:${generateSeq(2, seconds)}`}</>} />
+            <CounterDown
+              date={countDownDate}
+              renderer={({ hours, minutes, seconds }) => (
+                <>{`${generateSeq(2, hours)}:${generateSeq(
+                  2,
+                  minutes
+                )}:${generateSeq(2, seconds)}`}</>
+              )}
+            />
           </span>
         </div>
       </div>
