@@ -260,21 +260,21 @@ const Empleados = () => {
                 className="bg-blue-500 flex items-center gap-2 hover:bg-blue-400 uppercase font-semibold text-sm rounded py-2 px-4 text-white"
               >
                 <FiPlusCircle size={20} /> Agregar empleado
-                <Modal
-                  size={'xl'}
-                  centered
-                  opened={opened}
-                  onClose={() => setOpened(false)}
-                  title={
-                    <div className="w-fit mb-5">
-                      <span className="text-blue-900 text-xl font-semibold">
-                        {'Agregar Empleado'}
-                      </span>
-                      <div className="h-[3px] w-40 bg-blue-400 self-start rounded-full"></div>
-                    </div>
-                  }
-                ></Modal>
               </button>
+              <Modal
+                size={'xl'}
+                centered
+                opened={opened}
+                onClose={() => setOpened(false)}
+                title={
+                  <div className="w-fit mb-5">
+                    <span className="text-blue-900 text-xl font-semibold">
+                      {'Agregar Empleado'}
+                    </span>
+                    <div className="h-[3px] w-40 bg-blue-400 self-start rounded-full"></div>
+                  </div>
+                }
+              ></Modal>
             </div>
             <div id="scrollbar" className="w-auto overflow-auto">
               <Table highlightOnHover verticalSpacing="sm">

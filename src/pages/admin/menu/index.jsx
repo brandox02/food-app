@@ -43,7 +43,6 @@ function A({
           variables: { input: { id: menu.id, name: text } },
         });
         toast.success('Nombre de menu actualizado correctamente');
-
       } catch (error) {
         toast.error('Ocurrió un error al actualizar el nombre del menú');
         console.error(error);
@@ -81,8 +80,9 @@ function A({
       onMouseLeave={() => setIsHover(false)}
     >
       <Modal
+        centered
         opened={!!confirmDeleteModal}
-        title={`Estas seguro de que deseas eliminar este menú: ${menu.name}?`}
+        title={`¿Seguro que deseas eliminar el siguiente menú: ${menu.name}?`}
         onClose={() => setConfirmDeleteModal(false)}
       >
         <Group position="center">
@@ -101,7 +101,7 @@ function A({
         onClick={() => setSelectedMenu(menu.id.toString())}
       >
         {editable ? (
-          <input value={text} className="p-3 text-black" onChange={onChange} />
+          <input value={text} className="py-1 text-black" onChange={onChange} />
         ) : (
           <span>{text}</span>
         )}
@@ -110,13 +110,13 @@ function A({
         <>
           <div
             onClick={() => setConfirmDeleteModal(true)}
-            className="bg-[#0064CE]/30 text-gray-500 p-3 cursor-pointer hover:text-red-500"
+            className="bg-[#0064CE]/30 text-gray-500 flex px-1.5 items-center cursor-pointer hover:text-red-500"
           >
             <FiTrash2 size={24} />
           </div>
           <div
             onClick={() => setEditable(!editable)}
-            className="bg-[#0064CE]/30 text-gray-500 p-3 cursor-pointer hover:text-blue-500"
+            className="bg-[#0064CE]/30 text-gray-500 flex px-1.5 items-center cursor-pointer  hover:text-blue-500"
           >
             <AiFillEdit size={24} />
           </div>
@@ -127,14 +127,40 @@ function A({
 }
 
 const Menu = () => {
-  const { json, addShapeOneItem, removeShapeOneItem, updateShapeOneItem, addShapeOne,
-    removeShapeOne, updateShapeOne, updateShapeTwoItem, addShapeTwoItem, addShapeTwo,
-    removeShapeTwo, removeShapeTwoItem, updateShapeTwo, dailyDishPrice, onSave, setDailyDishPrice,
-    openPreviewModal, setOpenPreviewModal, typeId, selectedMenu, setSelectedMenu, menus, addMenu,
-    deleteMenuMutation, updateMenuMutation, setMenus, openImagePickerModal, setImagePickerModal
-    , executeImagePickerModal, onLoadImagePickerFn, imagePicker, setImagePicker } = useActions();
-
-
+  const {
+    json,
+    addShapeOneItem,
+    removeShapeOneItem,
+    updateShapeOneItem,
+    addShapeOne,
+    removeShapeOne,
+    updateShapeOne,
+    updateShapeTwoItem,
+    addShapeTwoItem,
+    addShapeTwo,
+    removeShapeTwo,
+    removeShapeTwoItem,
+    updateShapeTwo,
+    dailyDishPrice,
+    onSave,
+    setDailyDishPrice,
+    openPreviewModal,
+    setOpenPreviewModal,
+    typeId,
+    selectedMenu,
+    setSelectedMenu,
+    menus,
+    addMenu,
+    deleteMenuMutation,
+    updateMenuMutation,
+    setMenus,
+    openImagePickerModal,
+    setImagePickerModal,
+    executeImagePickerModal,
+    onLoadImagePickerFn,
+    imagePicker,
+    setImagePicker,
+  } = useActions();
 
   return (
     <>
@@ -150,7 +176,11 @@ const Menu = () => {
         image={imagePicker}
         setImage={setImagePicker}
       />
-      <PreviewModal menu={{ typeId, items: json }} open={openPreviewModal} setOpen={setOpenPreviewModal} />
+      <PreviewModal
+        menu={{ typeId, items: json }}
+        open={openPreviewModal}
+        setOpen={setOpenPreviewModal}
+      />
       <AdminLayout>
         <div className="w-full flex flex-col gap-8">
           <div className="flex w-full items-center justify-between">
@@ -198,7 +228,7 @@ const Menu = () => {
                 </span>
               </Tabs.List>
               {/* PLATO DEL DIA JSX*/}
-              <Tabs.Panel value={"1"} pt="xs">
+              <Tabs.Panel value={'1'} pt="xs">
                 <div className="flex flex-col gap-5">
                   <div className="py-4 flex flex-col gap-2">
                     <span className="text-[#1A579A] font-semibold">
@@ -212,7 +242,9 @@ const Menu = () => {
                         placeholder="150"
                         value={dailyDishPrice}
                         onChange={(e) =>
-                          setDailyDishPrice(parseInt(e.currentTarget.value || 0))
+                          setDailyDishPrice(
+                            parseInt(e.currentTarget.value || 0)
+                          )
                         }
                       />
                       <span className="bg-blue-100 rounded-lg py-2 px-3 text-gray-400">
@@ -223,7 +255,7 @@ const Menu = () => {
                   <MenuModule
                     title="Plato del día"
                     onAccept={({ name }) => addShapeOne({ name, extra: false })}
-                    shapeAvalibles={[{ value: 1, label: "Forma 1" }]}
+                    shapeAvalibles={[{ value: 1, label: 'Forma 1' }]}
                   />
                   {json
                     .filter((x) => !x.extra)
@@ -248,14 +280,14 @@ const Menu = () => {
                         : addShapeTwo({ name })
                     }
                     shapeAvalibles={[
-                      { value: 1, label: "Forma 1" },
+                      { value: 1, label: 'Forma 1' },
                       ,
-                      { value: 2, label: "Forma 2" },
+                      { value: 2, label: 'Forma 2' },
                     ]}
                   />
                   {json
                     .filter((x) => x.extra)
-                    .map((x) => (
+                    .map((x) =>
                       x.fieldsetTypeId === 1 ? (
                         <ShapeOne
                           executeImagePickerModal={executeImagePickerModal}
@@ -280,7 +312,7 @@ const Menu = () => {
                           updateShapeTwo={updateShapeTwo}
                         />
                       )
-                    ))}
+                    )}
                 </div>
               </Tabs.Panel>
             </Tabs>

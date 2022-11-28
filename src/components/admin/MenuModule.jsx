@@ -20,27 +20,37 @@ export const MenuModule = ({ title, shapeAvalibles, onAccept }) => {
   return (
     <>
       <Modal
+        centered
         opened={opened}
         onClose={() => setOpened(false)}
-        title="Nuevo Fieldset"
+        title={
+          <div className="w-fit">
+            <span className="text-blue-900 text-xl font-semibold">
+              {'Agregar nueva categoría'}
+            </span>
+            <div className="h-[3px] w-44 bg-blue-400 self-start rounded-full"></div>
+          </div>
+        }
       >
-        <TextInput
-          placeholder="Titulo"
-          label="Titulo"
-          value={text}
-          onChange={(e) => setText(e.currentTarget.value)}
-        />
-        <Select
-          label="Selecciona el tipo de forma"
-          placeholder="Seleccionar una"
-          value={formSelected}
-          onChange={setFormSelected}
-          data={shapeAvalibles}
-        />
+        <div className="flex flex-col gap-2 mb-6">
+          <TextInput
+            placeholder="Título"
+            label="Título"
+            value={text}
+            onChange={(e) => setText(e.currentTarget.value)}
+          />
+          <Select
+            label="Selecciona el tipo de forma:"
+            placeholder="Seleccionar"
+            value={formSelected}
+            onChange={setFormSelected}
+            data={shapeAvalibles}
+          />
+        </div>
         <Group position="center">
           <span
             onClick={add}
-            className="mr-3 md:text-sm text-xs font-semibold cursor-pointer text-white tracking-wider bg-blue-600 rounded-md px-2.5 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500"
+            className="md:text-sm text-xs font-semibold cursor-pointer text-white tracking-wider bg-blue-600 rounded-md px-5 min-h-[40px] h-full flex items-center font-[poppins] hover:text-blue-500"
           >
             Aceptar
           </span>
