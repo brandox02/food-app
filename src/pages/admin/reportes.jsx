@@ -170,12 +170,12 @@ const Reportes = () => {
                 </div>
               </div>
               <div className="w-full lg:w-3/12 2xl:w-2/12 flex lg:justify-end items-end gap-3">
-                <button className="flex gap-1 text-sm bg-blue-600 hover:bg-blue-500 text-white uppercase items-center rounded-lg px-3 py-2">
+                <div className="flex gap-1 text-sm bg-blue-600 hover:bg-blue-500 text-white uppercase items-center rounded-lg px-3 py-2">
                   <FiSearch />
                   <span>
                     <button type="submit">Buscar</button>
                   </span>
-                </button>
+                </div>
                 <button className="flex gap-1 text-sm bg-red-500 hover:bg-red-400 text-white uppercase items-center rounded-lg px-3 py-2">
                   <RiBrush3Line />
                   <span>Limpiar</span>
