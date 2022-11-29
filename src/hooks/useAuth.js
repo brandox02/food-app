@@ -13,6 +13,14 @@ const SIGNIN = gql`
   }
 `;
 
+const LOGIN = gql`
+       mutation Login($email: String!, $password: String!) {
+            login(email: $email, password: $password) {
+              accessToken
+            }
+          }
+      `
+
 export const useAuth = () => {
   const [_, setState] = useAppContext();
   const client = useApolloClient();
@@ -84,13 +92,6 @@ export const useAuth = () => {
 
   const login = async ({ email, password }) => {
 
-    const LOGIN = gql`
-       mutation Login($email: String!, $password: String!) {
-            login(email: $email, password: $password) {
-              accessToken
-            }
-          }
-      `
     const response = await client.mutate({
       mutation: LOGIN, variables: { email, password }
     });

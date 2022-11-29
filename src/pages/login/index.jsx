@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { FormProvider } from '../../components/react-hook-form/FormProvider';
 import { useActions } from './useActions';
-import { TextInput } from '../../components/react-hook-form/RHFTextInput';
+import { RHFTextInput } from '../../components/react-hook-form/RHFTextInput';
 
 const Login = () => {
   const { methods, onSubmit } = useActions();
@@ -42,13 +42,13 @@ const Login = () => {
                   <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
                     Correo electrónico
                   </span>
-                  <TextInput name={'email'} placeholder={'Email'} />
+                  <RHFTextInput name={'email'} placeholder={'Email'} />
                 </div>
                 <div className="flex flex-col gap-0.5">
                   <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
                     Contraseña
                   </span>
-                  <TextInput
+                  <RHFTextInput
                     type="password"
                     name={'password'}
                     placeholder={'Contraseña'}

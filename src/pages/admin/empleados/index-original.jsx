@@ -1,13 +1,20 @@
-import { Breadcrumbs, createStyles, Modal, Select, Table } from '@mantine/core';
+import {
+  createStyles,
+  Modal,
+  Select,
+  Switch,
+  Table,
+  Tooltip,
+} from '@mantine/core';
 import Head from 'next/head';
-import { FiArrowLeft, FiHome, FiPlusCircle, FiSearch } from 'react-icons/fi';
+import { FiInfo, FiPlusCircle, FiSearch } from 'react-icons/fi';
 import { RiBrush3Line } from 'react-icons/ri';
 import AdminLayout from '../../../components/admin/Layout';
 import { useState } from 'react';
 import { DatePicker } from '@mantine/dates';
 import Link from 'next/link';
 
-const GestionarEmpleados = () => {
+const Empleados = () => {
   const useStyles = createStyles(() => ({
     input: {
       borderWidth: 2,
@@ -17,6 +24,43 @@ const GestionarEmpleados = () => {
     },
   }));
   const { classes } = useStyles();
+  const requestDetails = [
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      requestDate: '30/11/2022',
+      requestStatus: <Switch color="lime" className="flex" />,
+    },
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      requestDate: '30/11/2022',
+      requestStatus: <Switch color="lime" className="flex" />,
+    },
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      requestDate: '30/11/2022',
+      requestStatus: <Switch color="lime" className="flex" />,
+    },
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      requestDate: '30/11/2022',
+      requestStatus: <Switch color="lime" className="flex" />,
+    },
+    {
+      employeeID: '05245684',
+      employeeName: 'Juan Perez',
+      employeeEmail: 'correo@correo.com',
+      requestDate: '30/11/2022',
+      requestStatus: <Switch color="lime" className="flex" />,
+    },
+  ];
   const employeeDetails = [
     {
       employeeID: '05245684',
@@ -24,11 +68,6 @@ const GestionarEmpleados = () => {
       employeeEmail: 'correo@correo.com',
       creationDate: '2/12/2022',
       department: 'Plataformas y Servicios',
-      edit: (
-        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
-          Editar
-        </div>
-      ),
     },
     {
       employeeID: '05245684',
@@ -36,11 +75,6 @@ const GestionarEmpleados = () => {
       employeeEmail: 'correo@correo.com',
       creationDate: '2/12/2022',
       department: 'Plataformas y Servicios',
-      edit: (
-        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
-          Editar
-        </div>
-      ),
     },
     {
       employeeID: '05245684',
@@ -48,11 +82,6 @@ const GestionarEmpleados = () => {
       employeeEmail: 'correo@correo.com',
       creationDate: '2/12/2022',
       department: 'Plataformas y Servicios',
-      edit: (
-        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
-          Editar
-        </div>
-      ),
     },
     {
       employeeID: '05245684',
@@ -60,11 +89,6 @@ const GestionarEmpleados = () => {
       employeeEmail: 'correo@correo.com',
       creationDate: '2/12/2022',
       department: 'Plataformas y Servicios',
-      edit: (
-        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
-          Editar
-        </div>
-      ),
     },
     {
       employeeID: '05245684',
@@ -72,11 +96,6 @@ const GestionarEmpleados = () => {
       employeeEmail: 'correo@correo.com',
       creationDate: '2/12/2022',
       department: 'Plataformas y Servicios',
-      edit: (
-        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
-          Editar
-        </div>
-      ),
     },
     {
       employeeID: '05245684',
@@ -84,49 +103,18 @@ const GestionarEmpleados = () => {
       employeeEmail: 'correo@correo.com',
       creationDate: '2/12/2022',
       department: 'Plataformas y Servicios',
-      edit: (
-        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
-          Editar
-        </div>
-      ),
-    },
-    {
-      employeeID: '05245684',
-      employeeName: 'Juan Perez',
-      employeeEmail: 'correo@correo.com',
-      creationDate: '2/12/2022',
-      department: 'Plataformas y Servicios',
-      edit: (
-        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
-          Editar
-        </div>
-      ),
-    },
-    {
-      employeeID: '05245684',
-      employeeName: 'Juan Perez',
-      employeeEmail: 'correo@correo.com',
-      creationDate: '2/12/2022',
-      department: 'Plataformas y Servicios',
-      edit: (
-        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
-          Editar
-        </div>
-      ),
-    },
-    {
-      employeeID: '05245684',
-      employeeName: 'Juan Perez',
-      employeeEmail: 'correo@correo.com',
-      creationDate: '2/12/2022',
-      department: 'Plataformas y Servicios',
-      edit: (
-        <div className="cursor-pointer underline underline-offset-2 text-blue-500 font-semibold">
-          Editar
-        </div>
-      ),
     },
   ];
+
+  const rows1 = requestDetails.map((requestDetails) => (
+    <tr key={requestDetails.employeeID}>
+      <td>{requestDetails.employeeID}</td>
+      <td>{requestDetails.employeeName}</td>
+      <td>{requestDetails.employeeEmail}</td>
+      <td>{requestDetails.requestDate}</td>
+      <td>{requestDetails.requestStatus}</td>
+    </tr>
+  ));
 
   const rows2 = employeeDetails.map((employeeDetail) => (
     <tr key={employeeDetail.name}>
@@ -135,58 +123,27 @@ const GestionarEmpleados = () => {
       <td>{employeeDetail.employeeEmail}</td>
       <td>{employeeDetail.creationDate}</td>
       <td>{employeeDetail.department}</td>
-      <td className="cursor-pointer" onClick={() => setOpened(true)}>
-        {employeeDetail.edit}
-      </td>
     </tr>
   ));
   const [opened, setOpened] = useState(false);
-  const [opened2, setOpened2] = useState(false);
-
-  const items = [
-    { title: <FiHome />, href: '/admin/dashboard' },
-    { title: 'Empleados', href: '/admin/empleados' },
-    { title: 'Gestionar empleados', href: '/admin/empleados/gestionar' },
-  ].map((item, index) => (
-    <Link
-      className="text-[#003579] font-semibold italic hover:underline underline-offset-2"
-      href={item.href}
-      key={index}
-    >
-      {item.title}
-    </Link>
-  ));
 
   return (
     <>
       <Head>
-        <title>Pa&apos; Come Admin | GestionarEmpleados</title>
+        <title>Pa&apos; Come Admin | Empleados</title>
         <meta name="description" content="Generated by create next app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <AdminLayout>
         <div className="w-full flex flex-col gap-8">
-          <div className="w-full">
-            <Breadcrumbs separator=">">{items}</Breadcrumbs>
-          </div>
-          <div className="w-fit flex flex-col gap-3">
-            <div className=" flex w-full justify-start">
-              <Link
-                className=" bg-blue-300 rounded-full p-2 cursor-pointer"
-                href="/admin/empleados"
-              >
-                <FiArrowLeft className="text-white w-5 h-5" />
-              </Link>
-            </div>
-            <div>
-              <span className="text-blue-900 text-2xl font-semibold">
-                Gestionar empleados
-              </span>
-              <div className="h-[3px] w-44 bg-blue-400 self-start rounded-full" />
-            </div>
+          <div className="w-fit">
+            <span className="text-blue-900 text-2xl font-semibold">
+              Empleados
+            </span>
+            <div className="h-[3px] w-24 bg-blue-400 self-start rounded-full" />
           </div>
 
-          <div className="-mb-3">
+          {/* <div className="-mb-3">
             <span className="text-md italic font-semibold text-blue-400">
               Filtro de búsqueda
             </span>
@@ -266,25 +223,49 @@ const GestionarEmpleados = () => {
                 </span>
               </div>
             </div>
+          </div> */}
+          <div className="flex flex-col gap-6">
+            <div className="flex gap-2 items-center justify-between flex-wrap">
+              <span className="text-lg italic font-semibold text-green-500">
+                Solicitudes más recientes (5)
+              </span>
+            </div>
+            <div id="scrollbar" className="w-auto overflow-auto">
+              <Table highlightOnHover verticalSpacing="sm">
+                <thead className="bg-[#66fca2]/40 italic font-[poppins] ">
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Fecha de solicitud</th>
+                    <th>Estado de solicitud</th>
+                  </tr>
+                </thead>
+                <tbody className="font-[poppins]">{rows1}</tbody>
+              </Table>
+            </div>
+            <div className="w-full flex justify-center items-center gap-2 underline text-blue-500 italic font-semibold">
+              <Link href="/admin/empleados/requests">Ver todas</Link>
+            </div>
           </div>
           <div className="flex flex-col gap-6">
             <div className="flex gap-2 items-center justify-between flex-wrap">
               <span className="text-lg italic font-semibold text-blue-400">
-                Listado de empleados (30)
+                Agregados recientemente (6)
               </span>
             </div>
             <div className="flex items-center">
               <button
-                onClick={() => setOpened2(true)}
+                onClick={() => setOpened(true)}
                 className="bg-blue-500 flex items-center gap-2 hover:bg-blue-400 uppercase font-semibold text-sm rounded py-2 px-4 text-white"
               >
                 <FiPlusCircle size={20} /> Agregar empleado
               </button>
               <Modal
-                size={'lg'}
+                size={'xl'}
                 centered
-                opened={opened2}
-                onClose={() => setOpened2(false)}
+                opened={opened}
+                onClose={() => setOpened(false)}
                 title={
                   <div className="w-fit mb-5">
                     <span className="text-blue-900 text-xl font-semibold">
@@ -304,25 +285,23 @@ const GestionarEmpleados = () => {
                     <th>Correo</th>
                     <th>Fecha de creación</th>
                     <th>Departamento</th>
-                    <th />
                   </tr>
                 </thead>
                 <tbody className="font-[poppins]">{rows2}</tbody>
               </Table>
-              <Modal
-                size={'lg'}
-                centered
-                opened={opened}
-                onClose={() => setOpened(false)}
-                title={
-                  <div className="w-fit mb-5">
-                    <span className="text-blue-900 text-xl font-semibold">
-                      {'Editar empleado'}
-                    </span>
-                    <div className="h-[3px] w-40 bg-blue-400 self-start rounded-full"></div>
-                  </div>
-                }
-              ></Modal>
+            </div>
+            <div className="w-full flex justify-center items-center gap-2 underline text-blue-500 italic font-semibold">
+              <Link href="/admin/empleados/gestionar">Gestionar empleados</Link>
+              <Tooltip
+                label="Pulsa aquí para editar empleados"
+                color="gray"
+                position="right"
+                withArrow
+              >
+                <div className="cursor-pointer">
+                  <FiInfo />
+                </div>
+              </Tooltip>
             </div>
           </div>
         </div>
@@ -331,4 +310,4 @@ const GestionarEmpleados = () => {
   );
 };
 
-export default GestionarEmpleados;
+export default Empleados;

@@ -1,6 +1,5 @@
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react"
-import { toast } from "react-toastify";
 import { useAppContext } from "../../../AppProvider";
 
 const ORDERS = gql`
@@ -46,12 +45,6 @@ const ORDERS = gql`
 `;
 
 
-const MARK_AS_DELIVERED_ALL = gql`
-   mutation markAsDeliveredToday{
-      markAsDeliveredToday
-   }
-`
-
 export const useActions = () => {
    const [detailModalOpen, setDetailModalOpen] = useState(null);
    const [{ generalParameters}] = useAppContext();
@@ -62,7 +55,7 @@ export const useActions = () => {
    //   const [markAsDeliveredAllMutation] = useMutation(MARK_AS_DELIVERED_ALL);
    const { data, refetch } = useQuery(ORDERS, {
       variables: {
-         page: page, 
+         page, 
          where: {
             "fromDate": dayjs().format('YYYY-MM-DD'),
             "filterDateByDelivered": false,

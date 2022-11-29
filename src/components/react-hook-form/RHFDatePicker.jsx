@@ -14,6 +14,7 @@ const useStyles = createStyles(() => ({
 export const RHFDatePicker = ({
   name,
   placeholder = "Seleccionar Fecha",
+  ...other
 }) => {
   const { classes } = useStyles();
   const { setValue, watch, trigger } = useFormContext();
@@ -22,19 +23,20 @@ export const RHFDatePicker = ({
     <Controller
       name={name}
       render={({ fieldState: { error } }) => {
-
         return (
           <>
             <DatePicker
               inputFormat="DD/MM/YYYY"
               classNames={{ input: classes.input }}
               placeholder={placeholder}
+
               onChange={date => {
 
                 setValue(name, date);
                 trigger();
               }}
               value={watch(name)}
+              {...other}
             />
             {error && (
               <span className="font-[poppins] text-sm md:text-base text-[red] font-semibold">

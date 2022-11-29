@@ -1,6 +1,6 @@
 import { Breadcrumbs, createStyles, Modal, Switch, Table } from '@mantine/core';
 import Head from 'next/head';
-import { FiArrowLeft, FiHome, FiPlusCircle, FiSearch } from 'react-icons/fi';
+import { FiArrowLeft, FiHome, FiSearch } from 'react-icons/fi';
 import { RiBrush3Line } from 'react-icons/ri';
 import AdminLayout from '../../../components/admin/Layout';
 import { useState } from 'react';

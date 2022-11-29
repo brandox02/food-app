@@ -13,7 +13,8 @@ const useStyles = createStyles(() => ({
 export const RHFSelect = ({
   name,
   placeholder = "Seleccionar",
-  items
+  items,
+  ...other
 }) => {
   const { setValue, trigger } = useFormContext();
   const { classes } = useStyles();
@@ -30,12 +31,14 @@ export const RHFSelect = ({
                 input: classes.input,
               }}
               value={field.value}
+              clearable
               placeholder={placeholder}
               data={items.map(item => ({ value: item.id, label: item.name }))}
               onChange={(e) => {
                 setValue(name, e);
                 trigger(name);
               }}
+              {...other}
             />
 
             {error && error.type === "required" && (
