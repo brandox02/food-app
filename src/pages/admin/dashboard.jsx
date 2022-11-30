@@ -5,9 +5,115 @@ import Link from 'next/link';
 import bell from '../../../public/assets/campana.png';
 import Image from 'next/image';
 import { useAppContext } from '../../AppProvider';
+import CounterDown from 'react-countdown';
+import { gql, useQuery } from '@apollo/client';
+import * as dayjs from 'dayjs';
+
+const ORDERS = gql`
+   query Orders($page: Float,$where: OrderWhereInput) {
+   orders(page: $page, where: $where) {
+      items {
+         id
+         createdAt
+         deliverDate
+         noOrder
+         statusId
+         status {
+            id name
+         }
+         type {
+            name id
+         }
+         user {
+            firstname lastname
+            id
+            department {
+               id
+               name
+            }
+            email
+         }
+         details {
+            name
+            price
+            quantity
+            total
+            comment
+         }
+         total
+      }
+      metadata {
+         totalItems
+         perPage
+         totalPages
+      }
+  }
+}
+`;
+
+const USERS = gql`
+   query Users($page: Float, $where: UserWhereInput) {
+      users(page: $page, where: $where) {
+         items {
+            id firstname lastname email cedula createdAt enabled enableDate
+            department {
+               id name
+            }
+            company { id name }
+         }
+         metadata {
+            totalItems totalPages perPage
+         }
+      }
+   }
+`
 
 const Dashboard = ({ totalReports = '12' }) => {
-  const [{ user }] = useAppContext();
+  const { data } = useQuery(ORDERS, {
+    variables: {
+      page: 0,
+      where: {
+        "fromDate": dayjs().format('YYYY-MM-DD'),
+        "filterDateByDelivered": false,
+        "toDate": dayjs().format('YYYY-MM-DD'),
+        statusIds: [2, 3, 4]
+      }
+    },
+    fetchPolicy: 'cache-and-network',
+  });
+
+  const { data: dataUsers } = useQuery(USERS, {
+    fetchPolicy: 'cache-and-network',
+    variables: {
+      page: 0,
+      where: {
+        enabled: false
+      },
+    },
+  });
+
+  const totalItems = data ? data.orders.metadata.totalItems : 0;
+  const totalRequest = dataUsers ? dataUsers.users.metadata.totalItems : 0;
+
+  const [{ user, generalParameters }] = useAppContext();
+  const hourLimit = parseInt(
+    generalParameters.find((item) => item.id === 2)?.value || 0
+  );
+
+  const countDownDate = dayjs()
+    .set('hours', hourLimit)
+    .set('minutes', 0)
+    .set('seconds', 0)
+    .set('millisecond', 0)
+    .valueOf();
+
+  function generateSeq(size, count) {
+    const breakpoint = size - count.toString().length;
+    const result =
+      [...Array(breakpoint)].map(() => '0').join('') + count.toString();
+    return result;
+  }
+
   if (user) {
     return (
       <>
@@ -31,7 +137,15 @@ const Dashboard = ({ totalReports = '12' }) => {
               </span>
               <GiSandsOfTime className="text-blue-500" size={130} />
               <span className="text-blue-900 italic font-semibold text-4xl">
-                00:00:00
+                <CounterDown
+                  date={countDownDate}
+                  renderer={({ hours, minutes, seconds }) => (
+                    <>{`${generateSeq(2, hours)}:${generateSeq(
+                      2,
+                      minutes
+                    )}:${generateSeq(2, seconds)}`}</>
+                  )}
+                />
               </span>
             </div>
 
@@ -43,7 +157,7 @@ const Dashboard = ({ totalReports = '12' }) => {
                 Pedidos
               </span>
               <div className="border-4 text-7xl italic border-blue-500 text-blue-500 p-6 rounded-full">
-                15
+                {totalItems}
               </div>
               <Link
                 className="text-lg underline underline-offset-2 italic text-blue-500"
@@ -58,7 +172,7 @@ const Dashboard = ({ totalReports = '12' }) => {
                 Solicitudes
               </span>
               <div className="bg-blue-500 text-7xl italic text-white p-7 rounded-full">
-                18
+                {totalRequest}
               </div>
               <Link
                 className="text-lg underline underline-offset-2 italic text-blue-500"

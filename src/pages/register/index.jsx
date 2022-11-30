@@ -28,9 +28,9 @@ const Register = () => {
             <Image className="shrink-0" width={200} src={paComeLogo} alt="" />
           </div>
           <div className="w-0.5 bg-gray-100 my-10 hidden md:flex rounded-full"></div>
-          <div className="md:w-7/12 md:h-full">
+          <div className="md:w-7/12 md:h-full m-5 p-4">
             <FormProvider methods={methods} onSubmit={onSubmit}>
-              <div className="self-center text-xl text-[#003579] my-3 md:my-0 font-bold font-[poppins]">
+              <div className="self-center text-xl text-[#003579] my-3 md:my-0 font-bold font-[poppins] mb-4">
                 Regístrate
               </div>
               <div className="flex flex-col gap-0.5">

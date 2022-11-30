@@ -34,12 +34,21 @@ export const useActions = () => {
             "cedula",
             "companyId",
             "departmentId"]);
+         payload.roleId = 1;
          await signin(payload);
-         toast.success('Te haz registrado correctamente');
          router.push('/');
       } catch (error) {
+         let message;
+         switch(error.message){
+            case 'Is not possible to create a user with the given definition because another user already exists with the same attributes':
+               message = 'Este correo o cédula ya esta tomado';
+               break;
+            default:
+                  message = 'Ocurrió un error al momento de registrarte';
+                  break;
+         }
          console.error(error);
-         const message = error.message === 'Is not possible to create a user with the given definition because another user already exists with the same attributes' ? 'Este correo o cédula ya esta tomado' : 'Ocurrió un error al momento de registrarte'
+         
          toast.error(message);
       }
 

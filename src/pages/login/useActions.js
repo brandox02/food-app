@@ -19,14 +19,28 @@ export const useActions = () => {
 
          const payload = pick(data, ['email', 'password']);
          await login(payload);
-
          
          router.push('/');
          toast.success('Haz iniciado sesión correctamente');
       } catch (error) {
+         let message;
+          switch(error.message){
+            case 'Resource not found':
+               message = 'Credenciales incorrectas';
+               break;
+            case 'Unauthorized':
+               message = 'Credenciales incorrectas';
+               break;
+            case 'UNACTIVE_USER':
+               message = 'Este usuario debe ser activado por un administrador';
+               break;
+            default:
+                  message = 'Ocurrió un error al momento de iniciar sesión';
+                  break;
+         }
          console.error(error);
 
-         const message= error.message === 'Resource not found' ? 'Credenciales incorrectas' : 'Ocurrió un error a la hora de iniciar sesión';
+         
          toast.error(message);
       }
 

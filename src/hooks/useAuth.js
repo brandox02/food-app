@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 const SIGNIN = gql`
-  mutation Signin($signin: UserInput!) {
+  mutation Signin($signin: CreateUserInput!) {
     signin(user: $signin) {
       accessToken
     }
@@ -80,14 +80,15 @@ export const useAuth = () => {
 
   const signin = async (payload) => {
 
-    const response = await client.mutate({ mutation: SIGNIN, variables: { signin: payload } });
-    const token = response?.data?.signin.accessToken;
-    if (token) {
+    await client.mutate({ mutation: SIGNIN, variables: { signin: payload } });
+    toast.success('Usuario registrado. Para poder iniciar sesión debes ser activado por un administrador');
+    // const token = response?.data?.signin.accessToken;
+    // if (token) {
 
-      await beAuthenticated(token);
+    //   await beAuthenticated(token);
 
-    }
-
+    // }
+    router.push('/login');
   };
 
   const login = async ({ email, password }) => {

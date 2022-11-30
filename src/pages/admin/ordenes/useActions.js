@@ -47,7 +47,7 @@ const ORDERS = gql`
 
 export const useActions = () => {
    const [detailModalOpen, setDetailModalOpen] = useState(null);
-   const [{ generalParameters}] = useAppContext();
+   const [{ generalParameters }] = useAppContext();
    const [page, setPage] = useState(0);
    const [noOrderInput, setNoOrderInput] = useState('');
    const [confirmModalAllOrderDelivered, setConfirmModalAllOrderDelivered] = useState(false);
@@ -94,6 +94,7 @@ export const useActions = () => {
    const totalPages = data?.orders?.metadata.totalPages;
    const totalItems = data?.orders?.metadata.totalItems;
    const dailyDishPrice = generalParameters.find(i => i.id === 3)?.value;
+   
 
 
    return {
