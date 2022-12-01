@@ -31,13 +31,33 @@ const UPDATE_USER = gql`
    }
 `
 
+const SIGNIN = gql`
+            mutation Signin($signin: CreateUserInput!) {
+               signin(user: $signin) {
+                  accessToken
+               }
+            }
+      `;
+
 const schemaDateFilter = yup.object({
    fromDate: yup.mixed().required(),
    toDate: yup.mixed().required(),
    filterByEnableDate: yup.mixed().required()
 })
 
+// const schemaManagementModalMethods = yup.object({
+//    managementModalOpen: yup.object().shape({
+//       email: yup.string().nullable().required(),
+//       lastname: yup.mixed().required(),
+//       email: yup.mixed().required(),
+//       departmentId: yup.mixed().required(),
+//       companyId: yup.mixed().required(),
+//       cedula: yup.mixed().required(),
+//    })
+// })
+
 export const useActions = () => {
+   const [signinMutation] = useMutation(SIGNIN);
    const dateFilterMethods = useForm({
       defaultValues: {
          fromDate: null,
@@ -59,7 +79,8 @@ export const useActions = () => {
    const managementModalMethods = useForm({
       defaultValues: {
          managementModalOpen: null
-      }
+      },
+      // resolver: yupResolver(schemaManagementModalMethods)
    });
 
    const [updateUserMutation] = useMutation(UPDATE_USER);
@@ -67,17 +88,19 @@ export const useActions = () => {
    const fromDate = dateFilterMethods.watch('fromDate');
    const toDate = dateFilterMethods.watch('toDate');
    const filterByEnableDate = dateFilterMethods.watch('filterByEnableDate');
-   const enabled = otherFilterMethods.watch('enabled');
+   // const enabled = otherFilterMethods.watch('enabled');
    const managementModalOpen = managementModalMethods.watch('managementModalOpen');
-   const name= otherFilterMethods.watch('name');
-   
+   const name = otherFilterMethods.watch('name');
+   // const [{user: {role}}] = useAppContext();
+
+
    const { data, refetch } = useQuery(USERS, {
       fetchPolicy: 'cache-and-network',
       variables: {
          page: otherFilterMethods.watch('page'),
          where: {
-            roleId: 1,
-            ...(name ? { name:otherFilterMethods.watch('name') } :{}),
+            roleId: 2,
+            ...(name ? { name: otherFilterMethods.watch('name') } : {}),
             ...(
                fromDate && toDate && filterByEnableDate !== null ? {
                   fromDate: dayjs(fromDate).format('YYYY-MM-DD'),
@@ -85,7 +108,7 @@ export const useActions = () => {
                   filterByEnableDate
                }
                   : {}),
-            ...(enabled === null ? {} : { enabled })
+            // ...(enabled === null ? {} : { enabled })
 
          },
       },
@@ -110,6 +133,12 @@ export const useActions = () => {
          managementModalMethods.setValue('managementModalOpen', null);
          return
       }
+
+      if (typeof user === 'boolean') {
+         managementModalMethods.reset({});
+         managementModalMethods.setValue('managementModalOpen', true);
+         return
+      }
       managementModalMethods.reset(user);
       managementModalMethods.setValue('managementModalOpen', user.id);
       managementModalMethods.setValue('company', user.company.name);
@@ -117,18 +146,32 @@ export const useActions = () => {
    };
 
    const onSubmitManagementModal = async (data) => {
+
       try {
+         if (typeof managementModalOpen !== 'boolean') {
+            const payload = pick(data, ['id', 'enabled', 'firstname', 'lastname']);
 
-         const payload = pick(data, ['id', 'enabled', 'firstname', 'lastname']);
+            await updateUserMutation({ variables: { input: payload } });
+            await refetch();
+            managementModalMethods.reset();
+            toast.success('Infomación guardada exitosamente');
+         } else {
+            const payload = pick(data, ['firstname', 'lastname', 'email', 'password', 'departmentId', 'companyId', 'cedula']);
+            payload.roleId = 2;
+            payload.enabled = true;
 
-         await updateUserMutation({ variables: { input: payload } });
-         await refetch();
-         managementModalMethods.reset();
-         toast.success('Infomación guardada exitosamente');
-
+            await signinMutation({ variables: { signin: payload } });
+            await refetch();
+            managementModalMethods.reset();
+            toast.success('Infomación guardada exitosamente');
+         }
       } catch (error) {
+         let message = 'Ocurrió un error a la hora de guardar la información';
+         if(error.message === 'Is not possible to create a user with the given definition because another user already exists with the same attributes'){
+            message = 'Ya existe un usuario con esta misma cédula o correo';
+         }
          console.error(error);
-         toast.error('Ocurrió un error a la hora de guardar la información')
+         toast.error(message)
       }
 
    }

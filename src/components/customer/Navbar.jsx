@@ -77,7 +77,7 @@ export const Navbar = () => {
               {user && (
                 <>
                   <Menu.Label className="text-center italic text-blue-600/50">
-                    {`Departamento de ${user.department.name}`}
+                    {`Departamento de ${user.department?.name}`}
                   </Menu.Label>
                   <Menu.Label className="text-center flex items-center font-normal justify-center gap-1 italic uppercase">
                     <FiMapPin /> {`${user.company.name} ${user.company.sede}`}

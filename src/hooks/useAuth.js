@@ -61,6 +61,7 @@ export const useAuth = () => {
             enabled
             cedula
             email
+            role { id name }
             company {
               id location name sede
             }

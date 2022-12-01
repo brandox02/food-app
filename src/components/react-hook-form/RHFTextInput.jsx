@@ -14,7 +14,6 @@ export const RHFTextInput = ({
     <Controller
       name={name}
       render={({ field, fieldState: { error } }) => {
-
         return (
           <>
             {customInput || (

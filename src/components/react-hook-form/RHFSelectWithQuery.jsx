@@ -16,25 +16,28 @@ export const RHFSelectWithQuery = ({
   name,
   placeholder = "Seleccionar",
   query,
+  variables = {},
+  ...restProps
 }) => {
-  const { setValue, trigger } = useFormContext();
+  const { setValue, trigger, } = useFormContext();
   const { classes } = useStyles();
   const { data } = useQuery(query, {
     fetchPolicy: "cache-and-network",
+    variables
   });
-
 
   const items = useMemo(
     () =>
       data && data?.items && Array.isArray(data.items)
         ? data.items.map((item) => ({
-            label: item.name,
-            value: item.id,
-          }))
+          label: item.name,
+          value: item.id,
+        }))
         : [],
     [data]
   );
-  
+
+
   return (
     <Controller
       name={name}
@@ -49,9 +52,11 @@ export const RHFSelectWithQuery = ({
               placeholder={placeholder}
               data={items}
               onChange={(e) => {
+                console.log("que fuee")
                 setValue(name, e);
                 trigger(name);
               }}
+              {...restProps}
             />
 
             {error && error.type === "required" && (

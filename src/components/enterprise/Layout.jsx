@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import logoPaCome from '../../../public/assets/logoPaCome.png';
-import profilePicture from '../../../public/assets/profilepicture.png';
+import profilePicture from '../../../public/assets/enterpriselogo.png';
 import {
   FiArrowLeft,
   FiArrowRight,
@@ -15,13 +15,11 @@ import {
   FiMapPin,
   FiX,
 } from 'react-icons/fi';
-import { RiUserLine } from 'react-icons/ri';
-import { MdOutlineDining } from 'react-icons/md';
-import { BiFoodMenu } from 'react-icons/bi';
+import { RiUserLine, RiUserSettingsLine } from 'react-icons/ri';
 import { HiOutlineDocumentReport } from 'react-icons/hi';
 import { useAppContext } from '../../AppProvider';
 
-const AdminLayout = ({ children }) => {
+const EnterpriseLayout = ({ children }) => {
   const router = useRouter();
   const [sidebar, setSidebar] = useState(true);
   const handleSidebar = () => {
@@ -77,7 +75,7 @@ const AdminLayout = ({ children }) => {
                       <Menu.Divider />
                     </>
                   )}
-                  <Link href="/admin/account">
+                  <Link href="/enterprise/account">
                     <Menu.Item className="text-gray-500 font-[poppins] px-5">
                       Cuenta
                     </Menu.Item>
@@ -114,10 +112,10 @@ const AdminLayout = ({ children }) => {
                   : 'flex flex-col items-center gap-0 font-[poppins]'
               }
             >
-              <Link href="/admin/dashboard">
+              <Link href="/enterprise/dashboard">
                 <li
                   className={
-                    router.pathname == '/admin/dashboard'
+                    router.pathname == '/enterprise/dashboard'
                       ? 'py-4 flex items-center gap-2 text-sm rounded-md font-bold text-white hover:text-gray-300 transition-all'
                       : 'py-4 flex items-center gap-2 text-sm rounded-md text-white hover:text-gray-300 transition-all'
                   }
@@ -133,10 +131,24 @@ const AdminLayout = ({ children }) => {
                   Organización
                 </span>
               </div>
-              <Link href="/admin/empleados">
+              <Link href="/enterprise/administradores">
                 <li
                   className={
-                    router.pathname == '/admin/empleados'
+                    router.pathname == '/enterprise/administradores'
+                      ? 'py-4 flex items-center gap-2 text-sm rounded-md font-bold text-white hover:text-gray-300 transition-all'
+                      : 'py-4 flex items-center gap-2 text-sm rounded-md text-white hover:text-gray-300 transition-all'
+                  }
+                >
+                  <RiUserSettingsLine className="w-5 h-5" />{' '}
+                  <span className={sidebar ? 'block' : 'hidden'}>
+                    Administradores
+                  </span>
+                </li>
+              </Link>
+              <Link href="/enterprise/empleados">
+                <li
+                  className={
+                    router.pathname == '/enterprise/empleados'
                       ? 'py-4 flex items-center gap-2 text-sm rounded-md font-bold text-white hover:text-gray-300 transition-all'
                       : 'py-4 flex items-center gap-2 text-sm rounded-md text-white hover:text-gray-300 transition-all'
                   }
@@ -147,90 +159,36 @@ const AdminLayout = ({ children }) => {
                   </span>
                 </li>
               </Link>
-              <Link href="/admin/admins">
-                <li
-                  className={
-                    router.pathname == '/admin/admins'
-                      ? 'py-4 flex items-center gap-2 text-sm rounded-md font-bold text-white hover:text-gray-300 transition-all'
-                      : 'py-4 flex items-center gap-2 text-sm rounded-md text-white hover:text-gray-300 transition-all'
-                  }
-                >
-                  <HiOutlineDocumentReport className="w-5 h-5" />{' '}
-                  <span className={sidebar ? 'block' : 'hidden'}>Administradores</span>
-                </li>
-              </Link>
               <div className="mt-3">
                 <span className="text-[9px] text-blue-300 italic">
                   Monitoreo
                 </span>
               </div>
-              {user.role.id === 3 && (
-                <Link href="/admin/pedidos">
-                  <li
-                    className={
-                      router.pathname == '/admin/pedidos'
-                        ? 'py-4 flex items-center gap-2 text-sm rounded-md font-bold text-white hover:text-gray-300 transition-all'
-                        : 'py-4 flex items-center gap-2 text-sm rounded-md text-white hover:text-gray-300 transition-all'
-                    }
-                  >
-                    <MdOutlineDining className="w-5 h-5" />{' '}
-                    <span className={sidebar ? 'block' : 'hidden'}>Pedidos</span>
-                  </li>
-                </Link>
-              )}
-              {user.role.id === 2 && (
-                <Link href="/admin/ordenes">
-                  <li
-                    className={
-                      router.pathname == '/admin/ordenes'
-                        ? 'py-4 flex items-center gap-2 text-sm rounded-md font-bold text-white hover:text-gray-300 transition-all'
-                        : 'py-4 flex items-center gap-2 text-sm rounded-md text-white hover:text-gray-300 transition-all'
-                    }
-                  >
-                    <FiList className="w-5 h-5" />{' '}
-                    <span className={sidebar ? 'block' : 'hidden'}>Ordenes</span>
-                  </li>
-                </Link>
-              )}
-              {[2, 3].includes(user.role.id) && (
-                <Link href="/admin/reportes">
-                  <li
-                    className={
-                      router.pathname == '/admin/reportes'
-                        ? 'py-4 flex items-center gap-2 text-sm rounded-md font-bold text-white hover:text-gray-300 transition-all'
-                        : 'py-4 flex items-center gap-2 text-sm rounded-md text-white hover:text-gray-300 transition-all'
-                    }
-                  >
-                    <HiOutlineDocumentReport className="w-5 h-5" />{' '}
-                    <span className={sidebar ? 'block' : 'hidden'}>Reportes</span>
-                  </li>
-                </Link>
-              )}
 
-              {user.role.id === 3 && (
-                <div>
-                  <div className="mt-3">
-                    <span className="text-[9px] text-blue-300 italic">
-                      Configuración
-                    </span>
-                  </div>
-
-                  <Link href="/admin/menu">
-                    <li
-                      className={
-                        router.pathname == '/admin/menu'
-                          ? 'py-4 flex items-center gap-2 text-sm rounded-md font-bold text-white hover:text-gray-300 transition-all'
-                          : 'py-4 flex items-center gap-2 text-sm rounded-md text-white hover:text-gray-300 transition-all'
-                      }
-                    >
-                      <BiFoodMenu className="w-5 h-5" />{' '}
-                      <span className={sidebar ? 'block' : 'hidden'}>
-                        Administrar Menú
-                      </span>
-                    </li>
-                  </Link>
-                </div>
-              )}
+              <Link href="/enterprise/ordenes">
+                <li
+                  className={
+                    router.pathname == '/enterprise/ordenes'
+                      ? 'py-4 flex items-center gap-2 text-sm rounded-md font-bold text-white hover:text-gray-300 transition-all'
+                      : 'py-4 flex items-center gap-2 text-sm rounded-md text-white hover:text-gray-300 transition-all'
+                  }
+                >
+                  <FiList className="w-5 h-5" />{' '}
+                  <span className={sidebar ? 'block' : 'hidden'}>Ordenes</span>
+                </li>
+              </Link>
+              <Link href="/enterprise/reportes">
+                <li
+                  className={
+                    router.pathname == '/enterprise/reportes'
+                      ? 'py-4 flex items-center gap-2 text-sm rounded-md font-bold text-white hover:text-gray-300 transition-all'
+                      : 'py-4 flex items-center gap-2 text-sm rounded-md text-white hover:text-gray-300 transition-all'
+                  }
+                >
+                  <HiOutlineDocumentReport className="w-5 h-5" />{' '}
+                  <span className={sidebar ? 'block' : 'hidden'}>Reportes</span>
+                </li>
+              </Link>
             </ul>
           </div>
           <div className="text-white text-[10px] flex font-[poppins]">
@@ -255,7 +213,7 @@ const AdminLayout = ({ children }) => {
               <AiOutlineMenu className="text-[#003876]" size={30} />
             </div>
             <div className="flex flex-col items-end pr-3">
-              <Link href="/admin/dashboard">
+              <Link href="/enterprise/dashboard">
                 <Image
                   className="cursor-pointer"
                   width={120}
@@ -265,7 +223,7 @@ const AdminLayout = ({ children }) => {
                 />
               </Link>
               <span className="text-[#47ADF5] font-[poppins] italic text-xs md:text-sm text-right">
-                Gestion empresarial - Administrativa
+                Gestion empresarial
               </span>
             </div>
           </div>
@@ -281,4 +239,4 @@ const AdminLayout = ({ children }) => {
   );
 };
 
-export default AdminLayout;
+export default EnterpriseLayout;

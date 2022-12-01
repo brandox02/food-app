@@ -1,9 +1,9 @@
-import { Modal } from "@mantine/core"
+import { Accordion, Modal } from "@mantine/core"
 import dayjs from "dayjs"
 import { AiOutlineCheck } from "react-icons/ai"
 
 
-export const DetailModal = ({ open, setOpen, order, dailyDishPrice }) => {
+export const AdminDetailOrderModal = ({ open, setOpen, order, dailyDishPrice }) => {
    const extraItems = (order?.details || []).filter(item => item.price);
    const nonExtraItems = (order?.details || []).filter(item => !item.price);
 
@@ -49,7 +49,7 @@ export const DetailModal = ({ open, setOpen, order, dailyDishPrice }) => {
                      </div>
                      <div className='w-2/4'>
                         <span className='text-blue-900 mr-2 font-semibold'>Departamento:</span>
-                        <span>{order.user.department.name}</span>
+                        <span>{order.user.department?.name}</span>
                      </div>
                   </div>
                   <div className='bg-stone-100 flex flex-row p-2'>
@@ -106,6 +106,22 @@ export const DetailModal = ({ open, setOpen, order, dailyDishPrice }) => {
                      <span className="font-semibold text-white italic">{order.status.name}</span>
                   </div>
                </div>
+               {order.claims.length ? (
+                  <div>
+                     <span className="text-red-600">Esta orden presenta reporte{order.claims.length > 1 ? 's' : ''}:</span>
+
+                     <Accordion variant="contained" defaultValue="customization">
+                        {order.claims.map(claim => (
+                           <Accordion.Item key={claim.id} value={claim.id.toString()} className='my-3'>
+                              <Accordion.Control> {claim.done && <span className="text-blue-700">Marcado como realizado -</span>} {claim.name}</Accordion.Control>
+                              <Accordion.Panel>{claim.description}</Accordion.Panel>
+                           </Accordion.Item>
+                        ))}
+
+                     </Accordion>
+
+                  </div>
+               ) : ''}
             </>
          )}
 

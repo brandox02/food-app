@@ -12,6 +12,9 @@ const ORDERS = gql`
          deliverDate
          noOrder
          statusId
+         claims {
+            id name done description
+         }
          status {
             id name
          }

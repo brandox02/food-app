@@ -68,7 +68,28 @@ const USERS = gql`
    }
 `
 
-const Dashboard = ({ totalReports = '12' }) => {
+
+const CLAIMS = gql`
+   query Claims($page: Float, $where: WhereClaimInput) {
+      claims(page: $page, where: $where) {
+         items {
+           id name description createdAt 
+           order { 
+               createdAt
+               noOrder
+               user {
+                  email firstname lastname department { name }
+               }
+           }
+         }
+         metadata {
+            totalItems totalPages perPage
+         }
+      }
+   }
+`;
+
+const Dashboard = ({ }) => {
   const { data } = useQuery(ORDERS, {
     variables: {
       page: 0,
@@ -92,8 +113,19 @@ const Dashboard = ({ totalReports = '12' }) => {
     },
   });
 
+  const { data: dataClaims } = useQuery(CLAIMS, {
+    fetchPolicy: 'cache-and-network',
+    variables: {
+      page: 0,
+      where: {
+        done: false
+      },
+    },
+  });
+
   const totalItems = data ? data.orders.metadata.totalItems : 0;
   const totalRequest = dataUsers ? dataUsers.users.metadata.totalItems : 0;
+  const totalClaims = dataClaims ? dataClaims.claims.metadata.totalItems : 0;
 
   const [{ user, generalParameters }] = useAppContext();
   const hourLimit = parseInt(
@@ -194,7 +226,7 @@ const Dashboard = ({ totalReports = '12' }) => {
             </span>
             <div className="flex gap-2">
               <span className="italic font-semibold">
-                Un total de {totalReports} reportes pendientes.
+                Un total de {totalClaims} reportes pendientes.
               </span>
               <Link
                 className="underline underline-offset-2 text-blue-400 font-semibold italic"

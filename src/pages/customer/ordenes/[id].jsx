@@ -7,7 +7,7 @@ import Router, { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { FiArrowLeft, FiHome } from 'react-icons/fi';
 import { toast } from 'react-toastify';
-import { ClaimModal } from './ClaimModal';
+import { ClaimModal } from '../../../components/ClaimModal';
 
 const UPDATE_ORDER = gql`
    mutation UpdateOrder($input: UpdateOrderInput!) {

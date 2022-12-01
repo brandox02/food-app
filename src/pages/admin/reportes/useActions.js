@@ -3,13 +3,12 @@ import { useForm } from "react-hook-form";
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from "dayjs";
-import { useEffect } from "react";
 
 const CLAIMS = gql`
    query Claims($page: Float, $where: WhereClaimInput) {
       claims(page: $page, where: $where) {
          items {
-           id name description createdAt 
+           id name description createdAt done
            order { 
                createdAt
                noOrder
@@ -45,7 +44,7 @@ export const useActions = () => {
       defaultValues: {
          page: 0,
          name: '',
-         enabled: true,
+         done: null,
          noOrder: '',
          claimModal: null
       }
@@ -63,13 +62,15 @@ export const useActions = () => {
    const managementModalOpen = managementModalMethods.watch('managementModalOpen');
    const noOrder= otherFilterMethods.watch('noOrder');
    const claimModal= otherFilterMethods.watch('claimModal');
+   const done = otherFilterMethods.watch('done');
    
    const { data, refetch } = useQuery(CLAIMS, {
       fetchPolicy: 'cache-and-network',
       variables: {
          page: otherFilterMethods.watch('page'),
          where: {
-            ...( noOrder? { noOrder } :{}),
+            ...( noOrder ? { noOrder } :{}),
+            ...( done !== null ? { done } :{}),
             ...(
                fromDate && toDate && filterDateByClaimDate !== null ? {
                   fromDate: dayjs(fromDate).format('YYYY-MM-DD'),
@@ -124,5 +125,5 @@ export const useActions = () => {
 
    return { managementModalMethods, managementModalOpen, onSearchOtherFilter, claims, totalItems, totalPages, 
       setPage, dateFilterMethods, onSeachDateFilter, clearFilters, otherFilterMethods, claimModal, 
-      setClaimModal: claimModalValue =>  otherFilterMethods.setValue('claimModal', claimModalValue) };
+      setClaimModal: claimModalValue =>  otherFilterMethods.setValue('claimModal', claimModalValue), refetch };
 }

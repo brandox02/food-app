@@ -11,6 +11,9 @@ const ORDERS = gql`
          deliverDate
          noOrder
          statusId
+         claims {
+            id name done description
+         }
          status {
             id name
          }
@@ -47,10 +50,12 @@ const ORDERS = gql`
 
 export const useActions = () => {
    const [detailModalOpen, setDetailModalOpen] = useState(null);
-   const [{ generalParameters }] = useAppContext();
+   const [{ generalParameters, user }] = useAppContext();
    const [page, setPage] = useState(0);
    const [noOrderInput, setNoOrderInput] = useState('');
    const [confirmModalAllOrderDelivered, setConfirmModalAllOrderDelivered] = useState(false);
+
+   const role2 = user.role.id === 2;
 
    //   const [markAsDeliveredAllMutation] = useMutation(MARK_AS_DELIVERED_ALL);
    const { data, refetch } = useQuery(ORDERS, {
@@ -100,7 +105,7 @@ export const useActions = () => {
    return {
       modalOrder, orders, setPage, page, totalPages,
       detailModalOpen, setDetailModalOpen, dailyDishPrice, totalItems, noOrderInput, setNoOrderInput,
-      confirmModalAllOrderDelivered, setConfirmModalAllOrderDelivered,
+      confirmModalAllOrderDelivered, setConfirmModalAllOrderDelivered, role2
    
    }
 }

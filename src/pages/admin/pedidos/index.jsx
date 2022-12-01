@@ -3,9 +3,10 @@ import Head from 'next/head';
 import { FiCheck, FiSearch } from 'react-icons/fi';
 import { ImCancelCircle } from 'react-icons/im';
 import AdminLayout from '../../../components/admin/Layout';
-import { DetailModal } from './accesories/DetailModal';
+// import { DetailModal } from './accesories/DetailModal';
 import { useActions } from './useActions';
 import dayjs from 'dayjs';
+import { AdminDetailOrderModal } from '../../../components/AdminDetailOrderModal';
 
 const Pedidos = () => {
   const {
@@ -28,7 +29,7 @@ const Pedidos = () => {
       <td>{order.noOrder}</td>
       <td>{dayjs(order.createdAt).format('hh:mmA')}</td>
       <td>{`${order.user.firstname} ${order.user.lastname}`}</td>
-      <td>{order.user.department.name}</td>
+      <td>{order.user.department?.name}</td>
       <td>{`RD$${order.total}`}</td>
       <td>
         {order.statusId === 3 || order.statusId === 4 ? (
@@ -84,7 +85,7 @@ const Pedidos = () => {
           </span>
         </div>
       </Modal>
-      <DetailModal
+      <AdminDetailOrderModal
         open={detailModalOpen}
         setOpen={setDetailModalOpen}
         order={modalOrder}
