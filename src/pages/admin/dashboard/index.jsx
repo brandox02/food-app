@@ -10,8 +10,6 @@ import { AccumulateMonthAmount } from './accessories/enterprise/AccumulateMonthA
 import { AvalibleTime } from './accessories/enterprise/AvalibleTime';
 import { Request } from './accessories/enterprise/Request';
 
-
-
 const USERS = gql`
    query Users($page: Float, $where: UserWhereInput) {
       users(page: $page, where: $where) {
@@ -52,13 +50,13 @@ const CLAIMS = gql`
 
 const Dashboard = ({ }) => {
 
-
   const { data: dataUsers } = useQuery(USERS, {
     fetchPolicy: 'cache-and-network',
     variables: {
       page: 0,
       where: {
-        enabled: false
+        enabled: false,
+        roleId: 1
       },
     },
   });

@@ -84,8 +84,8 @@ export const OrderCard = ({ order, refetchList }) => {
                            color="blue"
                         >
                            <div className="bg-gray-500 py-1.5 flex justify-center">
-                              <span className="font-semibold text-white italic">
-                                 {'Ordenado'} <Countdown date={dateWithDiff} renderer={({ hours, minutes, seconds, completed }) => {
+                              <span className="font-semibold text-white italic flex flex-col items-center">
+                                 {'Tiempo limite para cancelar:'} <Countdown date={dateWithDiff} renderer={({ hours, minutes, seconds, completed }) => {
                                     if (completed) {
                                        setTimeout(() => {
                                           if (order.statusId === 2) {

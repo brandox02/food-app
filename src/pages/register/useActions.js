@@ -36,7 +36,7 @@ export const useActions = () => {
             "departmentId"]);
          payload.roleId = 1;
          await signin(payload);
-         router.push('/');
+       
       } catch (error) {
          let message;
          switch(error.message){

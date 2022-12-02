@@ -19,9 +19,12 @@ export const useActions = () => {
 
          const payload = pick(data, ['email', 'password']);
          await login(payload);
-         
-         router.push('/');
-         toast.success('Haz iniciado sesión correctamente');
+         await router.push('/');
+         window.location.reload();
+         // setTimeout(() => {
+
+         // }, 2000);
+         // toast.success('Haz iniciado sesión correctamente');
       } catch (error) {
          let message;
           switch(error.message){

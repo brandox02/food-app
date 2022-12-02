@@ -71,7 +71,7 @@ const Account = () => {
                            <div className="grid lg:grid-cols-3 col-span-3 gap-x-5 gap-y-5">
                               <div className=" lg:col-span-3 w-full mb-1">
                                  <span className="text-blue-900 text-2xl font-semibold">
-                                    General
+                                    Información de la empresa
                                  </span>
                                  <div className="h-[3px] w-16 bg-blue-400 self-start rounded-full"></div>
                               </div>

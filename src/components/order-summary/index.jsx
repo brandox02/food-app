@@ -40,7 +40,7 @@ export function OrderSummary({ order, setOrder }) {
                 onClick={() => setOpened((o) => !o)}
                 className="underline italic underline-offset-2 text-blue-400 hover:text-blue-300 text-xs"
               >
-                {opened ? 'Descartar nota' : 'Agregar nota'}
+                {opened ? 'Cerrar nota' : 'Escribir nota'}
               </button>
             </div>
           </div></>
@@ -122,7 +122,7 @@ export function OrderSummary({ order, setOrder }) {
                 onClick={() => setOpened2((o) => !o)}
                 className="underline italic underline-offset-2 text-blue-400 hover:text-blue-300 text-xs"
               >
-                {opened2 ? 'Descartar nota' : 'Agregar nota'}
+                {opened2 ? 'Cerrar nota' : 'Escribir nota'}
               </button>
             </div>
           </div>

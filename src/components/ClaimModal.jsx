@@ -44,7 +44,7 @@ export const ClaimModal = ({ open, setOpen, onSave, claim, refetch }) => {
          setOpen(false);
          refetch && refetch();
       } catch (error) {
-         toast.success('Ocurrió un error al momento de marcar como realizado este reporte');
+         toast.error('Ocurrió un error al momento de marcar como realizado este reporte');
          console.error(error);
       }
    }
@@ -62,7 +62,7 @@ export const ClaimModal = ({ open, setOpen, onSave, claim, refetch }) => {
                <RHFTextarea disabled={claim} name={'description'} minRows={5} autosize withAsterisk className={''} label="Descripción" />
                {claim ?
 
-                  user.role.id === 3 && (
+                  user.role.id === 3 && !claim.done && (
                      <div className="flex" onClick={checkDone}>
                         <span className="flex justify-center cursor-pointer mt-5 bg-blue-500 hover:bg-blue-400 transition-all text-white font-semibold uppercase text-sm w-full px-10 md:px-16 rounded-lg py-2">
                            MARCAR COMO REALIZADO

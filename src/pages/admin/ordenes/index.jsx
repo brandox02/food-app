@@ -134,11 +134,11 @@ const Ordenes = () => {
               <span className="text-lg italic font-semibold text-blue-400">
                 Listado de ordenes entregadas hoy ({totalItems})
               </span>
-              {role2 && (
+              {/* {role2 && (
                 <button className="bg-green-500 flex items-center gap-2 hover:bg-green-400 uppercase font-semibold text-sm rounded py-2 px-4 text-white">
                   <RiCoinsLine size={20} /> Saldar todo
                 </button>
-              )}
+              )} */}
             </div>
             <div id="scrollbar" className="w-auto overflow-auto">
               <Table highlightOnHover verticalSpacing="sm">

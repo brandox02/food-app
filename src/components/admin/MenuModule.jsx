@@ -1,4 +1,4 @@
-import { Group, Modal, Select, RHFTextInput } from '@mantine/core';
+import { Group, Modal, Select, TextInput } from '@mantine/core';
 import { useState } from 'react';
 import { FiPlus } from 'react-icons/fi';
 import { toast } from 'react-toastify';
@@ -33,7 +33,7 @@ export const MenuModule = ({ title, shapeAvalibles, onAccept }) => {
         }
       >
         <div className="flex flex-col gap-2 mb-6">
-          <RHFTextInput
+          <TextInput
             placeholder="Título"
             label="Título"
             value={text}

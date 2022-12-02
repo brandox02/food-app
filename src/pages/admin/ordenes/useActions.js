@@ -1,6 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react"
 import { useAppContext } from "../../../AppProvider";
+import dayjs from 'dayjs';
 
 const ORDERS = gql`
    query Orders($page: Float,$where: OrderWhereInput) {
@@ -56,7 +57,7 @@ export const useActions = () => {
    const [noOrderInput, setNoOrderInput] = useState('');
    const [confirmModalAllOrderDelivered, setConfirmModalAllOrderDelivered] = useState(false);
 
-   const role2 = user.role.id === 2;
+   const role2 = user?.role?.id === 2;
 
    //   const [markAsDeliveredAllMutation] = useMutation(MARK_AS_DELIVERED_ALL);
    const { data, refetch } = useQuery(ORDERS, {

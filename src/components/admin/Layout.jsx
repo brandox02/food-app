@@ -36,7 +36,7 @@ const AdminLayout = ({ children }) => {
       <RiUserLine className="w-5 h-5" />
     </button>
   )
-  console.log({ re })
+
 
   return (
     <div className="w-full h-full">
@@ -91,9 +91,9 @@ const AdminLayout = ({ children }) => {
                       Cuenta
                     </Menu.Item>
                   </Link>
-                  <Menu.Item onClick={logout} className="text-red-400 font-[poppins] px-5" >
+                  {/* <Menu.Item onClick={logout} className="text-red-400 font-[poppins] px-5" >
                     Cerrar Sesión
-                  </Menu.Item>
+                  </Menu.Item> */}
                   <Link href="/">
                     <Menu.Item className="text-gray-500 font-[poppins] px-5">
                       Portal Empleados
@@ -173,7 +173,7 @@ const AdminLayout = ({ children }) => {
                   Monitoreo
                 </span>
               </div>
-              {user.role.id === 3 && (
+              {user?.role?.id === 3 && (
                 <Link href="/admin/pedidos">
                   <li
                     className={
@@ -187,7 +187,7 @@ const AdminLayout = ({ children }) => {
                   </li>
                 </Link>
               )}
-              {user.role.id === 2 && (
+              {user?.role?.id === 2 && (
                 <Link href="/admin/ordenes">
                   <li
                     className={
@@ -274,7 +274,7 @@ const AdminLayout = ({ children }) => {
                 />
               </Link>
               <span className="text-[#47ADF5] font-[poppins] italic text-xs md:text-sm text-right">
-                Gestion empresarial - Administrativa
+                Gestion {user?.role?.id === 2 ? 'Empresarial' : 'Administrativa'}
               </span>
             </div>
           </div>

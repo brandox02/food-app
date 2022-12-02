@@ -37,7 +37,7 @@ export const MainGrid = ({ orderTotal = '245', accMount = 0 }) => {
           </span>
         </div>
 
-        <div className="lg:w-full w-full max-w-[400px] mx-auto flex flex-col rounded-lg gap-6 shadow-md bg-white min-h-[350px] font-[poppins]">
+        {/* <div className="lg:w-full w-full max-w-[400px] mx-auto flex flex-col rounded-lg gap-6 shadow-md bg-white min-h-[350px] font-[poppins]">
           <div className="flex flex-col px-4 py-2">
             <div className="w-full  flex justify-end">
               <RiStarFill className="text-yellow-400 h-8 w-8" />
@@ -84,7 +84,7 @@ export const MainGrid = ({ orderTotal = '245', accMount = 0 }) => {
               Pedir esta orden de nuevo
             </button>
           </div>
-        </div>
+        </div> */}
 
         <div className="lg:w-full w-full max-w-[400px] mx-auto rounded-lg shadow-md flex flex-col justify-center font-[poppins] items-center px-3 lg:px-10 min-h-[350px] py-6 gap-6 text-center bg-white">
           <span className="text-blue-900 italic text-xl md:text-2xl px-3 ">
