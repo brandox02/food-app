@@ -144,7 +144,6 @@ const OrderDetails = () => {
             <span className="font-semibold text-sm px-2 py-1">
               {dayjs(data.order.createdAt).format('DD/MM/YYYY hh:mm:ssA')}
             </span>
-
           </div>
           <div className="flex self-end bg-blue-700 text-white px-6" style={{ marginTop: -7 }}>
             <span className="font-semibold py-1">

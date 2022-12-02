@@ -19,6 +19,8 @@ import { RiUserLine } from 'react-icons/ri';
 import { MdOutlineDining } from 'react-icons/md';
 import { BiFoodMenu } from 'react-icons/bi';
 import { HiOutlineDocumentReport } from 'react-icons/hi';
+import { FiSettings } from 'react-icons/fi';
+import { } from 'react-icons/fc';
 import { useAppContext } from '../../AppProvider';
 import { useAuth } from '../../hooks/useAuth';
 
@@ -235,6 +237,20 @@ const AdminLayout = ({ children }) => {
                       <BiFoodMenu className="w-5 h-5" />{' '}
                       <span className={sidebar ? 'block' : 'hidden'}>
                         Administrar Menú
+                      </span>
+                    </li>
+                  </Link>
+                  <Link href="/admin/general-parameters">
+                    <li
+                      className={
+                        router.pathname == '/admin/general-parameters'
+                          ? 'py-4 flex items-center gap-2 text-sm rounded-md font-bold text-white hover:text-gray-300 transition-all'
+                          : 'py-4 flex items-center gap-2 text-sm rounded-md text-white hover:text-gray-300 transition-all'
+                      }
+                    >
+                      <FiSettings className="w-5 h-5" />{' '}
+                      <span className={sidebar ? 'block' : 'hidden'}>
+                        Parámetros Generales
                       </span>
                     </li>
                   </Link>
