@@ -315,6 +315,57 @@ const Menu = () => {
                     )}
                 </div>
               </Tabs.Panel>
+              {menus.filter(x => x.id !== 1).map(menu => {
+                return (
+
+                  <Tabs.Panel key={menu.id} value={menu.id.toString()} pt="xs">
+                    <div className="flex flex-col gap-5">
+                      <MenuModule
+                        title={menu.name}
+                        onAccept={({ name, fieldsetTypeId }) =>
+                          fieldsetTypeId === 1
+                            ? addShapeOne({ name, extra: true })
+                            : addShapeTwo({ name })
+                        }
+                        shapeAvalibles={[
+                          { value: 1, label: 'Forma 1' },
+                          ,
+                          { value: 2, label: 'Forma 2' },
+                        ]}
+                      />
+                      {json
+                        .filter((x) => x.extra)
+                        .map((x) =>
+                          x.fieldsetTypeId === 1 ? (
+                            <ShapeOne
+                              executeImagePickerModal={executeImagePickerModal}
+                              isDailyDish={false}
+                              key={x.id}
+                              item={x}
+                              updateShapeOne={updateShapeOne}
+                              removeShapeOne={removeShapeOne}
+                              addShapeOneItem={addShapeOneItem}
+                              removeShapeOneItem={removeShapeOneItem}
+                              updateShapeOneItem={updateShapeOneItem}
+                            />
+                          ) : (
+                            <ShapeTwo
+                              executeImagePickerModal={executeImagePickerModal}
+                              key={x.id}
+                              item={x}
+                              updateShapeTwoItem={updateShapeTwoItem}
+                              addShapeTwoItem={addShapeTwoItem}
+                              removeShapeTwo={removeShapeTwo}
+                              removeShapeTwoItem={removeShapeTwoItem}
+                              updateShapeTwo={updateShapeTwo}
+                            />
+                          )
+                        )}
+                    </div>
+                  </Tabs.Panel>
+
+                )
+              })}
             </Tabs>
           </div>
         </div>
