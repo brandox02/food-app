@@ -2,6 +2,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify";
 import { useAppContext } from "../../../AppProvider";
+import dayjs from 'dayjs'
 
 const ORDERS = gql`
    query Orders($page: Float,$where: OrderWhereInput) {
@@ -25,6 +26,10 @@ const ORDERS = gql`
             firstname lastname
             id
             department {
+               id
+               name
+            }
+            company {
                id
                name
             }

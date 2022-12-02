@@ -53,12 +53,12 @@ const Login = () => {
                     name={'password'}
                     placeholder={'Contraseña'}
                   />
-                  <Link
+                  {/* <Link
                     className="self-end mt-1 italic underline underline-offset-2 text-xs sm:text-sm text-blue-400"
                     href="#"
                   >
                     ¿Olvidaste tu contraseña?
-                  </Link>
+                  </Link> */}
                 </div>
 
                 <button

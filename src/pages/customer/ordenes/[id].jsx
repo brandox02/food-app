@@ -90,7 +90,6 @@ const OrderDetails = () => {
   }
 
   const buildClaim = async ({ name, description }) => {
-    console.log("que fue: ", { name, description })
     try {
       await createClaimMutation({ variables: { input: { name, description, orderId: claimModalOpen } } });
       toast.success('Reporte generado correctamente');

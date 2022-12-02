@@ -29,6 +29,7 @@ const Pedidos = () => {
       <td>{order.noOrder}</td>
       <td>{dayjs(order.createdAt).format('hh:mmA')}</td>
       <td>{`${order.user.firstname} ${order.user.lastname}`}</td>
+      <td>{order.user.company.name}</td>
       <td>{order.user.department?.name}</td>
       <td>{`RD$${order.total}`}</td>
       <td>
@@ -177,6 +178,7 @@ const Pedidos = () => {
                     <th>No. Orden</th>
                     <th>Hora</th>
                     <th>Nombre</th>
+                    <th>Empresa</th>
                     <th>Departamento</th>
                     <th>Total</th>
                     <th>Confirmación</th>

@@ -3,6 +3,7 @@ import { Modal } from "@mantine/core"
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useAppContext } from "../AppProvider";
 import { FormProvider } from './react-hook-form/FormProvider'
 import { RHFTextarea } from "./react-hook-form/RHFTextarea";
 
@@ -17,6 +18,7 @@ const UPDATE_CLAIM = gql`
 
 export const ClaimModal = ({ open, setOpen, onSave, claim, refetch }) => {
    const [updateClaimMutation] = useMutation(UPDATE_CLAIM);
+   const [{ user }] = useAppContext();
    const methods = useForm({
       defaultValues: {
          name: claim?.name,
@@ -58,13 +60,16 @@ export const ClaimModal = ({ open, setOpen, onSave, claim, refetch }) => {
                <RHFTextarea disabled={claim} name={'name'} minRows={1} autosize withAsterisk label="Asunto" />
 
                <RHFTextarea disabled={claim} name={'description'} minRows={5} autosize withAsterisk className={''} label="Descripción" />
-               {claim ? (
-                  <div className="flex" onClick={checkDone}>
-                     <span className="flex justify-center cursor-pointer mt-5 bg-blue-500 hover:bg-blue-400 transition-all text-white font-semibold uppercase text-sm w-full px-10 md:px-16 rounded-lg py-2">
-                        MARCAR COMO REALIZADO
-                     </span>
-                  </div>
-               ) :
+               {claim ?
+
+                  user.role.id === 3 && (
+                     <div className="flex" onClick={checkDone}>
+                        <span className="flex justify-center cursor-pointer mt-5 bg-blue-500 hover:bg-blue-400 transition-all text-white font-semibold uppercase text-sm w-full px-10 md:px-16 rounded-lg py-2">
+                           MARCAR COMO REALIZADO
+                        </span>
+                     </div>
+                  )
+                  :
                   <button className=" mt-5 bg-blue-500 hover:bg-blue-400 transition-all text-white font-semibold uppercase text-sm w-full px-10 md:px-16 rounded-lg py-2">
                      Aceptar
                   </button>}

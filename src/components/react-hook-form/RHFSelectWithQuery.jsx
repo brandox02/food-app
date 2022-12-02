@@ -19,7 +19,7 @@ export const RHFSelectWithQuery = ({
   variables = {},
   ...restProps
 }) => {
-  const { setValue, trigger, } = useFormContext();
+  const { setValue, trigger } = useFormContext();
   const { classes } = useStyles();
   const { data } = useQuery(query, {
     fetchPolicy: "cache-and-network",
@@ -52,7 +52,6 @@ export const RHFSelectWithQuery = ({
               placeholder={placeholder}
               data={items}
               onChange={(e) => {
-                console.log("que fuee")
                 setValue(name, e);
                 trigger(name);
               }}

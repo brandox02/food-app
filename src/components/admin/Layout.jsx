@@ -20,6 +20,7 @@ import { MdOutlineDining } from 'react-icons/md';
 import { BiFoodMenu } from 'react-icons/bi';
 import { HiOutlineDocumentReport } from 'react-icons/hi';
 import { useAppContext } from '../../AppProvider';
+import { useAuth } from '../../hooks/useAuth';
 
 const AdminLayout = ({ children }) => {
   const router = useRouter();
@@ -27,7 +28,15 @@ const AdminLayout = ({ children }) => {
   const handleSidebar = () => {
     setSidebar(!sidebar);
   };
-  const [{ user }] = useAppContext();
+  const [{ user, ...re }] = useAppContext();
+  const { logout } = useAuth();
+
+  const unknownUser = (
+    <button className="bg-[#2493ee] cursor-pointer rounded-full p-3 hover:bg-blue-400 transition-all text-white font-semibold uppercase text-sm">
+      <RiUserLine className="w-5 h-5" />
+    </button>
+  )
+  console.log({ re })
 
   return (
     <div className="w-full h-full">
@@ -45,7 +54,7 @@ const AdminLayout = ({ children }) => {
                 <Menu.Target>
                   <div className="cursor-pointer flex items-center gap-2">
                     <div className="w-11 h-11">
-                      <Image src={profilePicture} alt="" />
+                      {user?.imageUrl ? <Image src={user.imageUrl} alt={'profile-image'} width={45} height={45} /> : unknownUser}
                     </div>
                     <div
                       className={
@@ -82,7 +91,7 @@ const AdminLayout = ({ children }) => {
                       Cuenta
                     </Menu.Item>
                   </Link>
-                  <Menu.Item className="text-red-400 font-[poppins] px-5">
+                  <Menu.Item onClick={logout} className="text-red-400 font-[poppins] px-5" >
                     Cerrar Sesión
                   </Menu.Item>
                   <Link href="/">

@@ -35,6 +35,7 @@ const GestionarEmpleados = () => {
     clearFilters,
     otherFilterMethods,
     onSearchOtherFilter,
+    roleId
   } = useActions();
   const useStyles = createStyles(() => ({
     input: {
@@ -53,6 +54,7 @@ const GestionarEmpleados = () => {
       <td>{user.email}</td>
       <td>{dayjs(user.createdAt).format('DD/MM/YYYY')}</td>
       <td>{user?.enableDate ? dayjs(user.enableDate).format('DD/MM/YYYY') : 'No activado'}</td>
+      {roleId === 3 && <td>{user.company.name}</td>}
       <td>{user.department?.name}</td>
       <td
         className="cursor-pointer"
@@ -210,6 +212,7 @@ const GestionarEmpleados = () => {
                     <th>Correo</th>
                     <th>Fecha de creación</th>
                     <th>Fecha de Activación</th>
+                    {roleId === 3 && <th>Empresa</th>}
                     <th>Departamento</th>
                     <th />
                   </tr>

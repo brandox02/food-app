@@ -86,7 +86,6 @@ export function ProductPickerType2({ item }) {
   const disabled = Object.values(
     watch(`extrasStep.${item.id}.size`) || {}
   ).every((x) => !x);
-  console.log({ item });
   return (
     <>
       <div className="flex flex-col gap-2">
@@ -220,7 +219,7 @@ export const ExtrasStep = ({ goBack, items, typeId }) => {
           <div className="flex justify-center mt-8 px-10 md:px-24">
             <button
               type="submit"
-              onClick={() => {}}
+              onClick={() => { }}
               className="p-5 bg-[#0064CE] rounded-lg py-2 hover:bg-blue-600 text-white uppercase font-semibold w-full"
             >
               Ver Resumen de Orden

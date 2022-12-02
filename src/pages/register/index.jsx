@@ -33,79 +33,30 @@ const Register = () => {
               <div className="self-center text-xl text-[#003579] my-3 md:my-0 font-bold font-[poppins] mb-4">
                 Regístrate
               </div>
-              <div className="flex flex-col gap-0.5">
+              <div className="mt-1 flex flex-col gap-0.5">
                 <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
                   Nombre(s)
                 </span>
                 <RHFTextInput name={"firstname"} placeholder={"Nombre(s)"} />
               </div>
-              <div className="flex flex-col gap-0.5">
+              <div className="mt-1 flex flex-col gap-0.5">
                 <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
                   Apellido(s)
                 </span>
                 <RHFTextInput name={"lastname"} placeholder={"Apellido(s)"} />
               </div>
-              <div className="flex flex-col gap-0.5">
+              <div className="mt-1 flex flex-col gap-0.5">
                 <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
                   Correo corporativo(si aplica)
                 </span>
                 <RHFTextInput name={"email"} placeholder={"Correo"} />
               </div>
-              <div className="flex flex-col md:flex-row gap-2 w-full">
-                <div className="flex flex-col gap-0.5 w-full">
-                  <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
-                    Cédula
-                  </span>
-
-                  <RHFTextInput name={"cedula"} placeholder={"Cédula"} />
-                </div>
-                <div className="flex flex-col gap-0.5 w-full">
-                  <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
-                    Departamento
-                  </span>
-
-                  <RHFSelectWithQuery
-                    name={"departmentId"}
-                    query={gql`
-                        query DepartmentList {
-                          items: departmentList {
-                            id
-                            createdAt
-                            updatedAt
-                            name
-                          }
-                        }
-                      `}
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col gap-0.5">
-                <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
-                  Contraseña
-                </span>
-
-                <RHFTextInput
-                  type="password"
-                  name={"password"}
-                  placeholder={"Contraseña"}
-                />
-              </div>
-              <div className="flex flex-col gap-0.5">
-                <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
-                  Confirmar contraseña
-                </span>
-                <RHFTextInput
-                  type="password"
-                  name={"confirmPassword"}
-                  placeholder={"Confirmar Contraseña"}
-                />
-              </div>
-              <div className="flex items-center gap-2 mt-2">
+              <div className="mt-1 flex  flex-col  gap-2 mt-1">
                 <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
                   Empresa
                 </span>
                 <RHFSelectWithQuery
-                  label={"Empresa"}
+                  // label={"Empresa"}
                   name={"companyId"}
                   query={gql`
                       query CompanyList {
@@ -121,6 +72,56 @@ const Register = () => {
                     `}
                 />
               </div>
+              <div className="flex mt-1 flex-col gap-0.5 w-full">
+                <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
+                  Departamento
+                </span>
+
+                <RHFSelectWithQuery
+                  name={"departmentId"}
+                  query={gql`
+                        query DepartmentList {
+                          items: departmentList {
+                            id
+                            createdAt
+                            updatedAt
+                            name
+                          }
+                        }
+                      `}
+                />
+              </div>
+              <div className="flex flex-col gap-0.5 w-full">
+                <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
+                  Cédula
+                </span>
+
+                <RHFTextInput name={"cedula"} placeholder={"Cédula"} />
+              </div>
+
+              <div className="flex mt-1 flex-col gap-0.5">
+                <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
+                  Contraseña
+                </span>
+
+                <RHFTextInput
+                  type="password"
+                  name={"password"}
+                  placeholder={"Contraseña"}
+                />
+              </div>
+              <div className="flex mt-1 flex-col gap-0.5">
+                <span className="font-[poppins] text-sm md:text-base text-[#003579] font-semibold">
+                  Confirmar contraseña
+                </span>
+                <RHFTextInput
+                  type="password"
+                  name={"confirmPassword"}
+                  placeholder={"Confirmar Contraseña"}
+                />
+              </div>
+
+
               {/* <Link href="/login"> */}
               <button
                 type="submit"
@@ -129,7 +130,7 @@ const Register = () => {
                 Registrar
               </button>
               {/* </Link> */}
-              <div className="flex gap-1 self-center text-[10px] flex-wrap justify-center sm:text-xs font-[poppins]">
+              <div className="mt-1 flex gap-1 self-center text-[10px] flex-wrap justify-center sm:text-xs font-[poppins]">
                 <span className="text-[#1A579A] font-semibold">
                   ¿Ya te has registrado?
                 </span>

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import dayjs from "dayjs";
+import { useAppContext } from "../../../AppProvider";
 
 const CLAIMS = gql`
    query Claims($page: Float, $where: WhereClaimInput) {
@@ -13,7 +14,7 @@ const CLAIMS = gql`
                createdAt
                noOrder
                user {
-                  email firstname lastname department { name }
+                  email firstname lastname department { name } company { id name }
                }
            }
          }
@@ -56,6 +57,8 @@ export const useActions = () => {
       }
    });
 
+   const [{user}] = useAppContext();
+
    const fromDate = dateFilterMethods.watch('fromDate');
    const toDate = dateFilterMethods.watch('toDate');
    const filterDateByClaimDate = dateFilterMethods.watch('filterDateByClaimDate');
@@ -85,6 +88,7 @@ export const useActions = () => {
    const claims = data ? data.claims.items : []
    const totalItems = data ? data.claims.metadata.totalItems : 0;
    const totalPages = data ? data.claims.metadata.totalPages : 0;
+   const roleId = user.role.id;
 
    const onSeachDateFilter = async () => await refetch();
    const onSearchOtherFilter = () => refetch({});
@@ -123,7 +127,7 @@ export const useActions = () => {
    //    }
    // }
 
-   return { managementModalMethods, managementModalOpen, onSearchOtherFilter, claims, totalItems, totalPages, 
+   return {roleId, managementModalMethods, managementModalOpen, onSearchOtherFilter, claims, totalItems, totalPages, 
       setPage, dateFilterMethods, onSeachDateFilter, clearFilters, otherFilterMethods, claimModal, 
       setClaimModal: claimModalValue =>  otherFilterMethods.setValue('claimModal', claimModalValue), refetch };
 }

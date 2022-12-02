@@ -1,16 +1,18 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { useForm } from "react-hook-form";
+import { useForm, useFormState } from "react-hook-form";
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { pick } from "lodash";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
+import { useAppContext } from "../../../AppProvider";
 
 const USERS = gql`
    query Users($page: Float, $where: UserWhereInput) {
       users(page: $page, where: $where) {
          items {
             id firstname lastname email cedula createdAt enabled enableDate
+            departmentId companyId
             department {
                id name
             }
@@ -26,7 +28,7 @@ const USERS = gql`
 const UPDATE_USER = gql`
    mutation UpdateUsers($input: UpdateUserInput!) {
       updateUser(input: $input) {
-         id
+         user { id }
       }
    }
 `
@@ -45,16 +47,15 @@ const schemaDateFilter = yup.object({
    filterByEnableDate: yup.mixed().required()
 })
 
-// const schemaManagementModalMethods = yup.object({
-//    managementModalOpen: yup.object().shape({
-//       email: yup.string().nullable().required(),
-//       lastname: yup.mixed().required(),
-//       email: yup.mixed().required(),
-//       departmentId: yup.mixed().required(),
-//       companyId: yup.mixed().required(),
-//       cedula: yup.mixed().required(),
-//    })
-// })
+const schemaManagementModalMethods = yup.object({
+   // managementModalOpen: yup.bool()
+   email: yup.mixed().required(),
+      lastname: yup.mixed().required(),
+      email: yup.mixed().required(),
+      departmentId: yup.mixed().required(),
+      companyId: yup.mixed().required(),
+      cedula: yup.mixed().required(),
+})
 
 export const useActions = () => {
    const [signinMutation] = useMutation(SIGNIN);
@@ -78,9 +79,10 @@ export const useActions = () => {
 
    const managementModalMethods = useForm({
       defaultValues: {
-         managementModalOpen: null
+         managementModalOpen: null,
+         email: null
       },
-      // resolver: yupResolver(schemaManagementModalMethods)
+      resolver: yupResolver(schemaManagementModalMethods)
    });
 
    const [updateUserMutation] = useMutation(UPDATE_USER);
@@ -91,7 +93,7 @@ export const useActions = () => {
    // const enabled = otherFilterMethods.watch('enabled');
    const managementModalOpen = managementModalMethods.watch('managementModalOpen');
    const name = otherFilterMethods.watch('name');
-   // const [{user: {role}}] = useAppContext();
+   const [{user}] = useAppContext();
 
 
    const { data, refetch } = useQuery(USERS, {
@@ -117,6 +119,7 @@ export const useActions = () => {
    const users = data ? data.users.items : []
    const totalItems = data ? data.users.metadata.totalItems : 0;
    const totalPages = data ? data.users.metadata.totalPages : 0;
+   const roleId = user.role.id;
 
    const onSeachDateFilter = async () => await refetch();
    const onSearchOtherFilter = () => refetch({});
@@ -141,15 +144,23 @@ export const useActions = () => {
       }
       managementModalMethods.reset(user);
       managementModalMethods.setValue('managementModalOpen', user.id);
-      managementModalMethods.setValue('company', user.company.name);
-      managementModalMethods.setValue('department', user.department?.name);
+      // managementModalMethods.setValue('departmentId', user.department.id);
+      // managementModalMethods.setValue('department', user.department.name);
    };
+
+   // useEffect(() => {
+   //    if(managementModalMethods.watch('companyId')){
+
+   //       // managementModalMethods.setValue('departmentId', null);
+   //    }
+   //    // eslint-disable-next-line
+   // }, [managementModalMethods.watch('companyId')])
 
    const onSubmitManagementModal = async (data) => {
 
       try {
          if (typeof managementModalOpen !== 'boolean') {
-            const payload = pick(data, ['id', 'enabled', 'firstname', 'lastname']);
+            const payload = pick(data, ['id','firstname', 'lastname', 'email', 'password', 'departmentId', 'companyId', 'cedula']);
 
             await updateUserMutation({ variables: { input: payload } });
             await refetch();
@@ -159,6 +170,9 @@ export const useActions = () => {
             const payload = pick(data, ['firstname', 'lastname', 'email', 'password', 'departmentId', 'companyId', 'cedula']);
             payload.roleId = 2;
             payload.enabled = true;
+            if(roleId === 2){
+               payload.companyId = user.company.id;
+            }
 
             await signinMutation({ variables: { signin: payload } });
             await refetch();
@@ -176,5 +190,15 @@ export const useActions = () => {
 
    }
 
-   return { managementModalMethods, onSubmitManagementModal, managementModalOpen, setManagementOpenModal, onSearchOtherFilter, users, totalItems, totalPages, setPage, dateFilterMethods, onSeachDateFilter, clearFilters, otherFilterMethods };
+   const buttonDisabled = !managementModalMethods.watch('email') 
+   || !managementModalMethods.watch('firstname') 
+   || !managementModalMethods.watch('lastname')
+   || typeof managementModalOpen === 'boolean' && !managementModalMethods.watch('password')
+   || !managementModalMethods.watch('cedula')
+   || !managementModalMethods.watch('companyId')
+   || !managementModalMethods.watch('departmentId');
+
+
+
+   return { buttonDisabled, roleId,managementModalMethods, onSubmitManagementModal, managementModalOpen, setManagementOpenModal, onSearchOtherFilter, users, totalItems, totalPages, setPage, dateFilterMethods, onSeachDateFilter, clearFilters, otherFilterMethods };
 }

@@ -11,6 +11,7 @@ import { AiOutlineCheck } from 'react-icons/ai';
 import { useActions } from './useActions';
 import { useState } from 'react';
 import { AdminDetailOrderModal } from '../../../components/AdminDetailOrderModal';
+import dayjs from 'dayjs';
 
 const Ordenes = () => {
   const {

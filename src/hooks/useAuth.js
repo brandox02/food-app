@@ -2,8 +2,8 @@ import { gql, useApolloClient } from "@apollo/client";
 import { toast } from "react-toastify";
 import { useAppContext } from "../AppProvider";
 import { setAuthToken } from '../ApolloProvider';
-import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const SIGNIN = gql`
   mutation Signin($signin: CreateUserInput!) {
@@ -24,28 +24,8 @@ const LOGIN = gql`
 export const useAuth = () => {
   const [_, setState] = useAppContext();
   const client = useApolloClient();
-  const router = useRouter()
-
-  useEffect(() => {
-    async function execute() {
-      try {
-        const token = localStorage.getItem('token');
-        if (token) {
-          await beAuthenticated(token);
-          router.push('/');
-          return
-        }
-
-
-      } catch (error) {
-        toast.error('Ocurrió un error a la hora de leer tu token de acceso');
-        console.error(error);
-      }
-    }
-    execute();
-
-    // eslint-disable-next-line
-  }, []);
+  const router = useRouter();
+  const [oass, setCass] = useState(false);
 
   const beAuthenticated = async (token) => {
     setAuthToken(token);
@@ -61,10 +41,13 @@ export const useAuth = () => {
             enabled
             cedula
             email
+            imageUrl
             role { id name }
+            companyId
             company {
-              id location name sede
+              id location name sede acronym
             }
+            departmentId
             department {
               id name
             }
@@ -74,9 +57,10 @@ export const useAuth = () => {
             id name value
           }
         }
-      `});
+      `, fetchPolicy: 'network-only'});
 
     setState(state => ({ ...state, user: response.data.getUserInfo, generalParameters: response.data.generalParameters }));
+        setCass(true)
   }
 
   const signin = async (payload) => {
@@ -112,7 +96,5 @@ export const useAuth = () => {
     router.push('/login');
   }
 
-
-
-  return { signin, login, logout };
+  return { signin, login, logout, beAuthenticated ,oass};
 };

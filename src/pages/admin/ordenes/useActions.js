@@ -27,6 +27,7 @@ const ORDERS = gql`
                id
                name
             }
+            company { id name }
             email
          }
          details {

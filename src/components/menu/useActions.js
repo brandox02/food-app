@@ -143,7 +143,6 @@ export const useActions = ({ menu }) => {
 
 
    function onAction(data) {
-      // console.log({ data, mock, toApi });
       if (methods.watch('currentStep') == 1) {
          setCurrentStep(2);
       } else if (methods.watch('currentStep') == 2) {

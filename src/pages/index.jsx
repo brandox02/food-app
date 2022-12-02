@@ -33,6 +33,7 @@ export default function Home() {
   const [{ user }] = useAppContext();
   const today = dayjs().format('YYYY-MM-DD');
   const { data, refetch } = useQuery(ORDERS, {
+    fetchPolicy: 'cache-and-network',
     variables: {
       where: {
         userId: user?.id,
@@ -42,7 +43,6 @@ export default function Home() {
         statusIds: [2, 3, 4]
       },
     },
-    pollInterval: 0
   });
 
   const orders = (data?.orders || []);

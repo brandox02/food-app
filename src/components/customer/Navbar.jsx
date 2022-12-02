@@ -41,7 +41,11 @@ export const Navbar = () => {
     setNav(!nav);
   };
 
-
+  const unknownUser = (
+    <button className="bg-[#2493ee] cursor-pointer rounded-full p-3 hover:bg-blue-400 transition-all text-white font-semibold uppercase text-sm">
+      <RiUserLine className="w-5 h-5" />
+    </button>
+  )
 
   return (
     <div className="flex flex-col gap-10">
@@ -59,9 +63,10 @@ export const Navbar = () => {
           <Menu shadow="md" width={250} position="bottom-end">
             <Menu.Target>
               <div className="cursor-pointer flex items-center gap-2">
-                <button className="bg-[#2493ee] cursor-pointer rounded-full p-3 hover:bg-blue-400 transition-all text-white font-semibold uppercase text-sm">
-                  <RiUserLine className="w-5 h-5" />
-                </button>
+                {user?.imageUrl ? (
+                  <Image className='rounded' src={user.imageUrl} alt={'image'} width={45} height={45} />
+                ) : unknownUser}
+
                 <div className="flex items-center gap-1">
                   <span className="text-[#1A579A] font-[600] font-[poppins]">
                     {user && `${user.firstname} ${user.lastname}`}
@@ -101,16 +106,18 @@ export const Navbar = () => {
               >
                 Cerrar Sesión
               </Menu.Item>
-              <Link href="/admin/dashboard">
-                <Menu.Item className="text-gray-500 font-[poppins] px-5">
-                  Gestion EMP - Admin
-                </Menu.Item>
-              </Link>
-              <Link href="/enterprise/dashboard">
+              {[2, 3].includes(user?.role?.id) && (
+                <Link href="/admin/dashboard">
+                  <Menu.Item className="text-gray-500 font-[poppins] px-5">
+                    {user.role.id === 2 ? 'Gestión Empresarial' : 'Gestión Administrativa'}
+                  </Menu.Item>
+                </Link>
+              )}
+              {/* <Link href="/enterprise/dashboard">
                 <Menu.Item className="text-gray-500 font-[poppins] px-5">
                   Gestion Empresarial
                 </Menu.Item>
-              </Link>
+              </Link> */}
             </Menu.Dropdown>
           </Menu>
         </div>

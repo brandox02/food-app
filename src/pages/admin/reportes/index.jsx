@@ -18,7 +18,8 @@ import { ClaimModal } from '../../../components/ClaimModal';
 
 const Reportes = () => {
   const { claims, setPage, totalPages, totalItems, dateFilterMethods, onSeachDateFilter,
-    clearFilters, otherFilterMethods, onSearchOtherFilter, claimModal, setClaimModal, refetch } = useActions();
+    clearFilters, otherFilterMethods, onSearchOtherFilter, claimModal, setClaimModal, refetch
+    , roleId } = useActions();
   const useStyles = createStyles(() => ({
     input: {
       borderWidth: 2,
@@ -38,6 +39,7 @@ const Reportes = () => {
       <td>{claim.done ? 'Si' : 'No'}</td>
       <td>{`${claim.order.user.firstname} ${claim.order.user.lastname}`}</td>
       <td>{claim.order.user.email}</td>
+      {roleId === 3 && <td>{claim.order.user.company.name}</td>}
       <td>{claim.order.user.department?.name}</td>
       <td className="cursor-pointer">
         <div
@@ -193,6 +195,7 @@ const Reportes = () => {
                     <th>Marcado como realizado</th>
                     <th>Nombre</th>
                     <th>Correo</th>
+                    {roleId === 3 && <th>Empresa</th>}
                     <th>Departamento</th>
                     <th></th>
                   </tr>

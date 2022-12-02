@@ -14,7 +14,6 @@ import { useActions } from './useActions';
 import dayjs from 'dayjs';
 import { RHFSelect } from '../../../components/react-hook-form/RHFSelect';
 import { RHFDatePicker } from '../../../components/react-hook-form/RHFDatePicker';
-import { RHFSwitch } from '../../../components/react-hook-form/RHFSwitch';
 import { RHFSelectWithQuery } from '../../../components/react-hook-form/RHFSelectWithQuery';
 import { RiSave3Fill } from 'react-icons/ri';
 import { RHFTextInput } from '../../../components/react-hook-form/RHFTextInput';
@@ -35,6 +34,8 @@ const GestionarEmpleados = () => {
     clearFilters,
     otherFilterMethods,
     onSearchOtherFilter,
+    roleId,
+    buttonDisabled
   } = useActions();
   const useStyles = createStyles(() => ({
     input: {
@@ -52,6 +53,7 @@ const GestionarEmpleados = () => {
       <td>{`${user.firstname} ${user.lastname}`}</td>
       <td>{user.email}</td>
       <td>{dayjs(user.createdAt).format('DD/MM/YYYY')}</td>
+      {roleId === 3 && <td>{user.company.name}</td>}
       <td>{user.department?.name}</td>
       <td
         className="cursor-pointer"
@@ -63,6 +65,7 @@ const GestionarEmpleados = () => {
       </td>
     </tr>
   ));
+
 
   return (
     <>
@@ -199,6 +202,7 @@ const GestionarEmpleados = () => {
                     <th>Nombre</th>
                     <th>Correo</th>
                     <th>Fecha de creación</th>
+                    {roleId === 3 && <th>Empresa</th>}
                     <th>Departamento</th>
                     <th />
                   </tr>
@@ -254,12 +258,13 @@ const GestionarEmpleados = () => {
                     name={'cedula'}
 
                   />
-                  <span className="text-[#003579] font-[poppins] text-sm">
-                    Compañia:
-                  </span>
-                  <RHFSelectWithQuery
-                    name={'companyId'}
-                    query={gql`
+                  {roleId === 3 && <>
+                    <span className="text-[#003579] font-[poppins] text-sm">
+                      Compañia:
+                    </span>
+                    <RHFSelectWithQuery
+                      name={'companyId'}
+                      query={gql`
                       query CompanyList {
                         items: companyList {
                           id
@@ -271,16 +276,18 @@ const GestionarEmpleados = () => {
                         }
                       }
                     `}
-                  />
+                    />
+                  </>}
+
                   <span className="text-[#003579] font-[poppins] text-sm">
                     Departamento:
                   </span>
                   <RHFSelectWithQuery
-                    variables={{ companyId: managementModalMethods.watch('managementModalOpen')?.companyId }}
+                    variables={{ where: { companyId: managementModalMethods.watch('companyId') } }}
                     name={'departmentId'}
                     query={gql`
-                        query DepartmentList {
-                          items: departmentList {
+                        query DepartmentList($where: DepartmentWhereInput) {
+                          items: departmentList(where:$where) {
                             id
                             createdAt
                             updatedAt
@@ -308,7 +315,7 @@ const GestionarEmpleados = () => {
 
 
                   <Group className="flex justify-end">
-                    <button className="flex cursor-pointer gap-1 text-sm bg-blue-600 hover:bg-blue-500 text-white uppercase items-center rounded-lg px-3 py-2">
+                    <button disabled={buttonDisabled} className={`${buttonDisabled && 'cursor-no-drop hover:bg-blue-900'} flex cursor-pointer gap-1 text-sm bg-blue-600 text-white uppercase items-center rounded-lg px-3 py-2`}>
                       <RiSave3Fill />
                       <span>{typeof managementModalOpen !== 'boolean' ? 'Editar' : 'Crear'}</span>
                     </button>

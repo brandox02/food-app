@@ -1,13 +1,58 @@
 import Head from 'next/head';
-import { GiSandsOfTime } from 'react-icons/gi';
 import EnterpriseLayout from '../../components/enterprise/Layout';
 import Link from 'next/link';
-import bell from '../../../public/assets/campana.png';
-import Image from 'next/image';
 import { useAppContext } from '../../AppProvider';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  ArcElement,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title
+);
 
-const Dashboard = ({ totalReports = '12' }) => {
+const Dashboard = ({ totalReports = '12', totalOrders = '19' }) => {
   const [{ user }] = useAppContext();
+
+
+  // const options = {
+  //   responsive: true,
+  //   plugins: {
+  //     legend: {
+  //       position: 'top',
+  //     },
+  //     title: {
+  //       display: true,
+  //       text: 'Gráfica de Registro Semanal',
+  //     },
+  //   },
+  // };
+  // const labels = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+  // const dataLine = {
+  //   labels,
+  //   datasets: [
+  //     {
+  //       label: 'Registro semanal',
+  //       data: [9000, 11000, 11200, 10000, 9500],
+  //       borderColor: 'rgb(53, 162, 235)',
+  //       backgroundColor: 'rgba(53, 162, 235, 0.5)',
+  //     },
+  //   ],
+  // };
   if (user) {
     return (
       <>
@@ -24,43 +69,33 @@ const Dashboard = ({ totalReports = '12' }) => {
               !
             </span>
           </div>
+
           <div className="w-full mb-6 grid lg:grid-cols-3 grid-cols-1 gap-5 gap-y-6 xl:gap-12">
-            <div className="lg:w-full relative w-full max-w-[400px] mx-auto rounded-lg shadow-md flex flex-col justify-around font-[poppins] items-center px-3 xl:px-10 min-h-[350px] py-6 gap-6 text-center bg-white">
-              <span className="text-blue-900 italic text-xl md:text-2xl">
-                Monto acumulado en total Noviembre 2022
-              </span>
-              <div className="text-4xl text-blue-500">RD$25,230</div>
-            </div>
-
-            <div className="lg:w-full w-full max-w-[400px] mx-auto rounded-lg shadow-md flex flex-col justify-around font-[poppins] items-center px-3 lg:px-10 min-h-[350px] py-6 gap-6 text-center bg-white">
-              <span className="text-blue-900 italic text-xl md:text-2xl px-3 ">
-                Tiempo disponible
-              </span>
-              <span className="text-blue-900 italic font-semibold text-4xl">
-                00:00:00
-              </span>
-            </div>
-
-            <div className="lg:w-full w-full max-w-[400px] mx-auto rounded-lg shadow-md flex flex-col justify-around font-[poppins] items-center px-3 xl:px-10 min-h-[350px] py-6 gap-6 text-center bg-white">
-              <span className="text-blue-900 italic text-xl md:text-2xl px-3 xl:px-5">
-                Solicitudes
-              </span>
-              <div className="bg-blue-500 text-7xl italic text-white p-7 rounded-full">
-                18
-              </div>
-              <Link
-                className="text-lg underline underline-offset-2 italic text-blue-500"
-                href="/admin/empleados/requests"
-              >
-                Ver todas
-              </Link>
-            </div>
           </div>
           <div className="mb-6">
             <span className="text-blue-900 text-2xl font-semibold">
               Resumen de monitoreo
             </span>
             <div className="h-[3px] w-56 bg-blue-400 self-start rounded-full" />
+          </div>
+          <div className="mb-6">
+            <span className="text-blue-500 italic font-semibold text-lg">
+              Ordenes
+            </span>
+            <div className="flex gap-2">
+              <span className="italic font-semibold">
+                Un total de {totalOrders} órdenes pendientes.
+              </span>
+              <Link
+                className="underline underline-offset-2 text-blue-400 font-semibold italic"
+                href="/enterprise/ordenes"
+              >
+                Ver más
+              </Link>
+            </div>
+            {/* <div className="flex w-fit h-[400px] rounded-lg shadow-lg">
+              <Line className="p-3" options={options} data={dataLine} />
+            </div> */}
           </div>
           <div>
             <span className="text-red-500 italic font-semibold text-lg">
@@ -72,7 +107,7 @@ const Dashboard = ({ totalReports = '12' }) => {
               </span>
               <Link
                 className="underline underline-offset-2 text-blue-400 font-semibold italic"
-                href="/admin/reportes"
+                href="/enterprise/reportes"
               >
                 Ver más
               </Link>

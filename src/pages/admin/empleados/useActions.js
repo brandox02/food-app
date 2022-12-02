@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { pick } from "lodash";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
+import { useAppContext } from "../../../AppProvider";
 
 const USERS = gql`
    query Users($page: Float, $where: UserWhereInput) {
@@ -26,7 +27,7 @@ const USERS = gql`
 const UPDATE_USER = gql`
    mutation UpdateUsers($input: UpdateUserInput!) {
       updateUser(input: $input) {
-         id
+         user { id }
       }
    }
 `
@@ -63,6 +64,7 @@ export const useActions = () => {
    });
 
    const [updateUserMutation] = useMutation(UPDATE_USER);
+   const [{user}] = useAppContext();
 
    const fromDate = dateFilterMethods.watch('fromDate');
    const toDate = dateFilterMethods.watch('toDate');
@@ -94,6 +96,7 @@ export const useActions = () => {
    const users = data ? data.users.items : []
    const totalItems = data ? data.users.metadata.totalItems : 0;
    const totalPages = data ? data.users.metadata.totalPages : 0;
+   const roleId = user.role.id;
 
    const onSeachDateFilter = async () => await refetch();
    const onSearchOtherFilter = () => refetch({});
@@ -133,5 +136,5 @@ export const useActions = () => {
 
    }
 
-   return { managementModalMethods, onSubmitManagementModal, managementModalOpen, setManagementOpenModal, onSearchOtherFilter, users, totalItems, totalPages, setPage, dateFilterMethods, onSeachDateFilter, clearFilters, otherFilterMethods };
+   return {roleId, managementModalMethods, onSubmitManagementModal, managementModalOpen, setManagementOpenModal, onSearchOtherFilter, users, totalItems, totalPages, setPage, dateFilterMethods, onSeachDateFilter, clearFilters, otherFilterMethods };
 }
