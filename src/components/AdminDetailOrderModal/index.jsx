@@ -72,8 +72,17 @@ export const AdminDetailOrderModal = ({ open, setOpen, order, dailyDishPrice }) 
                      </div>
                      <div className='ml-7'>
                         {nonExtraItems.map(item => (
-                           <div key={item.id} className='text-slate-600'>
-                              {'X'} {item.name}
+                           <div key={item.id} className='text-slate-600 my-3'>
+                              <div>
+                                 <span className="text-black">X</span> {item.name}
+                              </div>
+
+                              {item.comment && (
+                                 <>
+                                    <span className="text-black">Nota:</span>
+                                    <span className="ml-1 pb-2 text-orange-600 ">{item.comment}</span>
+                                 </>
+                              )}
                            </div>
                         ))}
                      </div>
@@ -85,13 +94,18 @@ export const AdminDetailOrderModal = ({ open, setOpen, order, dailyDishPrice }) 
                   ) : ''}
                   <div className='ml-7'>
                      {extraItems.map(item => (
-                        <>
+                        <div key={item.id} className='my-3'>
                            <div className='text-slate-600 flex justify-between'>
-                              <span>X {item.name}</span>
+                              <span><span className="text-black">X</span> {item.name}</span>
                               <span>RD${item.total}</span>
                            </div>
-                           <div className='text-xs w-3/4 text-blue-900 mb-3'>{item.comment}</div>
-                        </>
+                           {item.comment && (
+                              <>
+                                 <span className="text-black">Nota:</span>
+                                 <span className="ml-1 pb-2 text-orange-600 ">{item.comment}</span>
+                              </>
+                           )}
+                        </div>
                      ))}
                   </div>
                </div>

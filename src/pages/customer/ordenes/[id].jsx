@@ -146,8 +146,8 @@ const OrderDetails = () => {
             </span>
 
           </div>
-          <div className="flex self-end bg-blue-700 text-white px-4">
-            <span className="font-semibold px-2 py-1">
+          <div className="flex self-end bg-blue-700 text-white px-6" style={{ marginTop: -7 }}>
+            <span className="font-semibold py-1">
               {data.order.noOrder}
             </span>
           </div>
@@ -171,9 +171,13 @@ const OrderDetails = () => {
                 </div>
                 <div className="flex flex-col text-sm text-gray-500 pl-3 xl:pl-6">
                   {data.order.details.filter(item => item.isDailyDish).map(item => (
-                    <span key={item.id}>{item.name}</span>
+                    <div key={item.id} className={'my-1'}>
+                      <span key={item.id}><span className='text-black'>{'X '}</span>{item.name}</span>
+                      {item.comment && (
+                        <div className='text-orange-600'><span className='text-black'>Nota: </span> {item.comment}</div>
+                      )}
+                    </div>
                   ))}
-
                 </div>
               </>
             )}
@@ -185,8 +189,13 @@ const OrderDetails = () => {
             </div>
             <div className="flex flex-col text-sm text-gray-500 pl-3 xl:pl-6">
               {data.order.details.filter(item => !item.isDailyDish).map(item => (
-                <div key={item.id} className="flex justify-between">
-                  <span>{item.name}</span>
+                <div key={item.id} className="flex justify-between my-1">
+                  <div>
+                    <span>{item.name}</span>
+                    {item.comment && (
+                      <div className='text-orange-600'><span className='text-black'>Nota: </span> {item.comment}</div>
+                    )}
+                  </div>
                   <span className="italic font-semibold">RD$ {item.total}</span>
                 </div>
               ))}
@@ -232,9 +241,6 @@ const OrderDetails = () => {
                   Ordenes
                 </Link>
               </div>
-              <span className="self-start text-gray-400 italic text-sm">
-                No. Orden: 23949842
-              </span>
             </div>
           </div>
         </div>
