@@ -166,7 +166,7 @@ const OrderDetails = () => {
               <>
                 <div className="w-full text-sm text-gray-500 flex justify-between">
                   <span>Plato del dia</span>
-                  <span className="italic font-semibold">RD$ 150</span>
+                  <span className="italic font-semibold">RD$ {data.order.dailyDishPrice}</span>
                 </div>
                 <div className="flex flex-col text-sm text-gray-500 pl-3 xl:pl-6">
                   {data.order.details.filter(item => item.isDailyDish).map(item => (
