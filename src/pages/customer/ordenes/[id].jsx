@@ -190,7 +190,10 @@ const OrderDetails = () => {
               {data.order.details.filter(item => !item.isDailyDish).map(item => (
                 <div key={item.id} className="flex justify-between my-1">
                   <div>
-                    <span>{item.name}</span>
+                    <span>
+                      <span className="italic font-semibold">{'X '}</span>
+                      {item.name}
+                    </span>
                     {item.comment && (
                       <div className='text-orange-600'><span className='text-black'>Nota: </span> {item.comment}</div>
                     )}
