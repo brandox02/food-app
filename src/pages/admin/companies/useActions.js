@@ -68,7 +68,7 @@ export const useActions = () => {
          }
          await (isEditing ? updateCompanyMutation : createCompanyMutation)({ variables: { input: company }});
          toast.success(`Empresa ${isEditing ? 'actualizada' : 'creada'} correctamente`);
-         // setTimeout(() => window.location.reload(), 1000)
+         setTimeout(() => window.location.reload(), 1000)
       } catch (error) {
          console.error(error);
          toast.error(`Ocurrio un error a la hora de ${isEditing ? 'editar' : 'crear'} esta empresa`);
