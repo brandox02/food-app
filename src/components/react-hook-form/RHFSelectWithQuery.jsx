@@ -17,6 +17,7 @@ export const RHFSelectWithQuery = ({
   placeholder = "Seleccionar",
   query,
   variables = {},
+  getWholeItemValue = false,
   ...restProps
 }) => {
   const { setValue, trigger } = useFormContext();
@@ -26,13 +27,11 @@ export const RHFSelectWithQuery = ({
     variables
   });
 
+
   const items = useMemo(
     () =>
       data && data?.items && Array.isArray(data.items)
-        ? data.items.map((item) => ({
-          label: item.name,
-          value: item.id,
-        }))
+        ? data.items
         : [],
     [data]
   );
@@ -48,11 +47,15 @@ export const RHFSelectWithQuery = ({
               classNames={{
                 input: classes.input,
               }}
-              value={field.value}
+              value={getWholeItemValue ? (field?.value?.id || null) : (field?.value || null)}
               placeholder={placeholder}
-              data={items}
+              data={items.map((item) => ({
+                label: item.name,
+                value: item.id,
+              }))}
               onChange={(e) => {
-                setValue(name, e);
+                const item = items.find(item => item.id === e);
+                setValue(name, getWholeItemValue ? item : item.id);
                 trigger(name);
               }}
               {...restProps}

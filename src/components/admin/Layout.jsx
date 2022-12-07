@@ -254,6 +254,20 @@ const AdminLayout = ({ children }) => {
                       </span>
                     </li>
                   </Link>
+                  <Link href="/admin/companies">
+                    <li
+                      className={
+                        router.pathname == '/admin/companies'
+                          ? 'py-4 flex items-center gap-2 text-sm rounded-md font-bold text-white hover:text-gray-300 transition-all'
+                          : 'py-4 flex items-center gap-2 text-sm rounded-md text-white hover:text-gray-300 transition-all'
+                      }
+                    >
+                      <FiSettings className="w-5 h-5" />{' '}
+                      <span className={sidebar ? 'block' : 'hidden'}>
+                        Empresas
+                      </span>
+                    </li>
+                  </Link>
                 </div>
               )}
             </ul>

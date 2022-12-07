@@ -201,8 +201,6 @@ const OrderDetails = () => {
                   <span className="italic font-semibold">RD$ {item.total}</span>
                 </div>
               ))}
-
-
             </div>
           </div>
           <div>

@@ -30,6 +30,7 @@ function WithAuth({ children }) {
       } catch (error) {
         toast.error('Ocurrió un error a la hora de leer tu token de acceso');
         console.error(error);
+        router.push('/login');
       }
     }
     execute();
