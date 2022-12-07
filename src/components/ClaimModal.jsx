@@ -44,14 +44,14 @@ export const ClaimModal = ({ open, setOpen, onSave, claim, refetch }) => {
          setOpen(false);
          refetch && refetch();
       } catch (error) {
-         toast.error('Ocurrió un error al momento de marcar como realizado este reporte');
+         toast.error('Ocurrió un error al momento de marcar como realizado este reclamación');
          console.error(error);
       }
    }
 
    return (
       <Modal
-         title={claim ? "Reporte" : <span className="">Realizar reporte</span>} opened={open}
+         title={claim ? "Reporte" : <span className="">Realizar reclamación</span>} opened={open}
          onClose={() => setOpen(false)}
       >
          <div className="p-2">

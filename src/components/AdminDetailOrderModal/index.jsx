@@ -122,7 +122,7 @@ export const AdminDetailOrderModal = ({ open, setOpen, order, dailyDishPrice }) 
                </div>
                {order.claims.length ? (
                   <div>
-                     <span className="text-red-600">Esta orden presenta reporte{order.claims.length > 1 ? 's' : ''}:</span>
+                     <span className="text-red-600">Esta orden presenta reclamación{order.claims.length > 1 ? 's' : ''}:</span>
 
                      <Accordion variant="contained" defaultValue="customization">
                         {order.claims.map(claim => (

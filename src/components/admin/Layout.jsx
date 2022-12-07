@@ -213,7 +213,7 @@ const AdminLayout = ({ children }) => {
                     }
                   >
                     <HiOutlineDocumentReport className="w-5 h-5" />{' '}
-                    <span className={sidebar ? 'block' : 'hidden'}>Reportes</span>
+                    <span className={sidebar ? 'block' : 'hidden'}>Reclamaciones</span>
                   </li>
                 </Link>
               )}

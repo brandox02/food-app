@@ -116,11 +116,11 @@ const Dashboard = ({ }) => {
           </div>
           <div>
             <span className="text-red-500 italic font-semibold text-lg">
-              Reportes
+              Reclamaciones
             </span>
             <div className="flex gap-2">
               <span className="italic font-semibold">
-                Un total de {totalClaims} reportes pendientes.
+                Un total de {totalClaims} reclamaciones pendientes.
               </span>
               <Link
                 className="underline underline-offset-2 text-blue-400 font-semibold italic"

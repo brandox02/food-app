@@ -95,7 +95,7 @@ const OrderDetails = () => {
       toast.success('Reporte generado correctamente');
       setClaimModalOpen(null);
     } catch (error) {
-      toast.error('Ocurrió un error a la hora de generar el reporte');
+      toast.error('Ocurrió un error a la hora de generar el reclamación');
       console.error(error);
     }
   }
