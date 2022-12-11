@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../components/customer/layout';
 import { useAuth } from "../hooks/useAuth";
-import dayjs from 'dayjs';
+import NextNProgress from 'nextjs-progressbar';
 
 // this component redirect to login if the user not be authenticated
 function WithAuth({ children }) {
@@ -38,25 +38,13 @@ function WithAuth({ children }) {
     // eslint-disable-next-line
   }, []);
 
-  // useEffect(() => {
-  //   window.dayjs = dayjs;
-  //   const freePaths = ['/login', '/register'];
-  //   if (!freePaths.includes(router.pathname) && !user) {
-  //     router.push('/login');
-  //   }
-  //   // eslint-disable-next-line
-  // }, [router.pathname]);
 
   if (['/login', '/register'].includes(router.pathname)) {
     return children;
   }
 
+  return oass ? children : ''
 
-  if (oass) {
-
-    return children;
-  }
-  return ''
 
 }
 
@@ -68,6 +56,7 @@ function MyApp({ Component, pageProps }) {
       <ApolloProvider>
         <WithAuth>
           <div className="min-h-screen bg-[#47ADF5]/20">
+            <NextNProgress height={7} />
             <MantineProvider withGlobalStyles withNormalizeCSS>
               {router.pathname.startsWith('/customer/') ||
                 router.pathname == '/' ? (

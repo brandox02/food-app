@@ -65,4 +65,9 @@ const Ordenes = () => {
   );
 };
 
+export const getServerSideProps = () => {
+
+  return { props: {} }
+}
+
 export default Ordenes;
