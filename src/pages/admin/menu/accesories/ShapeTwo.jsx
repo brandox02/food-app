@@ -3,18 +3,35 @@ import { useState } from "react"
 import { FiChevronDown, FiChevronRight } from "react-icons/fi"
 import { MenuDish } from "../../../../components/admin/MenuDish"
 
-export const Item1 = ({ item, remove, update }) => {
+export const SizeItem = ({ item, remove, update }) => {
    const [openedCollapse, setOpenedCollapse] = useState(false);
+   const [editing, setEditing] = useState(false);
+
+   const onNameChange = (evt) => update({ key: 'name', value: evt.currentTarget.value });
    return <>
       <div className="flex gap-2">
          <Switch className="flex mt-1" checked={item?.enabled} onClick={() => update({ key: 'enabled', value: !item?.enabled })} />
          <div className="flex flex-col gap-2">
             <div
                className="flex items-center cursor-pointer"
-               onClick={() => setOpenedCollapse((o) => !o)}
+
             >
-               <span className="text-lg italic font-semibold">{item.name}</span>
-               {openedCollapse ? <FiChevronDown /> : <FiChevronRight />}
+               {editing ? (
+                  <input
+                     className="text-lg font-semibold cursor-text"
+                     value={item.name}
+                     onChange={onNameChange}
+                     onBlur={() => setEditing(false)}
+                  />
+               ) : (
+                  <span onClick={() => setEditing(true)} className="text-lg cursor-text font-semibold">{item.name}</span>
+               )}
+               <div
+                  className=""
+                  onClick={() => setOpenedCollapse((o) => !o)}
+               >
+                  {openedCollapse ? <FiChevronDown size={30} /> : <FiChevronRight size={30} />}
+               </div>
             </div>
             <Collapse in={openedCollapse}>
                <div className="flex gap-3">
@@ -41,17 +58,28 @@ export const Item1 = ({ item, remove, update }) => {
    </>
 }
 
+export const FlavorItem = ({ item, remove, update }) => {
+   const [editing, setEditing] = useState(false);
 
-export const Item2 = ({ item, remove, update }) => {
+   const onNameChange = (evt) => update({ key: 'name', value: evt.currentTarget.value });
    return <>
       <div className="flex gap-2">
-         <Switch className="flex mt-1" checked={item?.enabled} onClick={() => update(!item?.enabled)} />
+         <Switch className="flex mt-1" checked={item?.enabled} onClick={() => update({ key: 'enabled', value: !item?.enabled })} />
          <div className="flex flex-col gap-2">
             <div
                className="flex items-center cursor-pointer"
 
             >
-               <span className="text-lg italic font-semibold">{item.name}</span>
+               {editing ? (
+                  <input
+                     className="text-lg font-semibold cursor-text"
+                     value={item.name}
+                     onChange={onNameChange}
+                     onBlur={() => setEditing(false)}
+                  />
+               ) : (
+                  <span onClick={() => setEditing(true)} className="text-lg cursor-text font-semibold">{item.name}</span>
+               )}
                <button onClick={remove} className="ml-2 text-blue-400 italic text-sm underline underline-offset-2 hover:text-blue-300">
                   Eliminar
                </button>
@@ -103,7 +131,7 @@ export const ShapeTwo = ({ item, updateShapeTwoItem, addShapeTwoItem, removeShap
             </div>
          </div>
          {item.sizes.map(x =>
-            <Item1
+            <SizeItem
                key={x.id}
                item={x}
                remove={() => removeShapeTwoItem({ id1: item.id, id2: x.id, isForSize: true })}
@@ -134,11 +162,11 @@ export const ShapeTwo = ({ item, updateShapeTwoItem, addShapeTwoItem, removeShap
             </div>
          </div>
          {item.flavors.map(x =>
-            <Item2
+            <FlavorItem
                key={x.id}
                item={x}
                remove={() => removeShapeTwoItem({ id1: item.id, id2: x.id, isForSize: false })}
-               update={value => updateShapeTwoItem({ id1: item.id, id2: x.id, key: 'enabled', value, isForSize: false })}
+               update={({ value, key }) => updateShapeTwoItem({ id1: item.id, id2: x.id, key, value, isForSize: false })}
             />
          )}
       </div>

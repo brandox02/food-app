@@ -17,7 +17,7 @@ import { useDebounce } from '../../../hooks/useDebounce';
 import { toast } from 'react-toastify';
 import { ImagePicker } from '../../../components/image-picker';
 
-function A({
+function MenuBarItem({
   menu,
   setSelectedMenu,
   updateMenuMutation,
@@ -75,7 +75,7 @@ function A({
 
   return (
     <div
-      className="flex"
+      className="flex flex-col"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
     >
@@ -107,7 +107,7 @@ function A({
         )}
       </Tabs.Tab>
       {isHover && (
-        <>
+        <div className='flex justify-around m-2'>
           <div
             onClick={() => setConfirmDeleteModal(true)}
             className="bg-[#0064CE]/30 text-gray-500 flex px-1.5 items-center cursor-pointer hover:text-red-500"
@@ -120,7 +120,7 @@ function A({
           >
             <AiFillEdit size={24} />
           </div>
-        </>
+        </div>
       )}
     </div>
   );
@@ -211,7 +211,7 @@ const Menu = () => {
             <Tabs variant="pills" value={selectedMenu}>
               <Tabs.List className="w-100 gap-3 bg-[#1A579A] px-5 py-1.5 rounded-md font-semibold">
                 {menus.map((menu) => (
-                  <A
+                  <MenuBarItem
                     key={menu.id}
                     setMenus={setMenus}
                     menu={menu}

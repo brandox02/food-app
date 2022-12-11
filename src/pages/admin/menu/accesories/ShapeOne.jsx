@@ -8,17 +8,32 @@ import { MenuDish } from "../../../../components/admin/MenuDish"
 
 export const MenuDishOption = ({ remove, update, dish, isDailyDish, item, onLoadImage }) => {
    const [openedCollapse, setOpenedCollapse] = useState(false);
+   const onNameChange = (evt) => update({ key: 'name', value: evt.currentTarget.value });
+   const [editing, setEditing] = useState(false);
+
    return (
       <>
          <div className="flex gap-2">
             <Switch className="flex mt-1" onClick={() => update({ key: 'enabled', value: !item?.enabled })} checked={item?.enabled} />
             <div className="flex flex-col gap-2">
                <div
-                  className="flex items-center cursor-pointer"
-                  onClick={() => setOpenedCollapse((o) => !o)}
+                  className="flex items-cente"
                >
-                  <span className="text-lg italic font-semibold">{dish}</span>
-                  {openedCollapse ? <FiChevronDown /> : <FiChevronRight />}
+                  {editing ? (
+                     <input
+                        className="text-lg font-semibold cursor-text"
+                        value={dish}
+                        onChange={onNameChange}
+                        onBlur={() => setEditing(false)}
+                     />
+                  ) : (
+                     <span onClick={() => setEditing(true)} className="text-lg italic font-semibold">{dish}</span>
+                  )}
+
+
+                  <div onClick={() => setOpenedCollapse((o) => !o)} className={'cursor-pointer'}>
+                     {openedCollapse ? <FiChevronDown size={25} /> : <FiChevronRight size={25} />}
+                  </div>
                </div>
                <Collapse in={openedCollapse}>
                   {!isDailyDish && <div className="flex gap-3 mb-5">
@@ -38,7 +53,6 @@ export const MenuDishOption = ({ remove, update, dish, isDailyDish, item, onLoad
                      </div>
                   </div>}
                   <div className="flex gap-3">
-
                      {item?.image ? <Image className="rounded" src={item.image} height={70} width={70} alt={'image'} /> : (
                         <div className="bg-gray-200 rounded-lg flex justify-center items-center px-3 py-1">
                            <AiOutlinePicture size={45} />

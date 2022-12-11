@@ -1,11 +1,10 @@
-import { Modal, Switch } from '@mantine/core';
+import { Switch } from '@mantine/core';
 import React, { useState } from 'react';
 import { AiOutlinePicture } from 'react-icons/ai';
-import { FiMenu, FiTrash2 } from 'react-icons/fi';
+import { FiTrash2 } from 'react-icons/fi';
 import { RiPencilLine } from 'react-icons/ri';
 
 export const MenuDish = ({ title, onRemove, updateTitle, togleEnabled, enabled, onSelecIcon }) => {
-  const [openedModal, setOpenedModal] = useState(false);
   const [editing, setEditing] = useState(false);
 
 
@@ -46,9 +45,9 @@ export const MenuDish = ({ title, onRemove, updateTitle, togleEnabled, enabled, 
             </div>
           </div>
         </div>
-        <div className="w-fit text-2xl flex justify-center cursor-move items-center px-3 text-gray-300">
+        {/* <div className="w-fit text-2xl flex justify-center cursor-move items-center px-3 text-gray-300">
           <FiMenu />
-        </div>
+        </div> */}
       </div>
     </>
   );
