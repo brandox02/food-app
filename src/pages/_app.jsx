@@ -38,7 +38,6 @@ function WithAuth({ children }) {
     // eslint-disable-next-line
   }, []);
 
-
   if (['/login', '/register'].includes(router.pathname)) {
     return children;
   }
